@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3, MIT/X11 (config/libcutl.m4, install-sh)
 Group:   Development/Tools
@@ -43,6 +43,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
 
 %changelog
+* Mon Jul 31 2017 Florian Weimer <fweimer@redhat.com> - 2.0-2
+- Rebuild with binutils fix for ppc64le (#1475636)
+
 * Wed Jun 28 2017 Nick Clifton <nickc@redhat.com> - annobin-2.0-1.fc25
 - Fixes for problems reported by the package submission review:
    * Add %%license entry to %%file section.
