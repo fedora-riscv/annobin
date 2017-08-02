@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3, MIT/X11 (config/libcutl.m4, install-sh)
 Group:   Development/Tools
@@ -43,6 +43,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
 
 %changelog
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
 * Mon Jul 31 2017 Florian Weimer <fweimer@redhat.com> - 2.0-2
 - Rebuild with binutils fix for ppc64le (#1475636)
 
