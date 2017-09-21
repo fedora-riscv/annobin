@@ -71,7 +71,13 @@ make install DESTDIR=$RPM_BUILD_ROOT
 - Add annobin-tests subpackage containing some preliminary tests.
 - Remove link-time test for unsuported targets.
 
-* Wed Jun 28 2017 Nick Clifton <nickc@redhat.com> - annobin-2.0-1
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Mon Jul 31 2017 Florian Weimer <fweimer@redhat.com> - 2.0-2
+- Rebuild with binutils fix for ppc64le (#1475636)
+
+* Wed Jun 28 2017 Nick Clifton <nickc@redhat.com> - annobin-2.0-1.fc25
 - Fixes for problems reported by the package submission review:
    * Add %%license entry to %%file section.
    * Update License and BuildRequires tags.
