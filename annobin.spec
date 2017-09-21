@@ -11,7 +11,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 %bcond_without tests
 
 #---------------------------------------------------------------------------------
-Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.lz
+Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
