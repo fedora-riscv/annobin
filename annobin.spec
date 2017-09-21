@@ -1,6 +1,6 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 2.3
+Version: 2.4
 Release: 1%{?dist}
 
 License: GPLv3, MIT/X11 (config/libcutl.m4, install-sh)
@@ -67,6 +67,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - annobin-2.4-1
+- Tweak tests so that they will run on older machines.
+
 * Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - annobin-2.3-1
 - Add annobin-tests subpackage containing some preliminary tests.
 - Remove link-time test for unsuported targets.
