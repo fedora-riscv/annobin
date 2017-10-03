@@ -47,15 +47,15 @@ touch configure */configure Makefile.in */Makefile.in
 
 %build
 %configure --quiet
-make %{?_smp_mflags}
-
-%if %{with tests}
-make check
-%endif
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
+
+%if %{with tests}
+%check
+make check
+%endif
 
 %files
 %{ANNOBIN_PLUGIN_DIR}
