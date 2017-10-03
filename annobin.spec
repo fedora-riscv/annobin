@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -69,6 +69,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 03 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.5.1-2
+- Cleanups in spec
+
 * Tue Sep 26 2017 Nick Clifton <nickc@redhat.com> - 2.5.1-1
 - Touch the auto-generated files in order to stop them from being regenerated.
 
