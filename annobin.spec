@@ -69,16 +69,16 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Sep 26 2017 Nick Clifton <nickc@redhat.com> - annobin-2.5.1-1
+* Tue Sep 26 2017 Nick Clifton <nickc@redhat.com> - 2.5.1-1
 - Touch the auto-generated files in order to stop them from being regenerated.
 
-* Tue Sep 26 2017 Nick Clifton <nickc@redhat.com> - annobin-2.5-2
+* Tue Sep 26 2017 Nick Clifton <nickc@redhat.com> - 2.5-2
 - Stop the plugin complaining about compiler datestamp mismatches.
 
-* Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - annobin-2.4-1
+* Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - 2.4-1
 - Tweak tests so that they will run on older machines.
 
-* Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - annobin-2.3-1
+* Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - 2.3-1
 - Add annobin-tests subpackage containing some preliminary tests.
 - Remove link-time test for unsuported targets.
 
@@ -88,7 +88,7 @@ make check
 * Mon Jul 31 2017 Florian Weimer <fweimer@redhat.com> - 2.0-2
 - Rebuild with binutils fix for ppc64le (#1475636)
 
-* Wed Jun 28 2017 Nick Clifton <nickc@redhat.com> - annobin-2.0-1.fc25
+* Wed Jun 28 2017 Nick Clifton <nickc@redhat.com> - 2.0-1
 - Fixes for problems reported by the package submission review:
    * Add %%license entry to %%file section.
    * Update License and BuildRequires tags.
@@ -98,5 +98,5 @@ make check
    * Clean up the %%changelog.
 - Update to use version 2 of the specification and sources.
 
-* Thu May 11 2017 Nick Clifton <nickc@redhat.com> - annobin-1.0-1
+* Thu May 11 2017 Nick Clifton <nickc@redhat.com> - 1.0-1
 - Initial submission.
