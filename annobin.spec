@@ -3,7 +3,7 @@ Summary: Binary annotation plugin for GCC
 Version: 2.5.1
 Release: 1%{?dist}
 
-License: GPLv3, MIT/X11 (config/libcutl.m4, install-sh)
+License: GPLv3+
 Group:   Development/Tools
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
