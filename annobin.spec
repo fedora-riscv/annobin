@@ -4,7 +4,6 @@ Version: 2.5.1
 Release: 1%{?dist}
 
 License: GPLv3+
-Group:   Development/Tools
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 # Use "--without tests" to disable the testsuite.  The default is to run them.
