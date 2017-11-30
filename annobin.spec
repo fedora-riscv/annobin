@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.5.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -11,6 +11,8 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
+
+Patch1: funname.patch
 
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
@@ -69,6 +71,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Nov 30 2017 Florian Weimer <fweimer@redhat.com> - 2.5.1-3
+- Use DECL_ASSEMBLER_NAME for symbol references (#1519165)
+
 * Tue Oct 03 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.5.1-2
 - Cleanups in spec
 
