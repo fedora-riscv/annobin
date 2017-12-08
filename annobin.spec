@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.5.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -11,8 +11,18 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
+# For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
+# Purpose:  Fixes the generation of illegal assembler symbol names when
+#           working with unmangled function names.
+# Lifetime: Fixed in 2.5.2
 Patch1: funname.patch
+
+# Purpose:  Fixes a bug where an empty string would be used as an assembler
+#           symbol name because the source input was being read from a pipe.
+# Lifetime: Fixed in 2.5.2
+Patch2: annobin-empty-input-filename.patch
+
 
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
@@ -71,6 +81,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Dec 08 2017 Florian Weimer <fweimer@redhat.com> - 2.5.1-4
+- Invent an input filename when reading from a pipe.  (#1523401)
+
 * Thu Nov 30 2017 Florian Weimer <fweimer@redhat.com> - 2.5.1-3
 - Use DECL_ASSEMBLER_NAME for symbol references (#1519165)
 

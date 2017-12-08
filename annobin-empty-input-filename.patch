@@ -1,0 +1,19 @@
+Binary files annobin.orig/.git/index and annobin-2.5.1/.git/index differ
+diff -rup annobin.orig/plugin/annobin.cc annobin-2.5.1/plugin/annobin.cc
+--- annobin.orig/plugin/annobin.cc	2017-12-08 10:57:16.555154143 +0000
++++ annobin-2.5.1/plugin/annobin.cc	2017-12-08 11:00:15.105903652 +0000
+@@ -103,6 +103,14 @@ init_annobin_current_filename (void)
+     return;
+ 
+   name = (char *) lbasename (main_input_filename);
++
++  if (strlen (name) == 0)
++    {
++      /* The name can be empty if we are receiving the source code
++	 from a pipe.  In this case, we invent our own name.  */
++      name = "piped_input";
++    }
++
+   if (global_file_name_symbols)
+     name = strcpy ((char *) xmalloc (strlen (name) + 20), name);
+   else
