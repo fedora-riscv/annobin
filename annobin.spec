@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 2.5.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -22,6 +22,11 @@ Patch1: funname.patch
 #           symbol name because the source input was being read from a pipe.
 # Lifetime: Fixed in 2.5.2
 Patch2: annobin-empty-input-filename.patch
+
+# Purpose:  Fixes a bug where compiling with LTO enabled would result in the
+#           plugin being called with no output file handle available.
+# Lifetime: Fixed in 2.5.2
+Patch3: annobin-lto-filename.patch
 
 
 # This is a gcc plugin, hence gcc is required.
@@ -81,7 +86,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Fri Dec 08 2017 Florian Weimer <fweimer@redhat.com> - 2.5.1-4
+* Mon Dec 11 2017 Nick Clifton <nickc@redhat.com> - 2.5.1-5
+- Do not generate notes when there is no output file.  (#1523875)
+
+* Fri Dec 08 2017 Nick Clifton <nickc@redhat.com> - 2.5.1-4
 - Invent an input filename when reading from a pipe.  (#1523401)
 
 * Thu Nov 30 2017 Florian Weimer <fweimer@redhat.com> - 2.5.1-3
