@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 2.5.1
-Release: 5%{?dist}
+Version: 3.1
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -13,31 +13,20 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
-# Purpose:  Fixes the generation of illegal assembler symbol names when
-#           working with unmangled function names.
-# Lifetime: Fixed in 2.5.2
-Patch1: funname.patch
-
-# Purpose:  Fixes a bug where an empty string would be used as an assembler
-#           symbol name because the source input was being read from a pipe.
-# Lifetime: Fixed in 2.5.2
-Patch2: annobin-empty-input-filename.patch
-
-# Purpose:  Fixes a bug where compiling with LTO enabled would result in the
-#           plugin being called with no output file handle available.
-# Lifetime: Fixed in 2.5.2
-Patch3: annobin-lto-filename.patch
-
-
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
 
 BuildRequires: gcc-plugin-devel pkgconfig
 
 %description
-A plugin for GCC that records extra information in the files that it compiles.
-This information can be used to analyze the files, and provide the loader
-with extra information about the requirements of the loaded file.
+A plugin for GCC that records extra information in the files that it compiles,
+and a set of scripts that analyze the recorded information.  These scripts can
+determine things ABI clashes in compiled binaries, or the absence of required
+hardening options.
+
+Note - the plugin is enabled in gcc builds via flags provided by the
+redhat-rpm-macros package, and the analysis tools rely upon the readelf program
+from the binutils package.
 
 #---------------------------------------------------------------------------------
 %if %{with tests}
@@ -58,7 +47,10 @@ of the resulting files.
 %prep
 %autosetup -p1
 
-# Touch the configure files so that they are not regenerated.
+# The plugin has to be configured with the same arcane configure
+# scripts used by gcc.  Hence we must not allow the Fedora build
+# system to regenerate any of the configure files.
+touch aclocal.m4 plugin/config.h.in
 touch configure */configure Makefile.in */Makefile.in
 
 %build
@@ -86,6 +78,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 04 2018 Nick Clifton <nickc@redhat.com> - 3.1-1
+- Rebase on version 3.1 sources.
+
 * Mon Dec 11 2017 Nick Clifton <nickc@redhat.com> - 2.5.1-5
 - Do not generate notes when there is no output file.  (#1523875)
 
