@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -54,7 +54,7 @@ touch aclocal.m4 plugin/config.h.in
 touch configure */configure Makefile.in */Makefile.in
 
 %build
-%configure --quiet
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
 %make_build
 
 %install
@@ -78,6 +78,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 16 2018 Nick Clifton <nickc@redhat.com> - 3.1-2
+- Add --with-gcc-plugin-dir option to the configure command line.
+
 * Thu Jan 04 2018 Nick Clifton <nickc@redhat.com> - 3.1-1
 - Rebase on version 3.1 sources.
 
