@@ -1,7 +1,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.1
-Release: 2%{?dist}
+Version: 3.2
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -16,7 +16,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
 
-BuildRequires: gcc-plugin-devel pkgconfig
+BuildRequires: gcc-plugin-devel pkgconfig coreutils
 
 %description
 A plugin for GCC that records extra information in the files that it compiles,
@@ -52,6 +52,8 @@ of the resulting files.
 # system to regenerate any of the configure files.
 touch aclocal.m4 plugin/config.h.in
 touch configure */configure Makefile.in */Makefile.in
+# Similarly we do not want to rebuild the documentation.
+touch doc/annobin.info
 
 %build
 %configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
@@ -74,10 +76,15 @@ make check
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
+%{_infodir}
+%doc %{_infodir}/annobin.info.gz
 
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 26 2018 Nick Clifton <nickc@redhat.com> - 3.2-1
+- Rebase on 3.2 release, which now contains documentation!
+
 * Tue Jan 16 2018 Nick Clifton <nickc@redhat.com> - 3.1-2
 - Add --with-gcc-plugin-dir option to the configure command line.
 
