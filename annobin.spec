@@ -1,3 +1,5 @@
+%undefine _annotated_build
+
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 3.1
