@@ -1,3 +1,5 @@
+%undefine _annotated_build
+
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 3.2
@@ -84,6 +86,9 @@ make check
 %changelog
 * Fri Jan 26 2018 Nick Clifton <nickc@redhat.com> - 3.2-1
 - Rebase on 3.2 release, which now contains documentation!
+
+* Fri Jan 26 2018 Richard W.M. Jones <rjones@redhat.com> - 3.1-3
+- Rebuild against GCC 7.3.1.
 
 * Tue Jan 16 2018 Nick Clifton <nickc@redhat.com> - 3.1-2
 - Add --with-gcc-plugin-dir option to the configure command line.

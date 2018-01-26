@@ -1,0 +1,15 @@
+%dir /usr/lib/debug
+%dir /usr/lib/debug/usr
+%dir /usr/lib/debug/usr/lib
+%dir /usr/lib/debug/usr/lib/gcc
+%dir /usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux
+%dir /usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux/7
+%dir /usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux/7/plugin
+%dir /usr/lib/debug/.build-id
+%dir /usr/lib/debug/.build-id/4d
+/usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux/7/plugin/annobin.so.0.debug
+/usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux/7/plugin/annobin.so.debug
+/usr/lib/debug/usr/lib/gcc/x86_64-redhat-linux/7/plugin/annobin.so.0.0.0.debug
+/usr/lib/debug/.build-id/4d/afe6c6116e9dcc89a8b003b0b0bf7a1aea95e2
+/usr/lib/debug/.build-id/4d/afe6c6116e9dcc89a8b003b0b0bf7a1aea95e2.debug
+/usr/src/debug/annobin-3.2
