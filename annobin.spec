@@ -1,9 +1,18 @@
+
+# Do not build the annobin plugin with annotation enabled.
+# This is because if we are bootstrapping a new build environment we can have
+# a new version of gcc installed, but without a new of annobin installed.
+# (ie we are building the new version of annobin to go with the new version
+# of gcc).  If the *old* annobin plugin is used whilst building this new
+# version, the old plugin will complain that version of gcc for which it
+# was built is different from the version of gcc that is now being used, and
+# then it will abort.
 %undefine _annotated_build
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -17,8 +26,10 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 # This is a gcc plugin, hence gcc is required.
 Requires: gcc
+Requires(post): /sbin/install-info
+Requires(preun): /sbin/install-info
 
-BuildRequires: gcc-plugin-devel pkgconfig coreutils
+BuildRequires: gcc-plugin-devel pkgconfig coreutils info
 
 %description
 A plugin for GCC that records extra information in the files that it compiles,
@@ -63,11 +74,22 @@ touch doc/annobin.info
 
 %install
 %make_install
+%{__rm} -f %{buildroot}%{_infodir}/dir
 
 %if %{with tests}
 %check
 make check
 %endif
+
+%post
+/sbin/install-info %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1 || :
+exit 0
+
+%preun
+if [ $1 = 0 ]; then
+   /sbin/install-info --delete %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1|| :
+fi
+exit 0
 
 %files
 %{ANNOBIN_PLUGIN_DIR}
@@ -78,12 +100,14 @@ make check
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
-%{_infodir}
 %doc %{_infodir}/annobin.info.gz
 
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 26 2018 Nick Clifton <nickc@redhat.com> - 3.2-2
+- Fix the installation of the annobin.info file.
+
 * Fri Jan 26 2018 Nick Clifton <nickc@redhat.com> - 3.2-1
 - Rebase on 3.2 release, which now contains documentation!
 
