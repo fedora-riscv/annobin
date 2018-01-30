@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.2
-Release: 3%{?dist}
+Version: 3.3
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -105,6 +105,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 30 2018 Nick Clifton <nickc@redhat.com> - 3.3-1
+- Rebase on 3.3 release, which adds support for recording -mcet and -fcf-protection.
+
 * Mon Jan 29 2018 Florian Weimer <fweimer@redhat.com> - 3.2-3
 - Rebuild for GCC 8
 
