@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.3
-Release: 2%{?dist}
+Version: 3.4
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -96,6 +96,7 @@ exit 0
 %{_bindir}/built-by.sh
 %{_bindir}/check-abi.sh
 %{_bindir}/hardened.sh
+%{_bindir}/run-on-binaries-in.sh
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -105,6 +106,10 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 09 2018 Nick Clifton <nickc@redhat.com> - 3.4-1
+- Change type and size of symbols to STT_NOTYPE/0 so that they do not confuse GDB.  (#1539664)
+- Add run-on-binaries-in.sh script to allow the other scripts to be run over a repository.
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
