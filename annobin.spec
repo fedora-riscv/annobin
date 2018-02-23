@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -20,12 +20,65 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Use "--without tests" to disable the testsuite.  The default is to run them.
 %bcond_without tests
 
+# [Stolen from gcc-python-plugin]
+# GCC will only load plugins that were built against exactly that build of GCC
+# We thus need to embed the exact GCC version as a requirement within the
+# metadata.
+#
+# Define "gcc_vr", a variable to hold the VERSION-RELEASE string for the gcc
+# we are being built against.
+#
+# Unfortunately, we can't simply run:
+#   rpm -q --qf="%{version}-%{release}"
+# to determine this, as there's no guarantee of a sane rpm database within
+# the chroots created by our build system
+#
+# So we instead query the version from gcc's output.
+#
+# gcc.spec has:
+#   Version: %{gcc_version}
+#   Release: %{gcc_release}%{?dist}
+#   ...snip...
+#   echo 'Red Hat %{version}-%{gcc_release}' > gcc/DEV-PHASE
+# So, given this output:
+#
+#   $ gcc --version
+#   gcc (GCC) 4.6.1 20110908 (Red Hat 4.6.1-9)
+#   Copyright (C) 2011 Free Software Foundation, Inc.
+#   This is free software; see the source for copying conditions.  There is NO
+#   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# we can scrape out the "4.6.1" from the version line.
+#
+# The following implements the above:
+#
+# Note - gawk will emit a warning message saying:
+#
+#  gawk: cmd. line:1: warning: escape sequence `\)' treated as plain `)'
+#
+# I have not been able to work out how to remove this message, but still provide
+# sufficient escaping for the command line to survive intact as it is passed
+# down through the sub-shell.
+
+%global gcc_vr %(gcc --version | gawk 'match (\$0, ".*Red Hat \([^\\)-]*\)", a) { print a[1]; }')
+
+# Define a boolean to make it easy to turn the above off, in case it fails:
+
+%global with_hard_gcc_version_requirement 1
+
+
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
 # This is a gcc plugin, hence gcc is required.
+%if %{with_hard_gcc_version_requirement}
+Requires: gcc == %{gcc_vr}
+BuildRequires: gcc == %{gcc_vr}
+%else
 Requires: gcc
+%endif
+
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -104,8 +157,10 @@ exit 0
 %doc %{_infodir}/annobin.info.gz
 
 #---------------------------------------------------------------------------------
-
 %changelog
+* Fri Feb 23 2018 Nick Clifton <nickc@redhat.com> - 3.4-2
+- Add an explicit requirement on the version of gcc used to built the plugin.  (#1547260)
+
 * Fri Feb 09 2018 Nick Clifton <nickc@redhat.com> - 3.4-1
 - Change type and size of symbols to STT_NOTYPE/0 so that they do not confuse GDB.  (#1539664)
 - Add run-on-binaries-in.sh script to allow the other scripts to be run over a repository.
