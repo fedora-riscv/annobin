@@ -20,6 +20,46 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Use "--without tests" to disable the testsuite.  The default is to run them.
 %bcond_without tests
 
+# Set this to zero to disable the requirement for a specific version of gcc.
+# This should only be needed if there is some kind of problem with the version
+# checking logic.
+%global with_hard_gcc_version_requirement 1
+
+#---------------------------------------------------------------------------------
+Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
+# For the latest sources use:  git clone git://sourceware.org/git/annobin.git
+
+Requires(post): /sbin/install-info
+Requires(preun): /sbin/install-info
+
+BuildRequires: gcc-plugin-devel pkgconfig coreutils info
+
+%description
+A plugin for GCC that records extra information in the files that it compiles,
+and a set of scripts that analyze the recorded information.  These scripts can
+determine things ABI clashes in compiled binaries, or the absence of required
+hardening options.
+
+Note - the plugin is enabled in gcc builds via flags provided by the
+redhat-rpm-macros package, and the analysis tools rely upon the readelf program
+from the binutils package.
+
+#---------------------------------------------------------------------------------
+%if %{with tests}
+
+%package tests
+Summary: Test scripts and binaries for checking the behaviour and output of the annobin plugin
+
+%description tests
+Provides a means to test the generation of annotated binaries and the parsing
+of the resulting files.
+# FIXME: Does not actually do this yet...
+
+%endif
+#---------------------------------------------------------------------------------
+
+%global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
+
 # [Stolen from gcc-python-plugin]
 # GCC will only load plugins that were built against exactly that build of GCC
 # We thus need to embed the exact GCC version as a requirement within the
@@ -61,54 +101,15 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # sufficient escaping for the command line to survive intact as it is passed
 # down through the sub-shell.
 
-Requires: gcc
 %global gcc_vr %(gcc --version | gawk 'match (\$0, ".*Red Hat \([^\\)-]*\)", a) { print a[1]; }')
-
-# Define a boolean to make it easy to turn the above off, in case it fails:
-
-%global with_hard_gcc_version_requirement 1
-
-
-#---------------------------------------------------------------------------------
-Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
-# For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
 # This is a gcc plugin, hence gcc is required.
 %if %{with_hard_gcc_version_requirement}
 Requires: gcc == %{gcc_vr}
 BuildRequires: gcc == %{gcc_vr}
+%else
+Requires: gcc
 %endif
-
-Requires(post): /sbin/install-info
-Requires(preun): /sbin/install-info
-
-BuildRequires: gcc-plugin-devel pkgconfig coreutils info
-
-%description
-A plugin for GCC that records extra information in the files that it compiles,
-and a set of scripts that analyze the recorded information.  These scripts can
-determine things ABI clashes in compiled binaries, or the absence of required
-hardening options.
-
-Note - the plugin is enabled in gcc builds via flags provided by the
-redhat-rpm-macros package, and the analysis tools rely upon the readelf program
-from the binutils package.
-
-#---------------------------------------------------------------------------------
-%if %{with tests}
-
-%package tests
-Summary: Test scripts and binaries for checking the behaviour and output of the annobin plugin
-
-%description tests
-Provides a means to test the generation of annotated binaries and the parsing
-of the resulting files.
-# FIXME: Does not actually do this yet...
-
-%endif
-#---------------------------------------------------------------------------------
-
-%global ANNOBIN_PLUGIN_DIR %(g++ -print-file-name=plugin)
 
 %prep
 %autosetup -p1
