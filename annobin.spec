@@ -36,10 +36,11 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # So we instead query the version from gcc's output.
 #
 # gcc.spec has:
-#   Version: %{gcc_version}
-#   Release: %{gcc_release}%{?dist}
+#   Version: %%{gcc_version}
+#   Release: %%{gcc_release}%%{?dist}
 #   ...snip...
-#   echo 'Red Hat %{version}-%{gcc_release}' > gcc/DEV-PHASE
+#   echo 'Red Hat %%{version}-%%{gcc_release}' > gcc/DEV-PHASE
+#
 # So, given this output:
 #
 #   $ gcc --version
@@ -60,6 +61,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # sufficient escaping for the command line to survive intact as it is passed
 # down through the sub-shell.
 
+Requires: gcc
 %global gcc_vr %(gcc --version | gawk 'match (\$0, ".*Red Hat \([^\\)-]*\)", a) { print a[1]; }')
 
 # Define a boolean to make it easy to turn the above off, in case it fails:
@@ -75,8 +77,6 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 %if %{with_hard_gcc_version_requirement}
 Requires: gcc == %{gcc_vr}
 BuildRequires: gcc == %{gcc_vr}
-%else
-Requires: gcc
 %endif
 
 Requires(post): /sbin/install-info
