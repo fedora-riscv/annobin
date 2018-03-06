@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.4
-Release: 2%{?dist}
+Version: 3.5
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -69,7 +69,7 @@ of the resulting files.
 # we are being built against.
 #
 # Unfortunately, we can't simply run:
-#   rpm -q --qf="%{version}-%{release}"
+#   rpm -q --qf="%%{version}-%%{release}"
 # to determine this, as there's no guarantee of a sane rpm database within
 # the chroots created by our build system
 #
@@ -159,6 +159,9 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Tue Mar 06 2018 Nick Clifton <nickc@redhat.com> - 3.5-1
+- Handle functions with specific assembler names.  (#1552018)
+
 * Fri Feb 23 2018 Nick Clifton <nickc@redhat.com> - 3.4-2
 - Add an explicit requirement on the version of gcc used to built the plugin.  (#1547260)
 
