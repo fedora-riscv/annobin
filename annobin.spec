@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.5
+Version: 3.6
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -159,6 +159,11 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Mon Mar 12 2018 Nick Clifton <nickc@redhat.com> - 3.6-1
+- Add --ignore-gaps option to check-abi.sh script.
+- Use this option in the abi-test check.
+- Tweak hardening test to skip pic and stack protection checks.
+
 * Tue Mar 06 2018 Nick Clifton <nickc@redhat.com> - 3.5-1
 - Handle functions with specific assembler names.  (#1552018)
 
