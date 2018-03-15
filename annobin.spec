@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.6
+Version: 5.0
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -159,6 +159,10 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Thu Mar 15 2018 Nick Clifton <nickc@redhat.com> - 5.0-1
+- Bias file start symbols by 2 in order to avoid them confused with function symbols.  (#1554332)
+- Version jump is to sync the version number with the annobin plugins internal version number.
+
 * Mon Mar 12 2018 Nick Clifton <nickc@redhat.com> - 3.6-1
 - Add --ignore-gaps option to check-abi.sh script.
 - Use this option in the abi-test check.
