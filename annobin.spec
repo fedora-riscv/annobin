@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 3.4
+Version: 5.0
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -55,7 +55,7 @@ of the resulting files.
 %endif
 #---------------------------------------------------------------------------------
 
-%global ANNOBIN_PLUGIN_DIR %(g++ -print-file-name=plugin)
+%global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
 %prep
 %autosetup -p1
@@ -104,8 +104,12 @@ exit 0
 %doc %{_infodir}/annobin.info.gz
 
 #---------------------------------------------------------------------------------
-
 %changelog
+* Mon Mar 19 2018 Nick Clifton <nickc@redhat.com> - 5.0-1
+- Sync with rawhide, since that seems to fix #1557511.
+- Bias file start symbols by 2 in order to avoid them confused with function symbols.  (#1554332)
+- Version jump is to sync the version number with the annobin plugins internal version number.
+
 * Fri Feb 09 2018 Nick Clifton <nickc@redhat.com> - 3.4-1
 - Change type and size of symbols to STT_NOTYPE/0 so that they do not confuse GDB.  (#1539664)
 - Add run-on-binaries-in.sh script to allow the other scripts to be run over a repository.
