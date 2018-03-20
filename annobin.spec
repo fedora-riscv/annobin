@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.0
+Version: 5.1
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -105,6 +105,9 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Tue Mar 20 2018 Nick Clifton <nickc@redhat.com> - 5.1-1
+- Do not complain about a dwarf_version value of -1.  (#1557511)
+
 * Mon Mar 19 2018 Nick Clifton <nickc@redhat.com> - 5.0-1
 - Sync with rawhide, since that seems to fix #1557511.
 - Bias file start symbols by 2 in order to avoid them confused with function symbols.  (#1554332)
