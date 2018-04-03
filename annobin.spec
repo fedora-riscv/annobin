@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.1
+Version: 5.2
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -159,6 +159,9 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Tue Apr 03 2018 Nick Clifton <nickc@redhat.com> - 5.2-1
+- Do not record a stack protection setting of -1.  (#1563141)
+
 * Tue Mar 20 2018 Nick Clifton <nickc@redhat.com> - 5.1-1
 - Do not complain about a dwarf_version value of -1.  (#1557511)
 
