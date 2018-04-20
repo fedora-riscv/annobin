@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.2
+Version: 5.3
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -156,9 +156,17 @@ exit 0
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
 %doc %{_infodir}/annobin.info.gz
+%doc %{_mandir}/man1/annobin.1.gz
+%doc %{_mandir}/man1/built-by.1.gz
+%doc %{_mandir}/man1/check-abi.1.gz
+%doc %{_mandir}/man1/hardened.1.gz
+%doc %{_mandir}/man1/run-on-binaries.1.gz
 
 #---------------------------------------------------------------------------------
 %changelog
+* Fri Apr 20 2018 Nick Clifton <nickc@redhat.com> - 5.3-1
+- Add manual pages for annobin and the scripts.
+
 * Tue Apr 03 2018 Nick Clifton <nickc@redhat.com> - 5.2-1
 - Do not record a stack protection setting of -1.  (#1563141)
 
