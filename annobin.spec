@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.3
+Version: 5.6
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -28,6 +28,10 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
+
+# Insert patches here, if needed.
+# Patch01: annobin-xxx.patch
+
 
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -164,6 +168,9 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Mon Apr 30 2018 Nick Clifton <nickc@redhat.com> - 5.6-1
+- Skip the isa_flags check in the ABI test because the crt[in].o files are compiled with different flags from the test files.
+
 * Fri Apr 20 2018 Nick Clifton <nickc@redhat.com> - 5.3-1
 - Add manual pages for annobin and the scripts.
 
