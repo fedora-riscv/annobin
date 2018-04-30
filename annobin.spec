@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -68,28 +68,50 @@ touch configure */configure Makefile.in */Makefile.in
 # Similarly we do not want to rebuild the documentation.
 touch doc/annobin.info
 
+#---------------------------------------------------------------------------------
+
 %build
 %configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
 %make_build
+# Rebuild the plugin, this time using the plugin itself!  This
+# ensures that the plugin works, and that it contains annotations
+# of its own.  This could mean that we end up with a plugin with
+# double annotations in it.  (If the build system enables annotations
+# for plugins by default).  I have not tested this yet, but I think
+# that it should be OK.
+cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp-annobin.so
+make -C plugin clean
+make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp-annobin.so"
+rm %{_tmppath}/tmp-annobin.so
+
+#---------------------------------------------------------------------------------
 
 %install
 %make_install
 %{__rm} -f %{buildroot}%{_infodir}/dir
+
+#---------------------------------------------------------------------------------
 
 %if %{with tests}
 %check
 make check
 %endif
 
+#---------------------------------------------------------------------------------
+
 %post
 /sbin/install-info %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1 || :
 exit 0
+
+#---------------------------------------------------------------------------------
 
 %preun
 if [ $1 = 0 ]; then
    /sbin/install-info --delete %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1|| :
 fi
 exit 0
+
+#---------------------------------------------------------------------------------
 
 %files
 %{ANNOBIN_PLUGIN_DIR}
@@ -104,7 +126,11 @@ exit 0
 %doc %{_infodir}/annobin.info.gz
 
 #---------------------------------------------------------------------------------
+
 %changelog
+* Mon Apr 30 2018 Nick Clifton <nickc@redhat.com> - 5.2-2
+- Rebuild the plugin with the newly created plugin enabled.  (#1573082)
+
 * Tue Apr 03 2018 Nick Clifton <nickc@redhat.com> - 5.2-1
 - Do not record a stack protection setting of -1.  (#1563141)
 
