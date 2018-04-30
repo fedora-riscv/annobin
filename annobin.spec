@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 5.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -129,6 +129,17 @@ touch doc/annobin.info
 %build
 %configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
 %make_build
+# Rebuild the plugin, this time using the plugin itself!  This
+# ensures that the plugin works, and that it contains annotations
+# of its own.  This could mean that we end up with a plugin with
+# double annotations in it.  (If the build system enables annotations
+# for plugins by default).  I have not tested this, but I think that
+# it should be OK.
+cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp-annobin.so
+make -C plugin clean
+make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp-annobin.so"
+rm %{_tmppath}/tmp-annobin.so
+
 
 %install
 %make_install
@@ -168,6 +179,9 @@ exit 0
 
 #---------------------------------------------------------------------------------
 %changelog
+* Mon Apr 30 2018 Nick Clifton <nickc@redhat.com> - 5.6-2
+- Rebuild the plugin with the newly created plugin enabled.  (#1573082)
+
 * Mon Apr 30 2018 Nick Clifton <nickc@redhat.com> - 5.6-1
 - Skip the isa_flags check in the ABI test because the crt[in].o files are compiled with different flags from the test files.
 
