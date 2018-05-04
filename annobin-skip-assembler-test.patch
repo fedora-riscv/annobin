@@ -1,0 +1,24 @@
+diff -rup annobin.orig/tests/Makefile.am annobin-5.6/tests/Makefile.am
+--- annobin.orig/tests/Makefile.am	2018-05-04 14:23:33.303562575 +0100
++++ annobin-5.6/tests/Makefile.am	2018-05-04 14:23:52.212354792 +0100
+@@ -12,7 +12,7 @@ TESTS=compile-test \
+       abi-test \
+       missing-notes-test \
+       function-sections-test \
+-      assembler-gap-test
++
+ 
+ XFAIL_TESTS=hardening-fail-test
+ 
+diff -rup annobin.orig/tests/Makefile.in annobin-5.6/tests/Makefile.in
+--- annobin.orig/tests/Makefile.in	2018-05-04 14:23:33.304562564 +0100
++++ annobin-5.6/tests/Makefile.in	2018-05-04 14:23:59.205277949 +0100
+@@ -217,7 +217,7 @@ TESTS = compile-test \
+       abi-test \
+       missing-notes-test \
+       function-sections-test \
+-      assembler-gap-test
++
+ 
+ XFAIL_TESTS = hardening-fail-test
+ all: all-am

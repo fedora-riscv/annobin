@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.2
+Version: 5.6
 Release: 3%{?dist}
 
 License: GPLv3+
@@ -20,12 +20,21 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Use "--without tests" to disable the testsuite.  The default is to run them.
 %bcond_without tests
 
+# Set this to zero to disable the requirement for a specific version of gcc.
+# This should only be needed if there is some kind of problem with the version
+# checking logic.
+%global with_hard_gcc_version_requirement 1
+
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
-# This is a gcc plugin, hence gcc is required.
-Requires: gcc
+# Insert patches here, if needed.
+
+# Skip the assembler test as the Fedora 28 assembler does not support
+# the --generate-missing-build-notes=yes commmand line option.
+Patch01: annobin-skip-assembler-test.patch
+
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -56,6 +65,59 @@ of the resulting files.
 #---------------------------------------------------------------------------------
 
 %global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
+
+# [Stolen from gcc-python-plugin]
+# GCC will only load plugins that were built against exactly that build of GCC
+# We thus need to embed the exact GCC version as a requirement within the
+# metadata.
+#
+# Define "gcc_vr", a variable to hold the VERSION-RELEASE string for the gcc
+# we are being built against.
+#
+# Unfortunately, we can't simply run:
+#   rpm -q --qf="%%{version}-%%{release}"
+# to determine this, as there's no guarantee of a sane rpm database within
+# the chroots created by our build system
+#
+# So we instead query the version from gcc's output.
+#
+# gcc.spec has:
+#   Version: %%{gcc_version}
+#   Release: %%{gcc_release}%%{?dist}
+#   ...snip...
+#   echo 'Red Hat %%{version}-%%{gcc_release}' > gcc/DEV-PHASE
+#
+# So, given this output:
+#
+#   $ gcc --version
+#   gcc (GCC) 4.6.1 20110908 (Red Hat 4.6.1-9)
+#   Copyright (C) 2011 Free Software Foundation, Inc.
+#   This is free software; see the source for copying conditions.  There is NO
+#   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# we can scrape out the "4.6.1" from the version line.
+#
+# The following implements the above:
+#
+# Note - gawk will emit a warning message saying:
+#
+#  gawk: cmd. line:1: warning: escape sequence `\)' treated as plain `)'
+#
+# I have not been able to work out how to remove this message, but still provide
+# sufficient escaping for the command line to survive intact as it is passed
+# down through the sub-shell.
+
+%global gcc_vr %(gcc --version | gawk 'match (\$0, ".*Red Hat \([^\\)-]*\)", a) { print a[1]; }')
+
+# This is a gcc plugin, hence gcc is required.
+%if %{with_hard_gcc_version_requirement}
+Requires: gcc == %{gcc_vr}
+BuildRequires: gcc == %{gcc_vr}
+%else
+Requires: gcc
+%endif
+
+#---------------------------------------------------------------------------------
 
 %prep
 %autosetup -p1
@@ -124,11 +186,19 @@ exit 0
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
 %doc %{_infodir}/annobin.info.gz
+%doc %{_mandir}/man1/annobin.1.gz
+%doc %{_mandir}/man1/built-by.1.gz
+%doc %{_mandir}/man1/check-abi.1.gz
+%doc %{_mandir}/man1/hardened.1.gz
+%doc %{_mandir}/man1/run-on-binaries.1.gz
 
 #---------------------------------------------------------------------------------
 
 %changelog
-* Thu may 03 2018 Nick Clifton <nickc@redhat.com> - 5.2-3
+* Fri May 04 2018 Nick Clifton <nickc@redhat.com> - 5.6-3
+- Import latest changes from rawhide, including hard requirement on the version of gcc used.
+
+* Thu May 03 2018 Nick Clifton <nickc@redhat.com> - 5.2-3
 - Rebuild with the latest gcc.
 
 * Mon Apr 30 2018 Nick Clifton <nickc@redhat.com> - 5.2-2
