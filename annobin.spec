@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.6
-Release: 3%{?dist}
+Version: 5.7
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -193,6 +193,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 08 2018 Nick Clifton <nickc@redhat.com> - 5.7-1
+- Fix script bug in hardended.sh.  (Thanks to: Stefan Sørensen <stefan.sorensen@spectralink.com>)
+
 * Thu May 03 2018 Nick Clifton <nickc@redhat.com> - 5.6-3
 - Version number bump so that the plugin can be rebuilt with the latest version of GCC.
 
