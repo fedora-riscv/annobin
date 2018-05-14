@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.7
+Version: 5.8
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -193,6 +193,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon May 14 2018 Nick Clifton <nickc@redhat.com> - 5.8-1
+- Hide the annobin start of file symbol.
+
 * Tue May 08 2018 Nick Clifton <nickc@redhat.com> - 5.7-1
 - Fix script bug in hardended.sh.  (Thanks to: Stefan Sørensen <stefan.sorensen@spectralink.com>)
 
