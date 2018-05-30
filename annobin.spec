@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.8
+Version: 5.9
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -193,6 +193,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed May 30 2018 Nick Clifton <nickc@redhat.com> - 5.9-1
+- Record the setting of the -mstackrealign option for i686 binaries.
+
 * Mon May 14 2018 Nick Clifton <nickc@redhat.com> - 5.8-1
 - Hide the annobin start of file symbol.
 
