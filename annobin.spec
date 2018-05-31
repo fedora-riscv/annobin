@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.9
+Version: 5.10
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -175,10 +175,10 @@ exit 0
 
 %files
 %{ANNOBIN_PLUGIN_DIR}
-%{_bindir}/built-by.sh
-%{_bindir}/check-abi.sh
-%{_bindir}/hardened.sh
-%{_bindir}/run-on-binaries-in.sh
+%{_bindir}/built-by
+%{_bindir}/check-abi
+%{_bindir}/hardened
+%{_bindir}/run-on-binaries-in
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -193,6 +193,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 31 2018 Nick Clifton <nickc@redhat.com> - 5.10-1
+- Remove .sh extension from shell scripts.
+
 * Wed May 30 2018 Nick Clifton <nickc@redhat.com> - 5.9-1
 - Record the setting of the -mstackrealign option for i686 binaries.
 
