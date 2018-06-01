@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 5.10
+Version: 5.11
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -193,6 +193,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jun 01 2018 Nick Clifton <nickc@redhat.com> - 5.11-1
+- Do not use the SHF_GNU_BUILD_NOTE section flag.
+
 * Thu May 31 2018 Nick Clifton <nickc@redhat.com> - 5.10-1
 - Remove .sh extension from shell scripts.
 
