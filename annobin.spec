@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 6.1
+Version: 6.2
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 19 2018 Nick Clifton <nickc@redhat.com> - 6.2-1
+- Add command line options to annocheck to disable individual tests.
+
 * Fri Jun 08 2018 Nick Clifton <nickc@redhat.com> - 6.1-1
 - Remove C99-ism from annocheck sources.
 
