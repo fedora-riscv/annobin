@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 6.5
+Version: 6.6
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jun 22 2018 Nick Clifton <nickc@redhat.com> - 6.6-1
+- Use --dwarf-path when looking for build-id based debuginfo files.
+
 * Fri Jun 22 2018 Nick Clifton <nickc@redhat.com> - 6.5-1
 - Fix premature closing of dwarf handle.
 
