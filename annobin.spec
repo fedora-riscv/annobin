@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 6.6
+Version: 7.0
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,10 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 25 2018 Nick Clifton <nickc@redhat.com> - 7.0-1
+- Add -debug-rpm= option to annocheck.
+- Only use a 2 byte offset for the initial symbol on PowerPC.
+
 * Fri Jun 22 2018 Nick Clifton <nickc@redhat.com> - 6.6-1
 - Use --dwarf-path when looking for build-id based debuginfo files.
 
