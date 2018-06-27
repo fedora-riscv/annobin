@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 7.0
+Version: 7.1
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,10 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jun 27 2018 Nick Clifton <nickc@redhat.com> - 7.1-1
+- Skip some checks for relocatable object files, and dynamic objects.
+- Stop bogus complaints about stackrealignment not being enabled.
+
 * Mon Jun 25 2018 Nick Clifton <nickc@redhat.com> - 7.0-1
 - Add -debug-rpm= option to annocheck.
 - Only use a 2 byte offset for the initial symbol on PowerPC.
