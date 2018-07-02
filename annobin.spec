@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.1
+Version: 8.2
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 02 2018 Nick Clifton <nickc@redhat.com> - 8.2-1
+- Create the start symbol at the start of the function and the end symbol at the end.  (#1596823)
+
 * Mon Jul 02 2018 Nick Clifton <nickc@redhat.com> - 8.1-1
 - Fix --debug-rpm when used inside a directory.
 
