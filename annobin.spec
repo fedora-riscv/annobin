@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.3
+Version: 8.4
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jul 06 2018 Nick Clifton <nickc@redhat.com> - 8.4-1
+- Ignore cross-section gaps.  (#1598551)
+
 * Thu Jul 05 2018 Nick Clifton <nickc@redhat.com> - 8.3-1
 - Do not skip empty range notes in object files.
 
