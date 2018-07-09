@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.5
+Version: 8.6
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.6-1
+- Use the assembler (c++ mangled) version of function names when switching sections.  (#1598579)
+
 * Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.5-1
 - Do not call function_section.  (#1598961)
 
