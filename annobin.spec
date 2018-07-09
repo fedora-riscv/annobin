@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.4
+Version: 8.5
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.5-1
+- Do not call function_section.  (#1598961)
+
 * Fri Jul 06 2018 Nick Clifton <nickc@redhat.com> - 8.4-1
 - Ignore cross-section gaps.  (#1598551)
 
