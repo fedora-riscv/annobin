@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.6
+Version: 8.7
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.7-1
+- Skip the .annobin_ prfix when reporting symbols.  (#1599315)
+
 * Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.6-1
 - Use the assembler (c++ mangled) version of function names when switching sections.  (#1598579)
 
