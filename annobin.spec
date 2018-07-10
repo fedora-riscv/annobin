@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.7
+Version: 8.8
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -216,6 +216,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 10 2018 Nick Clifton <nickc@redhat.com> - 8.8-1
+- Do not force the generation of function notes when -ffunction-sections is active.  (#1598961)
+
 * Mon Jul 09 2018 Nick Clifton <nickc@redhat.com> - 8.7-1
 - Skip the .annobin_ prfix when reporting symbols.  (#1599315)
 
