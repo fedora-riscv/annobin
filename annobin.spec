@@ -36,9 +36,6 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # Patch01: annobin-xxx.patch
 
 
-Requires(post): /sbin/install-info
-Requires(preun): /sbin/install-info
-
 BuildRequires: gcc-plugin-devel gcc-c++ pkgconfig coreutils info
 
 %description
@@ -174,20 +171,6 @@ rm %{_tmppath}/tmp-annobin.so
 %check
 make check
 %endif
-
-#---------------------------------------------------------------------------------
-
-%post
-/sbin/install-info %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1 || :
-exit 0
-
-#---------------------------------------------------------------------------------
-
-%preun
-if [ $1 = 0 ]; then
-   /sbin/install-info --delete %{_infodir}/annobin.info.gz %{_infodir} >/dev/null 2>&1|| :
-fi
-exit 0
 
 #---------------------------------------------------------------------------------
 
