@@ -36,7 +36,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # Patch01: annobin-xxx.patch
 
 
-BuildRequires: gcc-plugin-devel gcc-c++ pkgconfig coreutils info
+BuildRequires: gcc-plugin-devel gcc-c++
 
 %description
 A plugin for GCC that records extra information in the files that it compiles,
