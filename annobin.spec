@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.9
+Version: 8.10
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jul 12 2018 Nick Clifton <nickc@redhat.com> - 8.10-1
+- Fix construction of absolute versions of --dwarf-dir and --debug-rpm options.
+
 * Tue Jul 10 2018 Nick Clifton <nickc@redhat.com> - 8.9-1
 - Fix buffer overrun when very long symbol names are encountered.
 
@@ -218,7 +221,7 @@ make check
 - Ignore cross-section gaps.  (#1598551)
 
 * Thu Jul 05 2018 Nick Clifton <nickc@redhat.com> - 8.3-1
-- Do not skip empty range notes in object files.
+- Do not skip empty range notes in object files.  (#1598361)
 
 * Mon Jul 02 2018 Nick Clifton <nickc@redhat.com> - 8.2-1
 - Create the start symbol at the start of the function and the end symbol at the end.  (#1596823)
