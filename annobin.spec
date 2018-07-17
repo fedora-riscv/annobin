@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.10
-Release: 2%{?dist}
+Version: 8.11
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 17 2018 Nick Clifton <nickc@redhat.com> - 8.11-1
+- Handle function sections properly.  Handle .text.startup and .text.unlikely sections.  Improve gap detection and reporting.  (#1601055)
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 8.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
