@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.13
+Version: 8.14
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jul 19 2018 Nick Clifton <nickc@redhat.com> - 8.14-1
+- Fix section conflict problem.  (#1603071)
+
 * Wed Jul 18 2018 Nick Clifton <nickc@redhat.com> - 8.13-1
 - Fix for building with gcc version 4.
 - Fix symbol placement in functions with local assembler.
