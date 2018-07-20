@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.14
+Version: 8.15
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jul 19 2018 Nick Clifton <nickc@redhat.com> - 8.15-1
+- Generate grouped note section name all the time.  (#159861 comment#16)
+
 * Thu Jul 19 2018 Nick Clifton <nickc@redhat.com> - 8.14-1
 - Fix section conflict problem.  (#1603071)
 
