@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.15
+Version: 8.16
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,7 +199,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Thu Jul 19 2018 Nick Clifton <nickc@redhat.com> - 8.15-1
+* Fri Jul 20 2018 Nick Clifton <nickc@redhat.com> - 8.16-1
+- Use our own copy of the targetm.asm_out.function_section() function.  (#159861 comment#17)
+
+* Fri Jul 20 2018 Nick Clifton <nickc@redhat.com> - 8.15-1
 - Generate grouped note section name all the time.  (#159861 comment#16)
 
 * Thu Jul 19 2018 Nick Clifton <nickc@redhat.com> - 8.14-1
