@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.17
+Version: 8.18
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -35,8 +35,9 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # Insert patches here, if needed.
 # Patch01: annobin-xxx.patch
 
+#---------------------------------------------------------------------------------
 
-BuildRequires: gcc-plugin-devel gcc-c++
+BuildRequires: gcc gcc-plugin-devel gcc-c++
 
 %description
 A plugin for GCC that records extra information in the files that it compiles,
@@ -201,6 +202,7 @@ make check
 %changelog
 * Mon Jul 23 2018 Nick Clifton <nickc@redhat.com> - 8.17-1
 - Count passes and failures on a per-component basis and report gaps.
+- Add support for big endian targets.
 
 * Fri Jul 20 2018 Nick Clifton <nickc@redhat.com> - 8.16-1
 - Use our own copy of the targetm.asm_out.function_section() function.  (#159861 comment#17)
