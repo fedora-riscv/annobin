@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.16
+Version: 8.17
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 23 2018 Nick Clifton <nickc@redhat.com> - 8.17-1
+- Count passes and failures on a per-component basis and report gaps.
+
 * Fri Jul 20 2018 Nick Clifton <nickc@redhat.com> - 8.16-1
 - Use our own copy of the targetm.asm_out.function_section() function.  (#159861 comment#17)
 
