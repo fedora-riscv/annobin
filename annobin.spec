@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.19
+Version: 8.20
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -190,7 +190,7 @@ make check
 %doc %{_mandir}/man1/built-by.1.gz
 %doc %{_mandir}/man1/check-abi.1.gz
 %doc %{_mandir}/man1/hardened.1.gz
-%doc %{_mandir}/man1/run-on-binaries.1.gz
+%doc %{_mandir}/man1/run-on-binaries-in.1.gz
 
 %if %{with annocheck}
 %{_bindir}/annocheck
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug 02 2018 Nick Clifton <nickc@redhat.com> - 8.20-1
+- Correct name of man page for run-on-binaries-in script.  (#1611155)
+
 * Wed Jul 25 2018 Nick Clifton <nickc@redhat.com> - 8.19-1
 - Allow $ORIGN to be at the start of entries in DT_RPATH and DT_RUNPATH.
 
