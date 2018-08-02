@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug  2 2018 Peter Robinson <pbrobinson@fedoraproject.org> 8.20-2
+- rebuild for new gcc
+
 * Thu Aug 02 2018 Nick Clifton <nickc@redhat.com> - 8.20-1
 - Correct name of man page for run-on-binaries-in script.  (#1611155)
 
