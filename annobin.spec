@@ -11,8 +11,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.20
-Release: 2%{?dist}
+Version: 8.21
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 07 2018 Nick Clifton <nickc@redhat.com> - 8.21-1
+- Fix bug in annobin plugin.  Add --section-size=NAME option to annocheck.
+
 * Thu Aug  2 2018 Peter Robinson <pbrobinson@fedoraproject.org> 8.20-2
 - rebuild for new gcc
 
