@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.21
+Version: 8.22
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 08 2018 Nick Clifton <nickc@redhat.com> - 8.22-1
+- Reduce version check to gcc major version number only.  Skip compiler option checks if binary not built with gcc.  (#1603089)
+
 * Tue Aug 07 2018 Nick Clifton <nickc@redhat.com> - 8.21-1
 - Fix bug in annobin plugin.  Add --section-size=NAME option to annocheck.
 
