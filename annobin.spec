@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.23
+Version: 8.24
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 15 2018 Nick Clifton <nickc@redhat.com> - 8.24-1
+- Skip checks in stack_chk_local_fail.c
+- Treat gaps as FAIL results rather than MAYBE.
+
 * Wed Aug 08 2018 Nick Clifton <nickc@redhat.com> - 8.23-1
 - Skip checks in __stack_chk_local_fail.
 
