@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.26
+Version: 8.27
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 22 2018 Nick Clifton <nickc@redhat.com> - 8.27-1
+- Skip gaps at the end of functions. (#1619267)
+
 * Tue Aug 21 2018 Nick Clifton <nickc@redhat.com> - 8.26-1
 - Fix thinko in ppc64 gap detection code. (#1619267)
 
