@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.27
+Version: 8.28
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -94,8 +94,7 @@ hardening options.
 # the chroots created by our build system
 #
 # So we instead query the version from gcc's output.
-#
-# gcc.spec has:
+## gcc.spec has:
 #   Version: %%{gcc_version}
 #   Release: %%{gcc_release}%%{?dist}
 #   ...snip...
@@ -200,6 +199,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug 23 2018 Nick Clifton <nickc@redhat.com> - 8.28-1
+- Skip gaps covered by _x86.get_pc_thunk and _savegpr symbols. (#1619267)
+- Merge ranges where one is wholly covered by another.
+
 * Wed Aug 22 2018 Nick Clifton <nickc@redhat.com> - 8.27-1
 - Skip gaps at the end of functions. (#1619267)
 
