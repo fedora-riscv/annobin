@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.28
+Version: 8.29
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -199,6 +199,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug 23 2018 Nick Clifton <nickc@redhat.com> - 8.29-1
+- Add more names to the gap skip list. (#1619267)
+
 * Thu Aug 23 2018 Nick Clifton <nickc@redhat.com> - 8.28-1
 - Skip gaps covered by _x86.get_pc_thunk and _savegpr symbols. (#1619267)
 - Merge ranges where one is wholly covered by another.
