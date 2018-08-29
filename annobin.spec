@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.29
+Version: 8.30
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -94,7 +94,8 @@ hardening options.
 # the chroots created by our build system
 #
 # So we instead query the version from gcc's output.
-## gcc.spec has:
+#
+# gcc.spec has:
 #   Version: %%{gcc_version}
 #   Release: %%{gcc_release}%%{?dist}
 #   ...snip...
@@ -199,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 29 2018 Nick Clifton <nickc@redhat.com> - 8.30-1
+- Generate notes for comdat sections. (#1619267)
+
 * Thu Aug 23 2018 Nick Clifton <nickc@redhat.com> - 8.29-1
 - Add more names to the gap skip list. (#1619267)
 
