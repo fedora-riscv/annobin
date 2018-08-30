@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.30
+Version: 8.31
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,11 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug 30 2018 Nick Clifton <nickc@redhat.com> - 8.31-1
+- Fix bug in hardened tool which would skip gcc compiled files if the notes were too small.
+- Fix bugs in section-size tool.
+- Fix bug in buillt-by tool.
+
 * Wed Aug 29 2018 Nick Clifton <nickc@redhat.com> - 8.30-1
 - Generate notes for comdat sections. (#1619267)
 
