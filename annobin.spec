@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.32
+Version: 8.33
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,8 +200,14 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 12 2018 Nick Clifton <nickc@redhat.com> - 8.33-1
+- Add timing tool to report on speed of the checks.
+- Add check for conflicting use of the -fshort-enum option.
+- Add check of the GNU Property notes.
+- Skip check for -O2 if compiled with -Og.  (#1624162)
+
 * Mon Sep 03 2018 Nick Clifton <nickc@redhat.com> - 8.32-1
-- Add test for ET_EXEC binaries.
+- Add test for ET_EXEC binaries.  (#1625627)
 - Document --report-unknown option.
 
 * Thu Aug 30 2018 Nick Clifton <nickc@redhat.com> - 8.31-1
