@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.34
+Version: 8.35
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 17 2018 Nick Clifton <nickc@redhat.com> - 8.35-1
+- Skip failures for PIC vs PIE.  (#1629698)
+
 * Mon Sep 17 2018 Nick Clifton <nickc@redhat.com> - 8.34-1
 - Ensure 4 byte alignment of note sub-sections.  (#1629671)
 
