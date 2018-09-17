@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.33
+Version: 8.34
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 17 2018 Nick Clifton <nickc@redhat.com> - 8.34-1
+- Ensure 4 byte alignment of note sub-sections.  (#1629671)
+
 * Wed Sep 12 2018 Nick Clifton <nickc@redhat.com> - 8.33-1
 - Add timing tool to report on speed of the checks.
 - Add check for conflicting use of the -fshort-enum option.
