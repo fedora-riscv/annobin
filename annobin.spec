@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.35
+Version: 8.36
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Sep 18 2018 Nick Clifton <nickc@redhat.com> - 8.36-1
+- Improve error message when an ET_EXEC binary is detected.
+
 * Mon Sep 17 2018 Nick Clifton <nickc@redhat.com> - 8.35-1
 - Skip failures for PIC vs PIE.  (#1629698)
 
