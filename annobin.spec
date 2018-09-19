@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.36
+Version: 8.37
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 19 2018 Nick Clifton <nickc@redhat.com> - 8.37-1
+- Make the --skip-* options skip all messages about the specified test.
+
 * Tue Sep 18 2018 Nick Clifton <nickc@redhat.com> - 8.36-1
 - Improve error message when an ET_EXEC binary is detected.
 
