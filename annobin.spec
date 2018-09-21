@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.37
+Version: 8.38
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 21 2018 Nick Clifton <nickc@redhat.com> - 8.38-1
+- Generate notes and groups for .text.hot and .text.unlikely sections.
+- When -ffunction-sections is active, put notes for startup sections into .text.startup.foo rather than .text.foo.
+- Similarly put exit section notes into .text.exit.foo.  (#1630574)
+- Change annocheck's maybe result for GNU Property note being missing into a PASS if it is not needed and a FAIL if it is needed.
+
 * Wed Sep 19 2018 Nick Clifton <nickc@redhat.com> - 8.37-1
 - Make the --skip-* options skip all messages about the specified test.
 
