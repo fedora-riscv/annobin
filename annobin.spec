@@ -11,7 +11,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.38
+Version: 8.39
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 21 2018 Nick Clifton <nickc@redhat.com> - 8.39-1
+- Tweak tests.
+
 * Fri Sep 21 2018 Nick Clifton <nickc@redhat.com> - 8.38-1
 - Generate notes and groups for .text.hot and .text.unlikely sections.
 - When -ffunction-sections is active, put notes for startup sections into .text.startup.foo rather than .text.foo.
