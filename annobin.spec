@@ -1,17 +1,21 @@
 
-# Do not build the annobin plugin with annotation enabled.
-# This is because if we are bootstrapping a new build environment we can have
-# a new version of gcc installed, but without a new of annobin installed.
-# (ie we are building the new version of annobin to go with the new version
-# of gcc).  If the *old* annobin plugin is used whilst building this new
-# version, the old plugin will complain that version of gcc for which it
-# was built is different from the version of gcc that is now being used, and
-# then it will abort.
-%undefine _annotated_build
+# Suppress this for BZ 1630550.
+# The problem should now only arise when rebasing to a new majopr version
+# of gcc, in which case the undefine below can be temporarily reinstated.
+#
+# # Do not build the annobin plugin with annotation enabled.
+# # This is because if we are bootstrapping a new build environment we can have
+# # a new version of gcc installed, but without a new of annobin installed.
+# # (ie we are building the new version of annobin to go with the new version
+# # of gcc).  If the *old* annobin plugin is used whilst building this new
+# # version, the old plugin will complain that version of gcc for which it
+# # was built is different from the version of gcc that is now being used, and
+# # then it will abort.
+# %%undefine _annotated_build
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.39
+Version: 8.41
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -155,10 +159,10 @@ touch doc/annobin.info
 # double annotations in it.  (If the build system enables annotations
 # for plugins by default).  I have not tested this yet, but I think
 # that it should be OK.
-cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp-annobin.so
+cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C plugin clean
-make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp-annobin.so"
-rm %{_tmppath}/tmp-annobin.so
+make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
+rm %{_tmppath}/tmp_annobin.so
 
 #---------------------------------------------------------------------------------
 
@@ -200,6 +204,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Sep 25 2018 Nick Clifton <nickc@redhat.com> - 8.41-1
+- Make annocheck ignore symbols suffixed with ".end".  (#1639618)
+
+* Mon Sep 24 2018 Nick Clifton <nickc@redhat.com> - 8.40-1
+- Reinstate building annobin with annobin enabled.  (#1630550)
+
 * Fri Sep 21 2018 Nick Clifton <nickc@redhat.com> - 8.39-1
 - Tweak tests.
 
