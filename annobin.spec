@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.41
+Version: 8.44
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,15 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 28 2018 Nick Clifton <nickc@redhat.com> - 8.44-1
+- Skip compiler option checks for non-GNU producers.  (#1633749)
+
+* Wed Sep 26 2018 Nick Clifton <nickc@redhat.com> - 8.43-1
+- Fix function section support (again).   (#1630574)
+
+* Tue Sep 25 2018 Nick Clifton <nickc@redhat.com> - 8.42-1
+- Ignore ppc64le notes where start = end + 2.  (#1632259)
+
 * Tue Sep 25 2018 Nick Clifton <nickc@redhat.com> - 8.41-1
 - Make annocheck ignore symbols suffixed with ".end".  (#1639618)
 
