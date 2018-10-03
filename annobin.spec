@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.44
+Version: 8.45
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 01 2018 Nick Clifton <nickc@redhat.com> - 8.45-1
+- Fix function section support (again).   (#1630574)
+
 * Fri Sep 28 2018 Nick Clifton <nickc@redhat.com> - 8.44-1
 - Skip compiler option checks for non-GNU producers.  (#1633749)
 
