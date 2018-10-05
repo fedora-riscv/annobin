@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.45
+Version: 8.48
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,16 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 05 2018 Nick Clifton <nickc@redhat.com> - 8.48-1
+- Delay generating attach_to_group directives until the end of the compilation.  (#1636265)
+
+* Mon Oct 01 2018 Nick Clifton <nickc@redhat.com> - 8.47-1
+- Fix bug introduced in previous delta which would trigger a seg-fault when scanning for gaps.
+
+* Mon Oct 01 2018 Nick Clifton <nickc@redhat.com> - 8.46-1
+- Annobin:   Fix section name selection for startup sections.
+- Annocheck: Improve gap skipping heuristics.   (#1630574)
+
 * Mon Oct 01 2018 Nick Clifton <nickc@redhat.com> - 8.45-1
 - Fix function section support (again).   (#1630574)
 
