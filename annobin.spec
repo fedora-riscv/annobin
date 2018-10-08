@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.48
+Version: 8.49
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 08 2018 Nick Clifton <nickc@redhat.com> - 8.49-1
+- Skip dynamic checks for binaries without a dynamic segment.  (#1636606)
+
 * Fri Oct 05 2018 Nick Clifton <nickc@redhat.com> - 8.48-1
 - Delay generating attach_to_group directives until the end of the compilation.  (#1636265)
 
