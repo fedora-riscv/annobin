@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.51
+Version: 8.52
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 10 2018 Nick Clifton <nickc@redhat.com> - 8.52-1
+- Use uppercase for all fail/mayb/pass results.  (#1637706)
+
 * Wed Oct 10 2018 Nick Clifton <nickc@redhat.com> - 8.51-1
 - Generate notes for unlikely sections.  (#1630620)
 
