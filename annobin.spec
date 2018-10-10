@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.50
+Version: 8.51
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 10 2018 Nick Clifton <nickc@redhat.com> - 8.51-1
+- Generate notes for unlikely sections.  (#1630620)
+
 * Mon Oct 08 2018 Nick Clifton <nickc@redhat.com> - 8.50-1
 - Fix edge case computing section names for end symbols.  (#1637039)
 
