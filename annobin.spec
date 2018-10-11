@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.52
+Version: 8.53
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 11 2018 Nick Clifton <nickc@redhat.com> - 8.53-1
+- Also skip virtual thinks created by G++.  (#1630619)
+
 * Wed Oct 10 2018 Nick Clifton <nickc@redhat.com> - 8.52-1
 - Use uppercase for all fail/mayb/pass results.  (#1637706)
 
