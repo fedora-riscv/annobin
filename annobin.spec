@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 5.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -34,6 +34,10 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # Skip the assembler test as the Fedora 28 assembler does not support
 # the --generate-missing-build-notes=yes commmand line option.
 Patch01: annobin-skip-assembler-test.patch
+
+# Only test that the major version of gcc used to build the annobin plugin
+# matches with the major version of gcc used to run the plugin.
+Patch02: annobin-skip-minor-version-check.patch
 
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -195,6 +199,9 @@ exit 0
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 10 2018 Nick Clifton <nickc@redhat.com> - 5.7-3
+- Only check major version numbers when verifying gcc builder and runner.  (#16329224)
+
 * Thu May 10 2018 Nick Clifton <nickc@redhat.com> - 5.7-2
 - Version bump in order to allow a rebuild with the latest version of gcc.
 
