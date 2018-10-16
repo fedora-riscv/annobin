@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.53
+Version: 8.55
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 16 2018 Nick Clifton <nickc@redhat.com> - 8.55-1
+- Skip PPC64 linker stubs created in the middle of text sections.
+- Reset the (PPC64) section start symbol to 0 if its section is empty.  (#1638251)
+
 * Thu Oct 11 2018 Nick Clifton <nickc@redhat.com> - 8.53-1
 - Also skip virtual thinks created by G++.  (#1630619)
 
