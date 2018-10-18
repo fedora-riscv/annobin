@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.57
+Version: 8.58
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 18 2018 Nick Clifton <nickc@redhat.com> - 8.58-1
+- Skip PPC64 linker stubs created in the middle of text sections (again). (#1630640)
+
 * Thu Oct 18 2018 Nick Clifton <nickc@redhat.com> - 8.57-1
 - Suppress free of invalid pointer. (#1638371)
 
