@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.58
+Version: 8.59
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 05 2018 Nick Clifton <nickc@redhat.com> - 8.59-1
+- Ensure GNU Property notes are 8-byte aligned in x86_64 binaries.  (#1645817)
+
 * Thu Oct 18 2018 Nick Clifton <nickc@redhat.com> - 8.58-1
 - Skip PPC64 linker stubs created in the middle of text sections (again). (#1630640)
 
