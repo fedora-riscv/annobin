@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -34,6 +34,8 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 # Insert patches here, if needed.
 # Patch01: annobin-xxx.patch
+
+Patch01: annobin-8-byte-align-property-notes.patch
 
 #---------------------------------------------------------------------------------
 
@@ -200,6 +202,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 05 2018 Nick Clifton <nickc@redhat.com> - 8.23-2
+- Ensure GNU Property notes are 8-byte aligned in x86_64 binaries.  (#1645817)
+
 * Wed Aug 08 2018 Nick Clifton <nickc@redhat.com> - 8.23-1
 - Skip checks in __stack_chk_local_fail.
 
