@@ -1,12 +1,12 @@
 
 # Suppress this for BZ 1630550.
-# The problem should now only arise when rebasing to a new majopr version
+# The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
 # # Do not build the annobin plugin with annotation enabled.
 # # This is because if we are bootstrapping a new build environment we can have
 # # a new version of gcc installed, but without a new of annobin installed.
-# # (ie we are building the new version of annobin to go with the new version
+# # (i.e. we are building the new version of annobin to go with the new version
 # # of gcc).  If the *old* annobin plugin is used whilst building this new
 # # version, the old plugin will complain that version of gcc for which it
 # # was built is different from the version of gcc that is now being used, and
@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.59
+Version: 8.60
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -44,14 +44,12 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 BuildRequires: gcc gcc-plugin-devel gcc-c++
 
 %description
-A plugin for GCC that records extra information in the files that it compiles,
-and a set of scripts that analyze the recorded information.  These scripts can
-determine things ABI clashes in compiled binaries, or the absence of required
-hardening options.
+Provides a plugin for GCC that records extra information in the files
+that it compiles and a set of scripts that can analyze the recorded
+information.
 
-Note - the plugin is enabled in gcc builds via flags provided by the
-redhat-rpm-macros package, and the analysis tools rely upon the readelf program
-from the binutils package.
+Note - the plugin is automatically enabled in gcc builds via flags
+provided by the redhat-rpm-macros package.
 
 #---------------------------------------------------------------------------------
 %if %{with tests}
@@ -204,6 +202,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 13 2018 Nick Clifton <nickc@redhat.com> - 8.60-1
+- Skip -Wl,-z,now and -Wl,-z,relro checks for non-gcc produced binaries.  (#1624421)
+
 * Mon Nov 05 2018 Nick Clifton <nickc@redhat.com> - 8.59-1
 - Ensure GNU Property notes are 8-byte aligned in x86_64 binaries.  (#1645817)
 
@@ -337,7 +338,7 @@ make check
 - Correct name of man page for run-on-binaries-in script.  (#1611155)
 
 * Wed Jul 25 2018 Nick Clifton <nickc@redhat.com> - 8.19-1
-- Allow $ORIGN to be at the start of entries in DT_RPATH and DT_RUNPATH.
+- Allow $ORIGIN to be at the start of entries in DT_RPATH and DT_RUNPATH.
 
 * Mon Jul 23 2018 Nick Clifton <nickc@redhat.com> - 8.18-1
 - Add support for big endian targets.
@@ -359,7 +360,7 @@ make check
 - Fix symbol placement in functions with local assembler.
 
 * Tue Jul 17 2018 Nick Clifton <nickc@redhat.com> - 8.12-1
-- Fix assertions in rnage checking code.  Add detection of -U options.
+- Fix assertions in range checking code.  Add detection of -U options.
 
 * Tue Jul 17 2018 Nick Clifton <nickc@redhat.com> - 8.11-1
 - Handle function sections properly.  Handle .text.startup and .text.unlikely sections.  Improve gap detection and reporting.  (#1601055)
@@ -529,7 +530,7 @@ make check
 
 * Thu Sep 21 2017 Nick Clifton <nickc@redhat.com> - 2.3-1
 - Add annobin-tests subpackage containing some preliminary tests.
-- Remove link-time test for unsuported targets.
+- Remove link-time test for unsupported targets.
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
