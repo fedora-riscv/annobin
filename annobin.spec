@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.60
+Version: 8.61
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -202,6 +202,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 19 2018 Nick Clifton <nickc@redhat.com> - 8.61-1
+- Fix building with gcc version 4.
+
 * Tue Nov 13 2018 Nick Clifton <nickc@redhat.com> - 8.60-1
 - Skip -Wl,-z,now and -Wl,-z,relro checks for non-gcc produced binaries.  (#1624421)
 
