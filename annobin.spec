@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.61
+Version: 8.62
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -114,16 +114,8 @@ hardening options.
 # we can scrape out the "4.6.1" from the version line.
 #
 # The following implements the above:
-#
-# Note - gawk will emit a warning message saying:
-#
-#  gawk: cmd. line:1: warning: escape sequence `\)' treated as plain `)'
-#
-# I have not been able to work out how to remove this message, but still provide
-# sufficient escaping for the command line to survive intact as it is passed
-# down through the sub-shell.
 
-%global gcc_vr %(gcc --version | gawk 'match (\$0, ".*Red Hat \([^\\)-]*\)", a) { print a[1]; }')
+%global gcc_vr %(gcc --version | head -n 1 | sed -e 's|.*(Red\ Hat\ ||g' | sed -e 's|)$||g')
 
 # This is a gcc plugin, hence gcc is required.
 %if %{with_hard_gcc_version_requirement}
@@ -136,6 +128,12 @@ Requires: gcc
 #---------------------------------------------------------------------------------
 
 %prep
+
+if [ -z "%{gcc_vr}" ]; then
+    echo "*** Missing gcc_vr spec file macro, cannot continue." >&2
+    exit 1
+fi
+
 %autosetup -p1
 
 # The plugin has to be configured with the same arcane configure
@@ -202,6 +200,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 26 2018 Nick Clifton <nickc@redhat.com> - 8.62-1
+- Annocheck: Add test for ENDBR instruction at entry address of x86/x86_64 executables.  (#1652925)
+
+* Tue Nov 20 2018 David Cantrell <dcantrell@redhat.com> - 8.61-2
+- Adjust how the gcc_vr macro is set.
+
 * Mon Nov 19 2018 Nick Clifton <nickc@redhat.com> - 8.61-1
 - Fix building with gcc version 4.
 
