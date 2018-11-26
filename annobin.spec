@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.62
+Version: 8.63
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 26 2018 Nick Clifton <nickc@redhat.com> - 8.63-1
+- Annocheck: Disable ENDBR test for shared libraries.  (#1652925)
+
 * Mon Nov 26 2018 Nick Clifton <nickc@redhat.com> - 8.62-1
 - Annocheck: Add test for ENDBR instruction at entry address of x86/x86_64 executables.  (#1652925)
 
