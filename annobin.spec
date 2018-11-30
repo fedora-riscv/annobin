@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.63
+Version: 8.64
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 30 2018 Nick Clifton <nickc@redhat.com> - 8.64-1
+- Annocheck: Skip gaps in PPC64 executables covered by start_bcax_ symbols.  (#1630564)
+
 * Mon Nov 26 2018 Nick Clifton <nickc@redhat.com> - 8.63-1
 - Annocheck: Disable ENDBR test for shared libraries.  (#1652925)
 
