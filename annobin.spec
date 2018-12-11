@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.64
+Version: 8.65
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Dec 11 2018 Nick Clifton <nickc@redhat.com> - 8.65-1
+- Annobin: Fix handling of multiple .text.unlikely sections.
+
 * Fri Nov 30 2018 Nick Clifton <nickc@redhat.com> - 8.64-1
 - Annocheck: Skip gaps in PPC64 executables covered by start_bcax_ symbols.  (#1630564)
 
