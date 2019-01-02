@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.65
+Version: 8.66
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 02 2019 Nick Clifton <nickc@redhat.com> - 8.66-1
+- Annocheck: Do not ignore -Og when checking to see if an optimization level has been set.  (#1624162)
+
 * Tue Dec 11 2018 Nick Clifton <nickc@redhat.com> - 8.65-1
 - Annobin: Fix handling of multiple .text.unlikely sections.
 
