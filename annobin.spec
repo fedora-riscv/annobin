@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.66
+Version: 8.67
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -200,6 +200,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 17 2019 Nick Clifton <nickc@redhat.com> - 8.67-1
+- Annocheck: Only skip specific checks for specific symbols.  (#1666823)
+- Annobin: Record the setting of the -fomit-frame-pointer option.
+
 * Wed Jan 02 2019 Nick Clifton <nickc@redhat.com> - 8.66-1
 - Annocheck: Do not ignore -Og when checking to see if an optimization level has been set.  (#1624162)
 
