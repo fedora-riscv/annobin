@@ -11,7 +11,7 @@
 # # version, the old plugin will complain that version of gcc for which it
 # # was built is different from the version of gcc that is now being used, and
 # # then it will abort.
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
