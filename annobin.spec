@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.67
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 21 2019 Björn Esser <besser82@fedoraproject.org> - 8.67-2
+- Rebuilt for GCC 9
+
 * Thu Jan 17 2019 Nick Clifton <nickc@redhat.com> - 8.67-1
 - Annocheck: Only skip specific checks for specific symbols.  (#1666823)
 - Annobin: Record the setting of the -fomit-frame-pointer option.
