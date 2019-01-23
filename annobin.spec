@@ -15,8 +15,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.67
-Release: 3%{?dist}
+Version: 8.68
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -200,6 +200,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 23 2019 Nick Clifton <nickc@redhat.com> - 8.68-1
+- Annocheck: Skip checks for -D_FORTIFY_SOURCE and -D_GLIBCXX_ASSERTIONS if there is no compiler generated code in the binary.
+
 * Mon Jan 21 2019 Björn Esser <besser82@fedoraproject.org> - 8.67-3
 - Rebuilt with annotations enabled
 
