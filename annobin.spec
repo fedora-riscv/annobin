@@ -11,12 +11,12 @@
 # # version, the old plugin will complain that version of gcc for which it
 # # was built is different from the version of gcc that is now being used, and
 # # then it will abort.
-%undefine _annotated_build
+# %%undefine _annotated_build
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.69
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 28 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-4
+- Rebuilt with annotations enabled
+
 * Mon Jan 28 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-3
 - Fix rpm query for gcc version.
 
