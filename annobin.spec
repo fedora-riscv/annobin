@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.69
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -42,7 +42,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 #---------------------------------------------------------------------------------
 
 # BZ 1607430 - There is an exact requirement on the major version of gcc.
-%define gcc_runtime_req_version %(rpm -q --qf '%{version}' gcc)
+%define gcc_runtime_req_version %(rpm -q --qf '%%{version}' gcc)
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
 Requires: gcc = %{gcc_runtime_req_version}
@@ -204,6 +204,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 28 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-3
+- Fix rpm query for gcc version.
+
 * Mon Jan 28 2019 Nick Clifton <nickc@redhat.com> - 8.69-2
 - Add an exact requirement on the major version of gcc. (#1607430)
 
