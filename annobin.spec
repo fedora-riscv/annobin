@@ -80,6 +80,11 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 %global gcc_major %(echo "%{gcc_vr}" | cut -f1 -d".")
 %global gcc_next  %(v="%{gcc_major}"; echo $((++v)))
 
+# Needed when building the srpm.
+%if 0%{?gcc_major} == 0
+%global gcc_major 0
+%endif
+
 # This is a gcc plugin, hence gcc is required.
 %if %{with_hard_gcc_version_requirement}
 # BZ 1607430 - There is an exact requirement on the major version of gcc.
