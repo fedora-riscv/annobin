@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.69
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -88,7 +88,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # This is a gcc plugin, hence gcc is required.
 %if %{with_hard_gcc_version_requirement}
 # BZ 1607430 - There is an exact requirement on the major version of gcc.
-Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})
+Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})
 %else
 Requires: gcc
 %endif
@@ -142,7 +142,7 @@ if [ -z "%{gcc_vr}" ]; then
     exit 1
 fi
 
-echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
+echo "Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})"
 
 %autosetup -p1
 
@@ -210,6 +210,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 29 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-6
+- Use 'with' for rich dependency on gcc
+
 * Tue Jan 29 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-5
 - Really fix rhbz#1607430.
 
