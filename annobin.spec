@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.69
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -41,11 +41,54 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 #---------------------------------------------------------------------------------
 
+# [Stolen from gcc-python-plugin]
+# GCC will only load plugins that were built against exactly that build of GCC
+# We thus need to embed the exact GCC version as a requirement within the
+# metadata.
+#
+# Define "gcc_vr", a variable to hold the VERSION-RELEASE string for the gcc
+# we are being built against.
+#
+# Unfortunately, we can't simply run:
+#   rpm -q --qf="%%{version}-%%{release}"
+# to determine this, as there's no guarantee of a sane rpm database within
+# the chroots created by our build system
+#
+# So we instead query the version from gcc's output.
+#
+# gcc.spec has:
+#   Version: %%{gcc_version}
+#   Release: %%{gcc_release}%%{?dist}
+#   ...snip...
+#   echo 'Red Hat %%{version}-%%{gcc_release}' > gcc/DEV-PHASE
+#
+# So, given this output:
+#
+#   $ gcc --version
+#   gcc (GCC) 4.6.1 20110908 (Red Hat 4.6.1-9)
+#   Copyright (C) 2011 Free Software Foundation, Inc.
+#   This is free software; see the source for copying conditions.  There is NO
+#   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# we can scrape out the "4.6.1" from the version line.
+#
+# The following implements the above:
+
+%global gcc_vr %(gcc --version | head -n 1 | sed -e 's|.*(Red\ Hat\ ||g' -e 's|)$||g')
+
+# We need the major version of gcc.
+%global gcc_major %(echo "%{gcc_vr}" | cut -f1 -d".")
+%global gcc_next  %(v="%{gcc_major}"; echo $((++v)))
+
+# This is a gcc plugin, hence gcc is required.
+%if %{with_hard_gcc_version_requirement}
 # BZ 1607430 - There is an exact requirement on the major version of gcc.
-%define gcc_runtime_req_version %(rpm -q --qf '%%{version}' gcc)
+Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})
+%else
+Requires: gcc
+%endif
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
-Requires: gcc = %{gcc_runtime_req_version}
 
 %description
 Provides a plugin for GCC that records extra information in the files
@@ -86,57 +129,15 @@ hardening options.
 
 %global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
-# [Stolen from gcc-python-plugin]
-# GCC will only load plugins that were built against exactly that build of GCC
-# We thus need to embed the exact GCC version as a requirement within the
-# metadata.
-#
-# Define "gcc_vr", a variable to hold the VERSION-RELEASE string for the gcc
-# we are being built against.
-#
-# Unfortunately, we can't simply run:
-#   rpm -q --qf="%%{version}-%%{release}"
-# to determine this, as there's no guarantee of a sane rpm database within
-# the chroots created by our build system
-#
-# So we instead query the version from gcc's output.
-#
-# gcc.spec has:
-#   Version: %%{gcc_version}
-#   Release: %%{gcc_release}%%{?dist}
-#   ...snip...
-#   echo 'Red Hat %%{version}-%%{gcc_release}' > gcc/DEV-PHASE
-#
-# So, given this output:
-#
-#   $ gcc --version
-#   gcc (GCC) 4.6.1 20110908 (Red Hat 4.6.1-9)
-#   Copyright (C) 2011 Free Software Foundation, Inc.
-#   This is free software; see the source for copying conditions.  There is NO
-#   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#
-# we can scrape out the "4.6.1" from the version line.
-#
-# The following implements the above:
-
-%global gcc_vr %(gcc --version | head -n 1 | sed -e 's|.*(Red\ Hat\ ||g' | sed -e 's|)$||g')
-
-# This is a gcc plugin, hence gcc is required.
-%if %{with_hard_gcc_version_requirement}
-Requires: gcc == %{gcc_vr}
-BuildRequires: gcc == %{gcc_vr}
-%else
-Requires: gcc
-%endif
-
 #---------------------------------------------------------------------------------
 
 %prep
-
 if [ -z "%{gcc_vr}" ]; then
     echo "*** Missing gcc_vr spec file macro, cannot continue." >&2
     exit 1
 fi
+
+echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
 
 %autosetup -p1
 
@@ -204,6 +205,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 29 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-5
+- Really fix rhbz#1607430.
+
 * Mon Jan 28 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-4
 - Rebuilt with annotations enabled
 
