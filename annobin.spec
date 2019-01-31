@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.69
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -210,6 +210,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8.69-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Tue Jan 29 2019 Björn Esser <besser82@fedoraproject.org> - 8.69-6
 - Use 'with' for rich dependency on gcc
 
