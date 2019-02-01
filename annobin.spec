@@ -15,8 +15,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.69
-Release: 7%{?dist}
+Version: 8.70
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -210,6 +210,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 01 2019 Nick Clifton <nickc@redhat.com> - 8.70-1
+- Add section flag matching ability to section size tool.
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8.69-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
