@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.70
+Version: 8.71
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -210,6 +210,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 28 2019 Nick Clifton <nickc@redhat.com> - 8.71-1
+- Annobin: Suppress more calls to free() which are triggering memory checker errors.  (#1684148)
+
 * Fri Feb 01 2019 Nick Clifton <nickc@redhat.com> - 8.70-1
 - Add section flag matching ability to section size tool.
 
