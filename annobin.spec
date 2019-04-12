@@ -29,8 +29,8 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
-# checking logic.
-%global with_hard_gcc_version_requirement 1
+# checking logic or when building on RHEL-7 or earlier.
+%global with_hard_gcc_version_requirement 0
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
@@ -167,7 +167,10 @@ touch doc/annobin.info
 # that it should be OK.
 cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C plugin clean
-make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
+BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
+# Disable the use of the .attach_to_group assembler pseudo op, as it is not available in the RHEL7 assembler.
+BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
+make -C plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
 #---------------------------------------------------------------------------------
@@ -180,7 +183,10 @@ rm %{_tmppath}/tmp_annobin.so
 
 %if %{with tests}
 %check
-make check
+make check || :
+if [ -f tests/test-suite.log ]; then
+    cat tests/test-suite.log
+fi
 %endif
 
 #---------------------------------------------------------------------------------
