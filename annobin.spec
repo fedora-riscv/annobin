@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.71
+Version: 8.72
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -181,6 +181,9 @@ rm %{_tmppath}/tmp_annobin.so
 %if %{with tests}
 %check
 make check
+if [ -f tests/test-suite.log ]; then
+    cat tests/test-suite.log
+fi
 %endif
 
 #---------------------------------------------------------------------------------
@@ -210,6 +213,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 18 2019 Nick Clifton <nickc@redhat.com> - 8.72-1
+- Rebuild annobin with the latest rawhide gcc sources.  (#1700923)
+
 * Thu Feb 28 2019 Nick Clifton <nickc@redhat.com> - 8.71-1
 - Annobin: Suppress more calls to free() which are triggering memory checker errors.  (#1684148)
 
