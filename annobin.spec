@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.72
+Version: 8.73
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -213,6 +213,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 24 2019 Nick Clifton <nickc@redhat.com> - 8.73-1
+- Fix test for an executable stack segment.  (#1700924)
+
 * Thu Apr 18 2019 Nick Clifton <nickc@redhat.com> - 8.72-1
 - Rebuild annobin with the latest rawhide gcc sources.  (#1700923)
 
