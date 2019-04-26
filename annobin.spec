@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.73
+Version: 8.74
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -213,6 +213,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 26 2019 Nick Clifton <nickc@redhat.com> - 8.74-1
+- Add tests of clang command line options recorded in the DW_AT_producer attribute.
+
 * Wed Apr 24 2019 Nick Clifton <nickc@redhat.com> - 8.73-1
 - Fix test for an executable stack segment.  (#1700924)
 
