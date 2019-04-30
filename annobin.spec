@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.74
+Version: 8.76
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -213,6 +213,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Apr 30 2019 Nick Clifton <nickc@redhat.com> - 8.76-1
+- Report a missing -D_FORTIFY_SOUCRE option if -D_GLIBCXX_ASSERTIONS was detected.  (#1703499)
+- Do not report problems with -fstack-protection if the binary was not built by gcc or clang.  (#1703788)    
+
 * Fri Apr 26 2019 Nick Clifton <nickc@redhat.com> - 8.74-1
 - Add tests of clang command line options recorded in the DW_AT_producer attribute.
 
