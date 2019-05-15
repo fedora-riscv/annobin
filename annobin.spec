@@ -15,7 +15,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.73
+Version: 8.76
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -183,6 +183,7 @@ rm %{_tmppath}/tmp_annobin.so
 
 %if %{with tests}
 %check
+# On RHEL7 the assembler does not support all of the annobin tests.
 make check || :
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
@@ -216,6 +217,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Apr 30 2019 Nick Clifton <nickc@redhat.com> - 8.76-1
+- Report a missing -D_FORTIFY_SOUCRE option if -D_GLIBCXX_ASSERTIONS was detected.  (#1703499)
+- Do not report problems with -fstack-protection if the binary was not built by gcc or clang.  (#1703788)    
+
+* Fri Apr 26 2019 Nick Clifton <nickc@redhat.com> - 8.74-1
+- Add tests of clang command line options recorded in the DW_AT_producer attribute.
+
 * Wed Apr 24 2019 Nick Clifton <nickc@redhat.com> - 8.73-1
 - Fix test for an executable stack segment.  (#1700924)
 
