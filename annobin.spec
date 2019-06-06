@@ -12,7 +12,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.23
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -195,6 +195,7 @@ make check
 %doc %{_mandir}/man1/run-on-binaries-in.1.gz
 
 %if %{with annocheck}
+%files annocheck
 %{_bindir}/annocheck
 %doc %{_mandir}/man1/annocheck.1.gz
 %endif
@@ -202,6 +203,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jun 06 2019 Panu Matilainen <pmatilai@redhat.com> - 8.23-3
+- Really enable annocheck sub-package
+
 * Mon Nov 05 2018 Nick Clifton <nickc@redhat.com> - 8.23-2
 - Ensure GNU Property notes are 8-byte aligned in x86_64 binaries.  (#1645817)
 
