@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.76
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -214,6 +214,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 10 15:42:00 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 8.76-3
+- Rebuild for RPM 4.15
+
 * Thu Jun 06 2019 Panu Matilainen <pmatilai@redhat.com> - 8.76-2
 - Really enable annocheck sub-package
 
