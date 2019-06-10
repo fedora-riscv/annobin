@@ -198,17 +198,17 @@ fi
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
-%doc %{_infodir}/annobin.info.gz
-%doc %{_mandir}/man1/annobin.1.gz
-%doc %{_mandir}/man1/built-by.1.gz
-%doc %{_mandir}/man1/check-abi.1.gz
-%doc %{_mandir}/man1/hardened.1.gz
-%doc %{_mandir}/man1/run-on-binaries-in.1.gz
+%{_infodir}/annobin.info*
+%{_mandir}/man1/annobin.1*
+%{_mandir}/man1/built-by.1*
+%{_mandir}/man1/check-abi.1*
+%{_mandir}/man1/hardened.1*
+%{_mandir}/man1/run-on-binaries-in.1*
 
 %if %{with annocheck}
 %files annocheck
 %{_bindir}/annocheck
-%doc %{_mandir}/man1/annocheck.1.gz
+%{_mandir}/man1/annocheck.1*
 %endif
 
 #---------------------------------------------------------------------------------
