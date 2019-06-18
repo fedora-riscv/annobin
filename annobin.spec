@@ -1,8 +1,14 @@
 
-# Suppress this for BZ 1630550.
-# The problem should now only arise when rebasing to a new major version
-# of gcc, in which case the undefine below can be temporarily reinstated.
-#
+Name:    annobin
+Summary: Binary annotation plugin for GCC
+Version: 8.76
+Release: 1%{?dist}
+
+License: GPLv3+
+URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
+# Maintainer: nickc@redhat.com
+
+
 # # Do not build the annobin plugin with annotation enabled.
 # # This is because if we are bootstrapping a new build environment we can have
 # # a new version of gcc installed, but without a new of annobin installed.
@@ -11,15 +17,12 @@
 # # version, the old plugin will complain that version of gcc for which it
 # # was built is different from the version of gcc that is now being used, and
 # # then it will abort.
+#
+# Suppress this for BZ 1630550.
+# The problem should now only arise when rebasing to a new major version
+# of gcc, in which case the undefine below can be temporarily reinstated.
+#
 # %%undefine _annotated_build
-
-Name:    annobin
-Summary: Binary annotation plugin for GCC
-Version: 8.76
-Release: 1%{?dist}
-
-License: GPLv3+
-URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 # Use "--without tests" to disable the testsuite.  The default is to run them.
 %bcond_without tests
@@ -97,8 +100,7 @@ BuildRequires: gcc gcc-plugin-devel gcc-c++
 
 %description
 Provides a plugin for GCC that records extra information in the files
-that it compiles and a set of scripts that can analyze the recorded
-information.
+that it compiles.
 
 Note - the plugin is automatically enabled in gcc builds via flags
 provided by the redhat-rpm-macros package.
@@ -168,7 +170,7 @@ touch doc/annobin.info
 cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
-# Disable the use of the .attach_to_group assembler pseudo op, as it is not available in the RHEL7 assembler.
+# If building on RHEL7, enable the next option as the .attach_to_group assembler pseudo op is not available in the assembler.
 BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
 make -C plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
@@ -217,9 +219,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Apr 30 2019 Nick Clifton <nickc@redhat.com> - 8.76-1
+* Tue Jun 18 2019 Nick Clifton <nickc@redhat.com> - 8.76-1
 - Report a missing -D_FORTIFY_SOUCRE option if -D_GLIBCXX_ASSERTIONS was detected.  (#1703499)
 - Do not report problems with -fstack-protection if the binary was not built by gcc or clang.  (#1703788)    
+- Add tests of clang command line options recorded in the DW_AT_producer attribute.
 
 * Fri Apr 26 2019 Nick Clifton <nickc@redhat.com> - 8.74-1
 - Add tests of clang command line options recorded in the DW_AT_producer attribute.
