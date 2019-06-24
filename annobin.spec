@@ -223,6 +223,9 @@ fi
 * Mon Jun 24 2019 Nick Clifton <nickc@redhat.com> - 8.77-1
 - Another attempt at fixing the detection and reporting of missing -D_FORTIFY_SOURCE options.  (#1703500)
 
+* Mon Jun 10 22:13:17 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 8.76-4
+- Rebuild for RPM 4.15
+
 * Mon Jun 10 15:42:00 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 8.76-3
 - Rebuild for RPM 4.15
 
