@@ -1,8 +1,14 @@
 
-# Suppress this for BZ 1630550.
-# The problem should now only arise when rebasing to a new major version
-# of gcc, in which case the undefine below can be temporarily reinstated.
-#
+Name:    annobin
+Summary: Binary annotation plugin for GCC
+Version: 8.77
+Release: 1%{?dist}
+
+License: GPLv3+
+URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
+# Maintainer: nickc@redhat.com
+
+
 # # Do not build the annobin plugin with annotation enabled.
 # # This is because if we are bootstrapping a new build environment we can have
 # # a new version of gcc installed, but without a new of annobin installed.
@@ -11,15 +17,12 @@
 # # version, the old plugin will complain that version of gcc for which it
 # # was built is different from the version of gcc that is now being used, and
 # # then it will abort.
+#
+# Suppress this for BZ 1630550.
+# The problem should now only arise when rebasing to a new major version
+# of gcc, in which case the undefine below can be temporarily reinstated.
+#
 # %%undefine _annotated_build
-
-Name:    annobin
-Summary: Binary annotation plugin for GCC
-Version: 8.76
-Release: 3%{?dist}
-
-License: GPLv3+
-URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 # Use "--without tests" to disable the testsuite.  The default is to run them.
 %bcond_without tests
@@ -29,7 +32,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
-# checking logic.
+# checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
 #---------------------------------------------------------------------------------
@@ -97,8 +100,7 @@ BuildRequires: gcc gcc-plugin-devel gcc-c++
 
 %description
 Provides a plugin for GCC that records extra information in the files
-that it compiles and a set of scripts that can analyze the recorded
-information.
+that it compiles.
 
 Note - the plugin is automatically enabled in gcc builds via flags
 provided by the redhat-rpm-macros package.
@@ -167,7 +169,10 @@ touch doc/annobin.info
 # that it should be OK.
 cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C plugin clean
-make -C plugin CXXFLAGS="%{optflags} -fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
+BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
+# If building on RHEL7, enable the next option as the .attach_to_group assembler pseudo op is not available in the assembler.
+# BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
+make -C plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
 #---------------------------------------------------------------------------------
@@ -180,6 +185,7 @@ rm %{_tmppath}/tmp_annobin.so
 
 %if %{with tests}
 %check
+# On RHEL7 the assembler does not support all of the annobin tests.
 make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
@@ -214,6 +220,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 24 2019 Nick Clifton <nickc@redhat.com> - 8.77-1
+- Another attempt at fixing the detection and reporting of missing -D_FORTIFY_SOURCE options.  (#1703500)
+
 * Mon Jun 10 15:42:00 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 8.76-3
 - Rebuild for RPM 4.15
 
