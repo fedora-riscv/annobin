@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.76
-Release: 2%{?dist}
+Version: 8.77
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -219,6 +219,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 24 2019 Nick Clifton <nickc@redhat.com> - 8.77-1
+- Another attempt at fixing the detection and reporting of missing -D_FORTIFY_SOURCE options.  (#1703500)
+
 * Tue Jun 18 2019 Nick Clifton <nickc@redhat.com> - 8.76-1
 - Report a missing -D_FORTIFY_SOUCRE option if -D_GLIBCXX_ASSERTIONS was detected.  (#1703499)
 - Do not report problems with -fstack-protection if the binary was not built by gcc or clang.  (#1703788)    
