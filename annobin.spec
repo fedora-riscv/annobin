@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.77
+Version: 8.78
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -219,6 +219,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 06 2019 Nick Clifton <nickc@redhat.com> - 8.78-1
+- Fix a memory allocation error in the annobin plugin.  (#1737306)
+
 * Mon Jun 24 2019 Nick Clifton <nickc@redhat.com> - 8.77-1
 - Another attempt at fixing the detection and reporting of missing -D_FORTIFY_SOURCE options.  (#1703500)
 
