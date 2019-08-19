@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.78
+Version: 8.79
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -220,6 +220,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 06 2019 Nick Clifton <nickc@redhat.com> - 8.79-1
+- Allow compiler used to run tests to be specified on the command line.  (#1723401)
+
 * Tue Aug 06 2019 Nick Clifton <nickc@redhat.com> - 8.78-1
 - Fix a memory allocation error in the annobin plugin.  (#1737306)
 
