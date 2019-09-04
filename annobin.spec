@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.78
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -220,6 +220,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 04 2019 Nick Clifton <nickc@redhat.com> - 8.78-2
+- NVR bump in order to allow rebuilding against latest version of gcc.
+
 * Tue Aug 06 2019 Nick Clifton <nickc@redhat.com> - 8.78-1
 - Fix a memory allocation error in the annobin plugin.  (#1737306)
 
