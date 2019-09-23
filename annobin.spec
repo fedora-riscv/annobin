@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.78
+Version: 8.81
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -219,6 +219,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 23 2019 Nick Clifton <nickc@redhat.com> - 8.81-1
+- Improve detection of GO binaries.
+- Add gcc version information to annobin notes.
+- Do not complain about missing FORTIFY_SOURCE and GLIBCXX_ASSERTIONS in LTO compilations.
+
 * Tue Aug 06 2019 Nick Clifton <nickc@redhat.com> - 8.78-1
 - Fix a memory allocation error in the annobin plugin.  (#1737306)
 
