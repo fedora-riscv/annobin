@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.79
-Release: 2%{?dist}
+Version: 8.81
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -220,6 +220,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 23 2019 Nick Clifton <nickc@redhat.com> - 8.81-1
+- Improve detection of GO binaries.
+- Add gcc version information to annobin notes.
+- Do not complain about missing FORTIFY_SOURCE and GLIBCXX_ASSERTIONS in LTO compilations.
+
 * Wed Sep 04 2019 Nick Clifton <nickc@redhat.com> - 8.79-2
 - NVR bump to allow rebuild against latest gcc.  (#1748529)
 
