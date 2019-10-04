@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.81
+Version: 8.83
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -185,7 +185,8 @@ rm %{_tmppath}/tmp_annobin.so
 
 %if %{with tests}
 %check
-# On RHEL7 the assembler does not support all of the annobin tests.
+# Change the following line to "make check || :" on RHEL7 or if you need to see the
+# test suite logs in order to diagnose a test failure.
 make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
@@ -220,6 +221,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 03 2019 Nick Clifton <nickc@redhat.com> - 8.83-1
+- If notes cannot be found in the executable look for them in the debuginfo file, if available.
+- Generate a FAIL if notes are missing from the executable/debuginfo file.
+- Record and report the setting of the AArcht64 specific -mbranch-protection option.
+
 * Mon Sep 23 2019 Nick Clifton <nickc@redhat.com> - 8.81-1
 - Improve detection of GO binaries.
 - Add gcc version information to annobin notes.
