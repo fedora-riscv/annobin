@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.83
+Version: 8.84
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 10 2019 Nick Clifton <nickc@redhat.com> - 8.84-1
+- Generate FAIL results if -Wall or -Wformat-security are missing.
+
 * Thu Oct 03 2019 Nick Clifton <nickc@redhat.com> - 8.83-1
 - If notes cannot be found in the executable look for them in the debuginfo file, if available.
 - Generate a FAIL if notes are missing from the executable/debuginfo file.
