@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.84
+Version: 8.85
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 16 2019 Nick Clifton <nickc@redhat.com> - 8.85-1
+- Skip generation of global notes for hot/cold sections.
+
 * Thu Oct 10 2019 Nick Clifton <nickc@redhat.com> - 8.84-1
 - Generate FAIL results if -Wall or -Wformat-security are missing.
 
