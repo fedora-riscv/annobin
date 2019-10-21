@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.85
+Version: 8.86
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 21 2019 Nick Clifton <nickc@redhat.com> - 8.86-1
+- Use libabigail like checking to ensure variable address consistency.
+
 * Wed Oct 16 2019 Nick Clifton <nickc@redhat.com> - 8.85-1
 - Skip generation of global notes for hot/cold sections.
 
