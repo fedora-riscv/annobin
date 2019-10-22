@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.86
+Version: 8.87
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 22 2019 Nick Clifton <nickc@redhat.com> - 8.87-1
+- Replace address checks with dladdr1.
+
 * Mon Oct 21 2019 Nick Clifton <nickc@redhat.com> - 8.86-1
 - Use libabigail like checking to ensure variable address consistency.
 
