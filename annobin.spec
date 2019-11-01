@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.87
+Version: 8.88
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 01 2019 Nick Clifton <nickc@redhat.com> - 8.88-1
+- Generate a WARN result for code compiled with instrumentation enabled.  (#1753918)
+
 * Tue Oct 22 2019 Nick Clifton <nickc@redhat.com> - 8.87-1
 - Replace address checks with dladdr1.
 
