@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.81
+Version: 8.89
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -219,6 +219,16 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 04 2019 Nick Clifton <nickc@redhat.com> - 8.89-1
+- Generate a WARN result for code compiled with instrumentation enabled.  (#1753918)
+- Replace address checks with dladdr1.
+- Use libabigail like checking to ensure variable address consistency.
+- Skip generation of global notes for hot/cold sections.
+- Generate FAIL results if -Wall or -Wformat-security are missing.
+- If notes cannot be found in the executable look for them in the debuginfo file, if available.
+- Generate a FAIL if notes are missing from the executable/debuginfo file.
+- Record and report the setting of the AArcht64 specific -mbranch-protection option.
+
 * Mon Sep 23 2019 Nick Clifton <nickc@redhat.com> - 8.81-1
 - Improve detection of GO binaries.
 - Add gcc version information to annobin notes.
