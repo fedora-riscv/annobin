@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 15 2019 Nick Clifton <nickc@redhat.com> - 8.90-1
+- Do not skip positive results.
+
 * Fri Nov 01 2019 Nick Clifton <nickc@redhat.com> - 8.88-1
 - Generate a WARN result for code compiled with instrumentation enabled.  (#1753918)
 
