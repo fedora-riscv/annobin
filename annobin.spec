@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.88
+Version: 8.90
 Release: 1%{?dist}
 
 License: GPLv3+
