@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.91
+Version: 8.92
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -221,6 +221,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Dec 06 2019 Nick Clifton <nickc@redhat.com> - 8.92-1
+- Have annocheck ignore notes with an end address of 0.
+
 * Mon Nov 18 2019 Nick Clifton <nickc@redhat.com> - 8.91-1
 - Improve checking of gcc versions.
 
