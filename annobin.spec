@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 8.92
-Release: 2%{?dist}
+Version: 9.01
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -221,8 +221,8 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Mon Jan 20 2020 Nick Clifton <nickc@redhat.com> - 8.92-2
-- Version bump in order to allow rebuilding with gcc-10.
+* Mon Jan 20 2020 Nick Clifton <nickc@redhat.com> - 9.01-1
+- Add clang plugin (experimental).
 
 * Fri Dec 06 2019 Nick Clifton <nickc@redhat.com> - 8.92-1
 - Have annocheck ignore notes with an end address of 0.
