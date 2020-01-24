@@ -35,6 +35,9 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
+# Enable this if it is necessary to build annobin without using annobin.
+%undefine _annotated_build
+
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
