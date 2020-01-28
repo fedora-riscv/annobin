@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 9.01
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -224,6 +224,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.01-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Mon Jan 20 2020 Nick Clifton <nickc@redhat.com> - 9.01-2
 - Rebuild againt latest gcc-10.
 
