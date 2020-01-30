@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 9.03
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -134,7 +134,7 @@ Summary: A tool for checking the security hardening status of binaries
 
 BuildRequires: gcc elfutils elfutils-devel elfutils-libelf-devel rpm-devel binutils-devel
 %if %{with debuginfod}
-BuildRequires: libdebuginfod
+BuildRequires: elfutils-debuginfod-client-devel
 %endif
 
 %description annocheck
@@ -239,6 +239,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 30 2020 Nick Clifton <nickc@redhat.com> - 9.03-2
+- Correct the build requirement for building with debuginfod support.
+
 * Thu Jan 30 2020 Nick Clifton <nickc@redhat.com> - 9.03-1
 - Add debuginfod support.
 
