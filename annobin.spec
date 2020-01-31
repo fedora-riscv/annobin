@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.03
-Release: 2%{?dist}
+Version: 9.04
+Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -29,7 +29,9 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Use "--without annocheck" to disable the installation of the annocheck program.
 %bcond_without annocheck
 
-# Use "--with debuginfod" to enable support for debuginfod in the annocheck program.
+# Use "--with debuginfod" to force support for debuginfod to be compiled into
+# the annocheck program.  By default the configure script will check for
+# availablilty at build time, but this might not match the run time situation.
 %bcond_with debuginfod
 
 # Set this to zero to disable the requirement for a specific version of gcc.
@@ -239,6 +241,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 31 2020 Nick Clifton <nickc@redhat.com> - 9.04-1
+- Fix debuginfod test.
+
 * Thu Jan 30 2020 Nick Clifton <nickc@redhat.com> - 9.03-2
 - Correct the build requirement for building with debuginfod support.
 
