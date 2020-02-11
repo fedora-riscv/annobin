@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.05
+Version: 9.06
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -241,6 +241,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 11 2020 Nick Clifton <nickc@redhat.com> - 9.06-1
+- Annobin: Note when stack clash notes are generated.
+- Annocheck: Handle multiple builder IDs in the .comment section.
+
 * Fri Jan 31 2020 Nick Clifton <nickc@redhat.com> - 9.05-1
 - Add configure option to suppress building annocheck.
 
