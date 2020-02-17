@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.07
+Version: 9.08
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -241,6 +241,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Feb 17 2020 Nick Clifton <nickc@redhat.com> - 9.08-1
+- Annocheck: Fix error printing out the version number.
+
 * Fri Feb 14 2020 Nick Clifton <nickc@redhat.com> - 9.07-1
 - Annobin: Add checks of the exact location of the examined switches.
 
