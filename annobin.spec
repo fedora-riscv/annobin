@@ -1,12 +1,36 @@
 
 Name:    annobin
-Summary: Binary annotation plugin for GCC
-Version: 9.08
+Summary: Binary annotations and discovery
+Version: 9.09
 Release: 1%{?dist}
 License: GPLv3+
-URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
+# ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
 
+#---------------------------------------------------------------------------------
+
+# Use "--without tests" to disable the testsuite.  The default is to run them.
+%bcond_without tests
+
+# Use "--without annocheck" to disable the installation of the annocheck program.
+# The default is to run the tests.
+%bcond_without annocheck
+
+# Use "--with debuginfod" to force support for debuginfod to be compiled into
+# the annocheck program.  By default the configure script will check for
+# availablilty at build time, but this might not match the run time situation.
+# FIXME: Add a --without debuginfod option to forcefully disable the configure
+# time check for debuginfod support.
+%bcond_with debuginfod
+
+# Use "--with clangplugin" to build the annobin plugin for clang.
+# The default is not to build the plugin.
+%bcond_with clangplugin
+
+# Set this to zero to disable the requirement for a specific version of gcc.
+# This should only be needed if there is some kind of problem with the version
+# checking logic or when building on RHEL-7 or earlier.
+%global with_hard_gcc_version_requirement 1
 
 # # Do not build the annobin plugin with annotation enabled.
 # # This is because if we are bootstrapping a new build environment we can have
@@ -23,30 +47,8 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 #
 # %%undefine _annotated_build
 
-# Use "--without tests" to disable the testsuite.  The default is to run them.
-%bcond_without tests
-
-# Use "--without annocheck" to disable the installation of the annocheck program.
-%bcond_without annocheck
-
-# Use "--with debuginfod" to force support for debuginfod to be compiled into
-# the annocheck program.  By default the configure script will check for
-# availablilty at build time, but this might not match the run time situation.
-%bcond_with debuginfod
-
-# Set this to zero to disable the requirement for a specific version of gcc.
-# This should only be needed if there is some kind of problem with the version
-# checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 1
-
-# Enable this if it is necessary to build annobin without using annobin.
-# This is useful for example if the annobin plugin fails because of a change
-# in the size of gcc's global_options structure.  In order to rebuild annobin
-# against the changed gcc it is necessary to disable annobin as otherwise
-# the configuration step of annobin's build will fail.
-# %%undefine _annotated_build
-
 #---------------------------------------------------------------------------------
+
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
@@ -108,6 +110,9 @@ Requires: gcc
 %endif
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
+%if %{with clangplugin}
+BuildRequires: clang clang-devel llvm llvm-devel
+%endif
 
 %description
 Provides a plugin for GCC that records extra information in the files
@@ -115,6 +120,10 @@ that it compiles.
 
 Note - the plugin is automatically enabled in gcc builds via flags
 provided by the redhat-rpm-macros package.
+
+%if %{with clangplugin}
+Note - the clang plugin has also been enabled.
+%endif
 
 #---------------------------------------------------------------------------------
 %if %{with tests}
@@ -149,6 +158,11 @@ hardening options.
 #---------------------------------------------------------------------------------
 
 %global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
+
+%if %{with clangplugin}
+# FIXME: This does not actually work - it returns the *gcc* plugin directory!
+%global ANNOBIN_CLANG_PLUGIN_DIR %(clang --print-file-name=plugin)
+%endif
 
 #---------------------------------------------------------------------------------
 
@@ -195,11 +209,22 @@ BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename
 make -C plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
+%if %{with clangplugin}
+# FIXME: The symbolic link should not be needed.
+ln -f -s ../annobin-global.h clang-plugin
+make -C clang-plugin annobin.so 
+%endif
+
 #---------------------------------------------------------------------------------
 
 %install
 %make_install
 %{__rm} -f %{buildroot}%{_infodir}/dir
+
+%if %{with clangplugin}
+# FIXME: I do not know where clang installs its plugins...
+# cp clang-plugin/annobin.so %{ANNOBIN_CLANG_PLUGIN_DIR}
+%endif
 
 #---------------------------------------------------------------------------------
 
@@ -231,6 +256,9 @@ fi
 %{_mandir}/man1/check-abi.1*
 %{_mandir}/man1/hardened.1*
 %{_mandir}/man1/run-on-binaries-in.1*
+%if %{with clangplugin}
+# %{ANNOBIN_CLANG_PLUGIN_DIR}
+%endif
 
 %if %{with annocheck}
 %files annocheck
@@ -241,6 +269,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 25 2020 Nick Clifton <nickc@redhat.com> - 9.09-1
+- Add ability to build clang plugin (disabled by default).
+
 * Mon Feb 17 2020 Nick Clifton <nickc@redhat.com> - 9.08-1
 - Annocheck: Fix error printing out the version number.
 
