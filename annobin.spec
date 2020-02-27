@@ -1,7 +1,7 @@
 
 Name:    annobin
-Summary: Binary annotations and discovery
-Version: 9.09
+Summary: Annotate and examine compiled binary files
+Version: 9.10
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -122,7 +122,7 @@ Note - the plugin is automatically enabled in gcc builds via flags
 provided by the redhat-rpm-macros package.
 
 %if %{with clangplugin}
-Note - the clang plugin has also been enabled.
+Also provides a plugin for clang which performs a similar function.
 %endif
 
 #---------------------------------------------------------------------------------
@@ -157,11 +157,14 @@ hardening options.
 
 #---------------------------------------------------------------------------------
 
-%global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
+%global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
 %if %{with clangplugin}
-# FIXME: This does not actually work - it returns the *gcc* plugin directory!
-%global ANNOBIN_CLANG_PLUGIN_DIR %(clang --print-file-name=plugin)
+# FIXME: Clang does not appear to have an official plugin directory.
+# Instead it just uses dlopen() with no pathname prefix.  So we
+# construct a (hopefully good) path and rely upon users of annobin
+# knowing about this location.
+%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(clang --dumpversion)/lib
 %endif
 
 #---------------------------------------------------------------------------------
@@ -189,9 +192,9 @@ touch doc/annobin.info
 %build
 
 %if %{with debuginfod}
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} --with-debuginfod
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} --with-debuginfod
 %else
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}
 %endif
 
 %make_build
@@ -222,8 +225,7 @@ make -C clang-plugin annobin.so
 %{__rm} -f %{buildroot}%{_infodir}/dir
 
 %if %{with clangplugin}
-# FIXME: I do not know where clang installs its plugins...
-# cp clang-plugin/annobin.so %{ANNOBIN_CLANG_PLUGIN_DIR}
+cp clang-plugin/annobin.so %{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
 
 #---------------------------------------------------------------------------------
@@ -236,12 +238,16 @@ make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
 fi
+
+%if %{with clangplugin}
+# FIXME: Add tests of the clang plugin.
+%endif
 %endif
 
 #---------------------------------------------------------------------------------
 
 %files
-%{ANNOBIN_PLUGIN_DIR}
+%{ANNOBIN_GCC_PLUGIN_DIR}
 %{_bindir}/built-by
 %{_bindir}/check-abi
 %{_bindir}/hardened
@@ -256,8 +262,9 @@ fi
 %{_mandir}/man1/check-abi.1*
 %{_mandir}/man1/hardened.1*
 %{_mandir}/man1/run-on-binaries-in.1*
+
 %if %{with clangplugin}
-# %{ANNOBIN_CLANG_PLUGIN_DIR}
+%{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
 
 %if %{with annocheck}
@@ -269,6 +276,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 27 2020 Nick Clifton <nickc@redhat.com> - 9.10-1
+- Fix clang plugin to use hidden symbols.
+
 * Tue Feb 25 2020 Nick Clifton <nickc@redhat.com> - 9.09-1
 - Add ability to build clang plugin (disabled by default).
 
