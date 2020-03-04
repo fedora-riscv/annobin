@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.11
+Version: 9.12
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -276,6 +276,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 04 2020 Nick Clifton <nickc@redhat.com> - 9.12-1
+- Improve builtby tool.
+- Stop annocheck complaining about missing notes when the binary is not compiled by either gcc or clang.
+- Skip the check of the ENTRY instruction for binaries not compiled by gcc or clang.
+
 * Fri Feb 28 2020 Nick Clifton <nickc@redhat.com> - 9.11-1
 - Fix infinite loop hangup in annocheck.
 - Disable debuginfod support by default.
