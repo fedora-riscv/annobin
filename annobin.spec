@@ -279,7 +279,7 @@ fi
 * Wed Mar 04 2020 Nick Clifton <nickc@redhat.com> - 9.12-1
 - Improve builtby tool.
 - Stop annocheck complaining about missing notes when the binary is not compiled by either gcc or clang.
-- Skip the check of the ENTRY instruction for binaries not compiled by gcc or clang.
+- Skip the check of the ENTRY instruction for binaries not compiled by gcc or clang.  (#1809656)
 
 * Fri Feb 28 2020 Nick Clifton <nickc@redhat.com> - 9.11-1
 - Fix infinite loop hangup in annocheck.
