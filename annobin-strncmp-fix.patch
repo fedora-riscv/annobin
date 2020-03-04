@@ -1,0 +1,11 @@
+--- annobin.orig/annocheck/built-by.c	2020-03-04 15:41:29.135051811 +0000
++++ annobin-9.12/annocheck/built-by.c	2020-03-04 15:42:22.913813532 +0000
+@@ -183,7 +183,7 @@ builtby_note_walker (annocheck_data *
+   if (namedata[pos - 1] != GNU_BUILD_ATTRIBUTE_TYPE_STRING)
+     return false;
+ 
+-  if (strncmp ((const char *) namedata + pos + 1, STR_AND_LEN ("annobin built")) != 0)
++  if (strncmp ((const char *) namedata + pos + 1, "annobin built", sizeof ("annobin built") - 1) != 0)
+     found ("annobin note", (const char *) ptr, namedata + pos + 1);
+ 
+   return true;
