@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 9.06
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -241,6 +241,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 12 2020 Nick Clifton <nickc@redhat.com> - 9.06-2
+- NVR bump to enable rebuild against updated gcc.  (#1810941)
+
 * Tue Feb 11 2020 Nick Clifton <nickc@redhat.com> - 9.06-1
 - Annobin: Note when stack clash notes are generated.
 - Annocheck: Handle multiple builder IDs in the .comment section.
