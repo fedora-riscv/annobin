@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -10,10 +10,10 @@ License: GPLv3+
 #---------------------------------------------------------------------------------
 
 # Use "--without tests" to disable the testsuite.  The default is to run them.
+# The default is to run the tests.
 %bcond_without tests
 
 # Use "--without annocheck" to disable the installation of the annocheck program.
-# The default is to run the tests.
 %bcond_without annocheck
 
 # Use "--with debuginfod" to force support for debuginfod to be compiled into
@@ -276,6 +276,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 12 2020 Nick Clifton <nickc@redhat.com> - 9.12-2
+- NVR bump to enable rebuild against updated gcc.  (#1810941)
+
 * Wed Mar 04 2020 Nick Clifton <nickc@redhat.com> - 9.12-1
 - Improve builtby tool.
 - Stop annocheck complaining about missing notes when the binary is not compiled by either gcc or clang.
