@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.12
+Version: 9.14
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -182,7 +182,7 @@ echo "Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})"
 # The plugin has to be configured with the same arcane configure
 # scripts used by gcc.  Hence we must not allow the Fedora build
 # system to regenerate any of the configure files.
-touch aclocal.m4 plugin/config.h.in
+touch aclocal.m4 gcc-plugin/config.h.in
 touch configure */configure Makefile.in */Makefile.in
 # Similarly we do not want to rebuild the documentation.
 touch doc/annobin.info
@@ -204,12 +204,12 @@ touch doc/annobin.info
 # double annotations in it.  (If the build system enables annotations
 # for plugins by default).  I have not tested this yet, but I think
 # that it should be OK.
-cp plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
-make -C plugin clean
+cp gcc-plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
+make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
 # If building on RHEL7, enable the next option as the .attach_to_group assembler pseudo op is not available in the assembler.
 BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
-make -C plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
+make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
 %if %{with clangplugin}
@@ -270,6 +270,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 26 2020 Nick Clifton <nickc@redhat.com> - 9.14-1
+- Use offsets stored in gcc's cl_option structure to access the global_options array, thus removing the need to check for changes in the size of this structure.
+- Rename gcc plugin directory to gcc-plugin.
+- Stop annocheck from complaining about missing options when the binary has been built in a mixed environment.
+
 * Wed Mar 04 2020 Nick Clifton <nickc@redhat.com> - 9.12-1
 - Improve builtby tool.
 - Stop annocheck complaining about missing notes when the binary is not compiled by either gcc or clang.
