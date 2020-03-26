@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -276,6 +276,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 26 2020 Nick Clifton <nickc@redhat.com> - 9.13-2
+- NVR bump to allow rebuilding against new gcc.
+
 * Thu Mar 12 2020 Nick Clifton <nickc@redhat.com> - 9.13-1
 - Rename gcc plugin directory to gcc-plugin.
 - Stop annocheck from complaining about missing options when the binary has been built in a mixed environment.
