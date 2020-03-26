@@ -45,7 +45,7 @@ License: GPLv3+
 # The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 
