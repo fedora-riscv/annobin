@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.13
-Release: 2%{?dist}
+Version: 9.14
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -45,7 +45,7 @@ License: GPLv3+
 # The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
-%undefine _annotated_build
+# %%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 
@@ -276,6 +276,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 26 2020 Nick Clifton <nickc@redhat.com> - 9.14-1
+- Use offsets stored in gcc's cl_option structure to access the global_options array, thus removing the need to check for changes in the size of this structure.
+
 * Thu Mar 26 2020 Nick Clifton <nickc@redhat.com> - 9.13-2
 - NVR bump to allow rebuilding against new gcc.
 
