@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.14
+Version: 9.17
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -270,6 +270,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Mar 27 2020 Nick Clifton <nickc@redhat.com> - 9.17-1
+- Annobin: Fix access to the -flto and -fsanitize flags.
+
 * Thu Mar 26 2020 Nick Clifton <nickc@redhat.com> - 9.14-1
 - Use offsets stored in gcc's cl_option structure to access the global_options array, thus removing the need to check for changes in the size of this structure.
 - Rename gcc plugin directory to gcc-plugin.
