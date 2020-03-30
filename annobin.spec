@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 9.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -44,7 +44,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # in the size of gcc's global_options structure.  In order to rebuild annobin
 # against the changed gcc it is necessary to disable annobin as otherwise
 # the configuration step of annobin's build will fail.
-%undefine _annotated_build
+# %%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
@@ -241,6 +241,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 30 2020 Nick Clifton <nickc@redhat.com> - 9.16-2
+- NVR bump to rebuild with the new annobin.
+
 * Mon Mar 30 2020 Nick Clifton <nickc@redhat.com> - 9.16-1
 - Annobin: Fix access to the -flto and -fsanitize flags.
 
