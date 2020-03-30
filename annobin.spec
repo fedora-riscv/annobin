@@ -44,7 +44,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # in the size of gcc's global_options structure.  In order to rebuild annobin
 # against the changed gcc it is necessary to disable annobin as otherwise
 # the configuration step of annobin's build will fail.
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
@@ -158,7 +158,7 @@ if [ -z "%{gcc_vr}" ]; then
     exit 1
 fi
 
-echo "Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})"
+echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
 
 %autosetup -p1
 
@@ -175,9 +175,9 @@ touch doc/annobin.info
 %build
 
 %if %{with debuginfod}
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} --with-debuginfod
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} --with-debuginfod || cat config.log
 %else
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR}
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} || cat config.log
 %endif
 
 %make_build
