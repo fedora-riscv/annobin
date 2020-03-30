@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.78
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -40,7 +40,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
 # Insert patches here, if needed.
-# Patch01: annobin-xxx.patch
+Patch01: annobin-divide-by-zero.patch
 
 #---------------------------------------------------------------------------------
 
@@ -220,6 +220,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 30 2020 Nick Clifton <nickc@redhat.com> - 8.78-3
+- Annocheck: Fix a division by zero error when parsing GO binaries.  (#1818863)
+
 * Wed Sep 04 2019 Nick Clifton <nickc@redhat.com> - 8.78-2
 - NVR bump in order to allow rebuilding against latest version of gcc.
 

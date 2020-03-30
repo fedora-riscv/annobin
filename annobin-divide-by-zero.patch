@@ -1,0 +1,16 @@
+diff -rup annobin.orig/annocheck/hardened.c annobin-8.78/annocheck/hardened.c
+--- annobin.orig/annocheck/hardened.c	2020-03-30 17:00:15.839126957 +0100
++++ annobin-8.78/annocheck/hardened.c	2020-03-30 17:00:55.219802988 +0100
+@@ -1246,6 +1246,12 @@ static bool
+ check_dynamic_section (annocheck_data *    data,
+ 		       annocheck_section * sec)
+ {
++  if (sec->shdr.sh_size == 0 || sec->shdr.sh_entsize == 0)
++    {
++      einfo (VERBOSE, "%s: WARN: Dynamic section %s is empty - ignoring", data->filename, sec->secname);
++      return true;
++    }
++
+   size_t num_entries = sec->shdr.sh_size / sec->shdr.sh_entsize;
+ 
+   if (tests[TEST_DYNAMIC].num_pass == 0)
