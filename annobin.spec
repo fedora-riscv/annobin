@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.16
+Version: 9.18
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -175,7 +175,7 @@ if [ -z "%{gcc_vr}" ]; then
     exit 1
 fi
 
-echo "Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})"
+echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
 
 %autosetup -p1
 
@@ -192,9 +192,9 @@ touch doc/annobin.info
 %build
 
 %if %{with debuginfod}
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} --with-debuginfod
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} --with-debuginfod || cat config.log
 %else
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} || cat config.log
 %endif
 
 %make_build
@@ -276,6 +276,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 30 2020 Nick Clifton <nickc@redhat.com> - 9.18-1
+- Annocheck: Fix a division by zero error when parsing GO binaries.  (#1818863)
+
 * Fri Mar 27 2020 Nick Clifton <nickc@redhat.com> - 9.16-1
 - Annobin: Fix access to the -flto and -fsanitize flags.
 
