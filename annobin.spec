@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.18
+Version: 9.19
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -241,6 +241,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 01 2020 Nick Clifton <nickc@redhat.com> - 9.19-1
+- Annobin: If option name mismatch occurs, seach for the real option.  (#1817452)
+
 * Mon Mar 30 2020 Nick Clifton <nickc@redhat.com> - 9.18-1
 - Annocheck: Fix a division by zero error when parsing GO binaries.  (#1818863)
 
