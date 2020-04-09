@@ -16,7 +16,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 8.71
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -211,6 +211,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 09 2020 Nick Clifton <nickc@redhat.com> - 8.71-4
+- NVR bump to allow rebuild against new gcc.
+
 * Wed Sep 04 2019 Nick Clifton  <nickc@redhat.com> - 8.71-3
 - NVR bump in order to allow rebuild against latest F30 gcc.
 
