@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.19
+Version: 9.20
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -9,8 +9,7 @@ License: GPLv3+
 
 #---------------------------------------------------------------------------------
 
-# Use "--without tests" to disable the testsuite.  The default is to run them.
-# The default is to run the tests.
+# Use "--without tests" to disable the testsuite.
 %bcond_without tests
 
 # Use "--without annocheck" to disable the installation of the annocheck program.
@@ -24,7 +23,6 @@ License: GPLv3+
 %bcond_with debuginfod
 
 # Use "--with clangplugin" to build the annobin plugin for clang.
-# The default is not to build the plugin.
 %bcond_with clangplugin
 
 # Set this to zero to disable the requirement for a specific version of gcc.
@@ -276,6 +274,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 16 2020 Nick Clifton <nickc@redhat.com> - 9.20-1
+- Annocheck: Detect Fortran compiled programs.  (#1824393)
+
 * Wed Apr 01 2020 Nick Clifton <nickc@redhat.com> - 9.19-1
 - Annobin: If option name mismatch occurs, seach for the real option.  (#1817452)
 
