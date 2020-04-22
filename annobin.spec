@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.20
+Version: 9.21
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -274,6 +274,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 22 2020 Nick Clifton <nickc@redhat.com> - 9.21-1
+- Annobin: Fall back on using the flags if the option cannot be found in cl_options.  (#1817659)
+
 * Thu Apr 16 2020 Nick Clifton <nickc@redhat.com> - 9.20-1
 - Annocheck: Detect Fortran compiled programs.  (#1824393)
 
