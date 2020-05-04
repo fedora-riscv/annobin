@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.19
+Version: 9.21
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -241,6 +241,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon May 04 2020 Nick Clifton <nickc@redhat.com> - 9.21-1
+- Annobin: Fall back on using the flags if the option cannot be found in cl_options.  (#1817659)
+- Annocheck: Detect Fortran compiled programs.  (#1824393)
+
 * Wed Apr 01 2020 Nick Clifton <nickc@redhat.com> - 9.19-1
 - Annobin: If option name mismatch occurs, seach for the real option.  (#1817452)
 
