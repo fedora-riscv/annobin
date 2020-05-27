@@ -162,7 +162,7 @@ hardening options.
 # Instead it just uses dlopen() with no pathname prefix.  So we
 # construct a (hopefully good) path and rely upon users of annobin
 # knowing about this location.
-%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(clang --dumpversion)/lib
+%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(clang -dumpversion)/lib
 %endif
 
 #---------------------------------------------------------------------------------
@@ -220,10 +220,10 @@ make -C clang-plugin annobin.so
 
 %install
 %make_install
-%{__rm} -f %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 %if %{with clangplugin}
-cp clang-plugin/annobin.so %{ANNOBIN_CLANG_PLUGIN_DIR}
+install -Dpm0755 -t %{buildroot}%{ANNOBIN_CLANG_PLUGIN_DIR} clang-plugin/annobin.so
 %endif
 
 #---------------------------------------------------------------------------------
