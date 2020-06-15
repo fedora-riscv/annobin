@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.21
+Version: 9.22
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -22,8 +22,11 @@ License: GPLv3+
 # time check for debuginfod support.
 %bcond_with debuginfod
 
-# Use "--with clangplugin" to build the annobin plugin for clang.
+# Use "--with clangplugin" to build the annobin plugin for Clang.
 %bcond_with clangplugin
+
+# Use "--with llvmplugin" to build the annobin plugin for LLVM.
+%bcond_with llvmplugin
 
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
@@ -109,7 +112,10 @@ Requires: gcc
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
 %if %{with clangplugin}
-BuildRequires: clang clang-devel llvm llvm-devel
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
+%endif
+%if %{with llvmplugin}
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
 %endif
 
 %description
@@ -120,7 +126,11 @@ Note - the plugin is automatically enabled in gcc builds via flags
 provided by the redhat-rpm-macros package.
 
 %if %{with clangplugin}
-Also provides a plugin for clang which performs a similar function.
+Also provides a plugin for Clang which performs a similar function.
+%endif
+
+%if %{with llvmplugin}
+Also provides a plugin for LLVM which performs a similar function.
 %endif
 
 #---------------------------------------------------------------------------------
@@ -162,6 +172,8 @@ hardening options.
 # Instead it just uses dlopen() with no pathname prefix.  So we
 # construct a (hopefully good) path and rely upon users of annobin
 # knowing about this location.
+# FIXME2: Currently this same path is hardcoded into the Makefile.in
+# files in the clang-plugin and llvm-plugin source directories...
 %global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(clang -dumpversion)/lib
 %endif
 
@@ -189,13 +201,30 @@ touch doc/annobin.info
 
 %build
 
+CONFIG_ARGS=
+
 %if %{with debuginfod}
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} --with-debuginfod || cat config.log
+CONFIG_ARGS="$CONFIG_ARGS --with-debuginfod"
 %else
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} || cat config.log
+CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 %endif
 
+%if %{with clangplugin}
+CONFIG_ARGS="$CONFIG_ARGS --with-clang"
+%endif
+
+%if %{with llvmplugin}
+CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
+%endif
+
+%if %{without tests}
+CONFIG_ARGS="$CONFIG_ARGS --without-test"
+%endif
+
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} ${CONFIG_ARGS} || cat config.log
+
 %make_build
+
 # Rebuild the plugin, this time using the plugin itself!  This
 # ensures that the plugin works, and that it contains annotations
 # of its own.  This could mean that we end up with a plugin with
@@ -210,21 +239,11 @@ BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
-%if %{with clangplugin}
-# FIXME: The symbolic link should not be needed.
-ln -f -s ../annobin-global.h clang-plugin
-make -C clang-plugin annobin.so 
-%endif
-
 #---------------------------------------------------------------------------------
 
 %install
 %make_install
 rm -f %{buildroot}%{_infodir}/dir
-
-%if %{with clangplugin}
-install -Dpm0755 -t %{buildroot}%{ANNOBIN_CLANG_PLUGIN_DIR} clang-plugin/annobin.so
-%endif
 
 #---------------------------------------------------------------------------------
 
@@ -246,10 +265,6 @@ fi
 
 %files
 %{ANNOBIN_GCC_PLUGIN_DIR}
-%{_bindir}/built-by
-%{_bindir}/check-abi
-%{_bindir}/hardened
-%{_bindir}/run-on-binaries-in
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -264,6 +279,9 @@ fi
 %if %{with clangplugin}
 %{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
+%if %{with llvmplugin}
+%{ANNOBIN_CLANG_PLUGIN_DIR}
+%endif
 
 %if %{with annocheck}
 %files annocheck
@@ -274,6 +292,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 15 2020 Nick Clifton <nickc@redhat.com> - 9.22-1
+- Add (optional) llvm plugin.
+
 * Wed Apr 22 2020 Nick Clifton <nickc@redhat.com> - 9.21-1
 - Annobin: Fall back on using the flags if the option cannot be found in cl_options.  (#1817659)
 
