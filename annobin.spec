@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.22
+Version: 9.23
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -174,7 +174,7 @@ hardening options.
 # knowing about this location.
 # FIXME2: Currently this same path is hardcoded into the Makefile.in
 # files in the clang-plugin and llvm-plugin source directories...
-%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(clang -dumpversion)/lib
+%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(llvm-config --version)/lib
 %endif
 
 #---------------------------------------------------------------------------------
@@ -292,6 +292,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jul 01 2020 Nick Clifton <nickc@redhat.com> - 9.23-1
+- Annocheck: Do not skip tests of the short-enums notes.  (#1743635)
+
 * Mon Jun 15 2020 Nick Clifton <nickc@redhat.com> - 9.22-1
 - Add (optional) llvm plugin.
 
