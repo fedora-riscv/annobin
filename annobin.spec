@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -292,6 +292,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sat Jul 25 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 9.23-2
+- Rebuild for gcc 10.2
+
 * Wed Jul 01 2020 Nick Clifton <nickc@redhat.com> - 9.23-1
 - Annocheck: Do not skip tests of the short-enums notes.  (#1743635)
 
