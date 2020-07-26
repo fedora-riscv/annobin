@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.23
-Release: 3%{?dist}
+Version: 9.24
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -46,7 +46,7 @@ License: GPLv3+
 # The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
-#  %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 
@@ -311,8 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Sun Jul 26 2020 Nick Clifton <nickc@redhat.com> - 9.23-3
+* Sun Jul 26 2020 Nick Clifton <nickc@redhat.com> - 9.24-1
 - Add support for installing clang and llvm plugins.
+- Temporary suppression of aarch64 pointer size check.
 
 * Sat Jul 25 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 9.23-2
 - Rebuild for gcc 10.2
