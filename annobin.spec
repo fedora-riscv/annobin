@@ -46,7 +46,7 @@ License: GPLv3+
 # The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 
@@ -239,11 +239,25 @@ BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
+%if %{with clangplugin}
+# FIXME: The symbolic link should not be needed.
+ln -f -s ../annobin-global.h clang-plugin
+make -C clang-plugin annobin.so 
+%endif
+
 #---------------------------------------------------------------------------------
 
 %install
 %make_install
 rm -f %{buildroot}%{_infodir}/dir
+
+%if %{with clangplugin}
+install -Dpm0755 -t %{buildroot}%{ANNOBIN_CLANG_PLUGIN_DIR} clang-plugin/annobin.so
+%endif
+
+%if %{with llvmplugin}
+#FIXME: ADD INSTALL
+%endif
 
 #---------------------------------------------------------------------------------
 
@@ -257,8 +271,13 @@ if [ -f tests/test-suite.log ]; then
 fi
 
 %if %{with clangplugin}
-# FIXME: Add tests of the clang plugin.
+# FIXME: RUN clang tests.
 %endif
+
+%if %{with llvmplugin}
+#FIXME: RUN LLVM tests.
+%endif
+
 %endif
 
 #---------------------------------------------------------------------------------
@@ -292,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Jul 26 2020 Nick Clifton <nickc@redhat.com> - 9.23-3
+- Rebuild without using annobin itself.
+
 * Sat Jul 25 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 9.23-2
 - Rebuild for gcc 10.2
 
