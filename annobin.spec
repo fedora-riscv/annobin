@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.21
+Version: 9.25
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -148,7 +148,7 @@ hardening options.
 
 #---------------------------------------------------------------------------------
 
-%global ANNOBIN_PLUGIN_DIR %(gcc --print-file-name=plugin)
+%global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
 #---------------------------------------------------------------------------------
 
@@ -174,13 +174,22 @@ touch doc/annobin.info
 
 %build
 
+CONFIG_ARGS=
+
 %if %{with debuginfod}
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} --with-debuginfod || cat config.log
+CONFIG_ARGS="$CONFIG_ARGS --with-debuginfod"
 %else
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_PLUGIN_DIR} || cat config.log
+CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 %endif
 
+%if %{without tests}
+CONFIG_ARGS="$CONFIG_ARGS --without-test"
+%endif
+
+%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} ${CONFIG_ARGS} || cat config.log
+
 %make_build
+
 # Rebuild the plugin, this time using the plugin itself!  This
 # ensures that the plugin works, and that it contains annotations
 # of its own.  This could mean that we end up with a plugin with
@@ -216,11 +225,7 @@ fi
 #---------------------------------------------------------------------------------
 
 %files
-%{ANNOBIN_PLUGIN_DIR}
-%{_bindir}/built-by
-%{_bindir}/check-abi
-%{_bindir}/hardened
-%{_bindir}/run-on-binaries-in
+%{ANNOBIN_GCC_PLUGIN_DIR}
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -241,6 +246,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jul 29 2020 Nick Clifton <nickc@redhat.com> - 9.25-1
+- Improved target pointer size discovery.
+- Annocheck: Do not skip tests of the short-enums notes.  (#1743635)
+
 * Mon May 04 2020 Nick Clifton <nickc@redhat.com> - 9.21-1
 - Annobin: Fall back on using the flags if the option cannot be found in cl_options.  (#1817659)
 - Annocheck: Detect Fortran compiled programs.  (#1824393)
