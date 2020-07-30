@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.26
+Version: 9.27
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -311,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jul 30 2020 Nick Clifton <nickc@redhat.com> - 9.27-1
+- Use more robust checks for AArch64 options.
+
 * Thu Jul 30 2020 Nick Clifton <nickc@redhat.com> - 9.26-1
 - Detect CLANG compiled assembler that is missing IBT support.
 
