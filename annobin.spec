@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Binary annotation plugin for GCC
-Version: 9.25
+Version: 9.27
 Release: 1%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -44,7 +44,7 @@ URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # in the size of gcc's global_options structure.  In order to rebuild annobin
 # against the changed gcc it is necessary to disable annobin as otherwise
 # the configuration step of annobin's build will fail.
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
@@ -246,6 +246,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jul 31 2020 Nick Clifton <nickc@redhat.com> - 9.27-1
+- Use more robust checks for AArch64 options.
+- Detect CLANG compiled assembler that is missing IBT support.
+
 * Wed Jul 29 2020 Nick Clifton <nickc@redhat.com> - 9.25-1
 - Improved target pointer size discovery.
 - Annocheck: Do not skip tests of the short-enums notes.  (#1743635)
