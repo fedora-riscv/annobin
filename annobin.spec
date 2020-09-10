@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.30
+Version: 9.31
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -311,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Sep 10 2020 Nick Clifton <nickc@redhat.com> - 9.31-1
+- gcc plugin: Use a 4 byte offset for PowerPC start symbols, so that they do not break disassemblies.
+
 * Thu Sep 10 2020 Nick Clifton <nickc@redhat.com> - 9.30-1
 - gcc plugin: Correct the detection of 32-bit x86 builds.  (#1876197)
 
