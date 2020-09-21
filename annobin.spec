@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.32
-Release: 2%{?dist}
+Version: 9.33
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -311,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 21 2020 Nick Clifton <nickc@redhat.com> - 9.33-1
+- gcc-plugin: Fix test for empty PowerPC sections.  (#1880634)
+
 * Thu Sep 17 2020 Nick Clifton <nickc@redhat.com> - 9.32-2
 - NVR bump to allow rebuild against f34-build-side-30319.
 
