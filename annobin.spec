@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.33
+Version: 9.34
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -22,11 +22,11 @@ License: GPLv3+
 # time check for debuginfod support.
 %bcond_with debuginfod
 
-# Use "--with clangplugin" to build the annobin plugin for Clang.
-%bcond_with clangplugin
+# Use "--without clangplugin" to disable the building of the annobin plugin for Clang.
+%bcond_without clangplugin
 
-# Use "--with llvmplugin" to build the annobin plugin for LLVM.
-%bcond_with llvmplugin
+# Use "--without llvmplugin" to disable the building of the annobin plugin for LLVM.
+%bcond_without llvmplugin
 
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
@@ -111,6 +111,8 @@ Requires: gcc
 %endif
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
+# The documentation uses pod2man...
+BuildRequires: perl perl-podlators
 %if %{with clangplugin}
 BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
 %endif
@@ -225,7 +227,7 @@ CONFIG_ARGS="$CONFIG_ARGS --without-test"
 
 %make_build
 
-# Rebuild the plugin, this time using the plugin itself!  This
+# Rebuild the plugin(s), this time using the plugin itself!  This
 # ensures that the plugin works, and that it contains annotations
 # of its own.  This could mean that we end up with a plugin with
 # double annotations in it.  (If the build system enables annotations
@@ -240,24 +242,21 @@ make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
 %if %{with clangplugin}
-# FIXME: The symbolic link should not be needed.
-ln -f -s ../annobin-global.h clang-plugin
-make -C clang-plugin annobin.so 
+cp clang-plugin/annobin-for-clang.so %{_tmppath}/tmp_annobin.so
+make -C clang-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
+%endif
+
+%if %{with llvmplugin}
+cp llvm-plugin/annobin-for-llvm.so %{_tmppath}/tmp_annobin.so
+make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
 %endif
 
 #---------------------------------------------------------------------------------
 
+# PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %install
-%make_install
+%make_install PLUGIN_INSTALL_DIR=$RPM_BUILD_ROOT%{ANNOBIN_CLANG_PLUGIN_DIR}
 rm -f %{buildroot}%{_infodir}/dir
-
-%if %{with clangplugin}
-install -Dpm0755 -t %{buildroot}%{ANNOBIN_CLANG_PLUGIN_DIR} clang-plugin/annobin.so
-%endif
-
-%if %{with llvmplugin}
-#FIXME: ADD INSTALL
-%endif
 
 #---------------------------------------------------------------------------------
 
@@ -269,15 +268,6 @@ make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
 fi
-
-%if %{with clangplugin}
-# FIXME: RUN clang tests.
-%endif
-
-%if %{with llvmplugin}
-#FIXME: RUN LLVM tests.
-%endif
-
 %endif
 
 #---------------------------------------------------------------------------------
@@ -311,6 +301,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Sep 28 2020 Nick Clifton <nickc@redhat.com> - 9.34-1
+- Enable the Clang and LLVM plugins by default.  (Experimental).
+
 * Mon Sep 21 2020 Nick Clifton <nickc@redhat.com> - 9.33-1
 - gcc-plugin: Fix test for empty PowerPC sections.  (#1880634)
 
