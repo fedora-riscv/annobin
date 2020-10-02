@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.34
+Version: 9.35
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -33,20 +33,20 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-# # Do not build the annobin plugin with annotation enabled.
-# # This is because if we are bootstrapping a new build environment we can have
-# # a new version of gcc installed, but without a new of annobin installed.
-# # (i.e. we are building the new version of annobin to go with the new version
-# # of gcc).  If the *old* annobin plugin is used whilst building this new
-# # version, the old plugin will complain that version of gcc for which it
-# # was built is different from the version of gcc that is now being used, and
-# # then it will abort.
+%bcond_without annobin_plugin
+# Allow the building of annobin without using annobin itself.
+# This is because if we are bootstrapping a new build environment we can have
+# a new version of gcc installed, but without a new of annobin installed.
+# (i.e. we are building the new version of annobin to go with the new version
+# of gcc).  If the *old* annobin plugin is used whilst building this new
+# version, the old plugin will complain that version of gcc for which it
+# was built is different from the version of gcc that is now being used, and
+# then it will abort.
 #
-# Suppress this for BZ 1630550.
-# The problem should now only arise when rebasing to a new major version
-# of gcc, in which case the undefine below can be temporarily reinstated.
-#
-# %%undefine _annotated_build
+# The default is to use annobin.  cf BZ 1630550.
+%if %{without annobin_plugin}
+%undefine _annotated_build
+%endif
 
 #---------------------------------------------------------------------------------
 
@@ -229,15 +229,26 @@ CONFIG_ARGS="$CONFIG_ARGS --without-test"
 
 # Rebuild the plugin(s), this time using the plugin itself!  This
 # ensures that the plugin works, and that it contains annotations
-# of its own.  This could mean that we end up with a plugin with
-# double annotations in it.  (If the build system enables annotations
-# for plugins by default).  I have not tested this yet, but I think
-# that it should be OK.
+# of its own.
 cp gcc-plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C gcc-plugin clean
-BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so -fplugin-arg-tmp_annobin-rename"
-# If building on RHEL7, enable the next option as the .attach_to_group assembler pseudo op is not available in the assembler.
+BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
+
+%if %{with annobin_plugin}
+# Disable the standard annobin plugin so that we do get conflicts.
+# Note: the "-fplugin=annobin" is here, despite the fact that it will also
+# be automatically added to the gcc command line via
+# "-specs=/usr/lib/rpm/redhat/redhat-annobin-cc1" because of a bug in gcc's
+# plugin command line options handling.  GCC will issue an error saying that
+# there is no plugin called "annobin" matching the -fplugin-arg-annobin-disable
+# option, despite the fact that there patently is.
+BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
+%endif
+
+# If building on RHEL7, enable the next option as the .attach_to_group
+# assembler pseudo op is not available in the assembler.
 # BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
+
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 
@@ -301,8 +312,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 01 2020 Nick Clifton <nickc@redhat.com> - 9.35-1
+- Allow the use of the SHF_LINK_ORDER section flag to discard unused notes.  (Experimental).
+
 * Mon Sep 28 2020 Nick Clifton <nickc@redhat.com> - 9.34-1
-- Enable the Clang and LLVM plugins by default.  (Experimental).
+- Enable the build and installation of the LLVM and Clang plugins.  (Experimental).
 
 * Mon Sep 21 2020 Nick Clifton <nickc@redhat.com> - 9.33-1
 - gcc-plugin: Fix test for empty PowerPC sections.  (#1880634)
