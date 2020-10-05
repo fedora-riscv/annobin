@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -114,10 +114,10 @@ BuildRequires: gcc gcc-plugin-devel gcc-c++
 # The documentation uses pod2man...
 BuildRequires: perl perl-podlators
 %if %{with clangplugin}
-BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt gawk
 %endif
 %if %{with llvmplugin}
-BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt gawk
 %endif
 
 %description
@@ -169,14 +169,14 @@ hardening options.
 
 %global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
-%if %{with clangplugin}
-# FIXME: Clang does not appear to have an official plugin directory.
-# Instead it just uses dlopen() with no pathname prefix.  So we
-# construct a (hopefully good) path and rely upon users of annobin
-# knowing about this location.
-# FIXME2: Currently this same path is hardcoded into the Makefile.in
-# files in the clang-plugin and llvm-plugin source directories...
-%global ANNOBIN_CLANG_PLUGIN_DIR /usr/lib64/clang/%(llvm-config --version)/lib
+%if %{with clangplugin} || %{with llvmplugin}
+# FIXME: We currently assume that the first directory listed in clang's
+# search directory output is the one that we should use for plugins.
+# This might not be correct.
+# The gensub() below is because without it $2 would look like:
+# " =/usr/lib64/clang/8.0.0"
+# Note - we install LLVM plugins into the same directory as Clang plugins.
+%global ANNOBIN_CLANG_PLUGIN_DIR %(clang --print-search-dirs | gawk -e'BEGIN { FS = ":" } /libraries/ { print gensub(" =","",1,$2) } END { }')
 %endif
 
 #---------------------------------------------------------------------------------
@@ -312,6 +312,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 05 2020 Nick Clifton <nickc@redhat.com> - 9.35-2
+- Correct the directory chosen for 32-bit LLVM and Clang plugins.  (#1884951)
+
 * Thu Oct 01 2020 Nick Clifton <nickc@redhat.com> - 9.35-1
 - Allow the use of the SHF_LINK_ORDER section flag to discard unused notes.  (Experimental).
 
