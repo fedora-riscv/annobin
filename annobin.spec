@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.28
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -311,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.28-2
+- Rebuilt for gcc 10.2.1-5
+
 * Tue Aug 11 2020 Nick Clifton <nickc@redhat.com> - 9.28-1
 - gcc plugin: Do not complain about missing pre-processor options when examining a preprocessed input file.  (#1862718)
 
