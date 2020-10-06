@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Binary annotation plugin for GCC
 Version: 9.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL:     https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -246,6 +246,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.28-2
+- Rebuilt for gcc 10.2.1-5
+
 * Fri Jul 31 2020 Nick Clifton <nickc@redhat.com> - 9.27-1
 - Use more robust checks for AArch64 options.
 - Detect CLANG compiled assembler that is missing IBT support.
