@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.28
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -46,7 +46,7 @@ License: GPLv3+
 # The problem should now only arise when rebasing to a new major version
 # of gcc, in which case the undefine below can be temporarily reinstated.
 #
-# %%undefine _annotated_build
+%undefine _annotated_build
 
 #---------------------------------------------------------------------------------
 
@@ -311,6 +311,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 07 2020 Jakub Jelinek <jakub@redhat.com> - 9.28-3
+- NVR bump to allow rebuilding without using annobin.
+
 * Tue Oct 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.28-2
 - Rebuilt for gcc 10.2.1-5
 
