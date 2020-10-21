@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.35
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -312,6 +312,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 21 2020 Nick Clifton <nickc@redhat.com> - 9.35-3
+- NVR bump to allow building on ELN sidetag.
+
 * Mon Oct 05 2020 Nick Clifton <nickc@redhat.com> - 9.35-2
 - Correct the directory chosen for 32-bit LLVM and Clang plugins.  (#1884951)
 
