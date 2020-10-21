@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.35
-Release: 4%{?dist}
+Version: 9.36
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -31,11 +31,9 @@ License: GPLv3+
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-# %%global with_hard_gcc_version_requirement 1
-%global with_hard_gcc_version_requirement 0
+%global with_hard_gcc_version_requirement 1
 
-# %%bcond_without annobin_plugin
-%bcond_with annobin_plugin
+%bcond_without annobin_plugin
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -314,6 +312,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 21 2020 Nick Clifton <nickc@redhat.com> - 9.36-1
+- Record the -flto setting and produce a soft warning if it is absent.
+- Suppress warnings about _D_GLIBCXX_ASSERTIONS if the source code is known to be something other than C++.
+
 * Wed Oct 21 2020 Nick Clifton <nickc@redhat.com> - 9.35-3
 - NVR bump to allow building on ELN sidetag.
 
