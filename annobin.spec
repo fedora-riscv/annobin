@@ -33,7 +33,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_without annobin_plugin
+%bcond_with annobin_plugin
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -312,6 +312,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 30 2020 Jakub Jelinek <jakub@redhat.com> - 9.36-2
+- NVR bump for another ELN sidetag rebuild.
+
 * Wed Oct 21 2020 Nick Clifton <nickc@redhat.com> - 9.36-1
 - Record the -flto setting and produce a soft warning if it is absent.
 - Suppress warnings about _D_GLIBCXX_ASSERTIONS if the source code is known to be something other than C++.
