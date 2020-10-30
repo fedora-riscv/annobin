@@ -33,7 +33,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_with annobin_plugin
+%bcond_without annobin_plugin
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
