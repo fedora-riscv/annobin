@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.36
-Release: 2%{?dist}
+Version: 9.37
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -312,6 +312,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 04 2020 Nick Clifton <nickc@redhat.com> - 9.37-1
+- Add test of .note.gnu.property section for PowerPC.
+- Add test of objcopy's ability to merge notes.
+
 * Fri Oct 30 2020 Jakub Jelinek <jakub@redhat.com> - 9.36-2
 - NVR bump for another ELN sidetag rebuild.
 
