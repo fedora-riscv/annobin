@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.37
+Version: 9.38
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -312,6 +312,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 06 2020 Nick Clifton <nickc@redhat.com> - 9.38-1
+- Annocheck: Fix bug parsing DW_AT_producer.
+
 * Wed Nov 04 2020 Nick Clifton <nickc@redhat.com> - 9.37-1
 - Add test of .note.gnu.property section for PowerPC.
 - Add test of objcopy's ability to merge notes.
