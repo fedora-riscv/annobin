@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.38
+Version: 9.40
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -25,6 +25,9 @@ License: GPLv3+
 # Use "--without clangplugin" to disable the building of the annobin plugin for Clang.
 %bcond_without clangplugin
 
+# Use "--without gccplugin" to disable the building of the annobin plugin for GCC.
+%bcond_without gccplugin
+
 # Use "--without llvmplugin" to disable the building of the annobin plugin for LLVM.
 %bcond_without llvmplugin
 
@@ -33,7 +36,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_without annobin_plugin
+%bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -44,7 +47,7 @@ License: GPLv3+
 # then it will abort.
 #
 # The default is to use annobin.  cf BZ 1630550.
-%if %{without annobin_plugin}
+%if %{without plugin_rebuild}
 %undefine _annotated_build
 %endif
 
@@ -203,7 +206,7 @@ touch doc/annobin.info
 
 %build
 
-CONFIG_ARGS=
+CONFIG_ARGS="--quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}"
 
 %if %{with debuginfod}
 CONFIG_ARGS="$CONFIG_ARGS --with-debuginfod"
@@ -215,6 +218,10 @@ CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 CONFIG_ARGS="$CONFIG_ARGS --with-clang"
 %endif
 
+%if %{without gccplugin}
+CONFIG_ARGS="$CONFIG_ARGS --without-gcc-plugin"
+%endif
+
 %if %{with llvmplugin}
 CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 %endif
@@ -223,18 +230,20 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 CONFIG_ARGS="$CONFIG_ARGS --without-test"
 %endif
 
-%configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} ${CONFIG_ARGS} || cat config.log
+%configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
 
+%if %{with plugin_rebuild}
 # Rebuild the plugin(s), this time using the plugin itself!  This
 # ensures that the plugin works, and that it contains annotations
 # of its own.
+
+%if %{with gccplugin}
 cp gcc-plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
-%if %{with annobin_plugin}
 # Disable the standard annobin plugin so that we do get conflicts.
 # Note: the "-fplugin=annobin" is here, despite the fact that it will also
 # be automatically added to the gcc command line via
@@ -243,7 +252,6 @@ BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 # there is no plugin called "annobin" matching the -fplugin-arg-annobin-disable
 # option, despite the fact that there patently is.
 BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
-%endif
 
 # If building on RHEL7, enable the next option as the .attach_to_group
 # assembler pseudo op is not available in the assembler.
@@ -251,6 +259,7 @@ BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
 
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
+%endif
 
 %if %{with clangplugin}
 cp clang-plugin/annobin-for-clang.so %{_tmppath}/tmp_annobin.so
@@ -260,6 +269,8 @@ make -C clang-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
 %if %{with llvmplugin}
 cp llvm-plugin/annobin-for-llvm.so %{_tmppath}/tmp_annobin.so
 make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
+%endif
+
 %endif
 
 #---------------------------------------------------------------------------------
@@ -284,7 +295,6 @@ fi
 #---------------------------------------------------------------------------------
 
 %files
-%{ANNOBIN_GCC_PLUGIN_DIR}
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -299,6 +309,9 @@ fi
 %if %{with clangplugin}
 %{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
+%if %{with clangplugin}
+%{ANNOBIN_GCC_PLUGIN_DIR}
+%endif
 %if %{with llvmplugin}
 %{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
@@ -312,6 +325,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 09 2020 Nick Clifton <nickc@redhat.com> - 9.40-1
+- Add --without-gcc-plugin option.
+
 * Fri Nov 06 2020 Nick Clifton <nickc@redhat.com> - 9.38-1
 - Annocheck: Fix bug parsing DW_AT_producer.
 
