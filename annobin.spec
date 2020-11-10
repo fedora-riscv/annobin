@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.39
+Version: 9.41
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -310,6 +310,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 10 2020 Nick Clifton <nickc@redhat.com> - 9.41-1
+- Annocheck: Handle gimple compiled binaries.
+
 * Mon Nov 09 2020 Nick Clifton <nickc@redhat.com> - 9.38-1
 - Rebase to 9.39
 - Annocheck: Add fixes for building on RHEL-7.
