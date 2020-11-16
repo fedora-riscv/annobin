@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.41
+Version: 9.42
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -325,6 +325,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 16 2020 Nick Clifton <nickc@redhat.com> - 9.42-1
+- Annocheck: Improve reporting of missing LTO option.
+
 * Tue Nov 10 2020 Nick Clifton <nickc@redhat.com> - 9.41-1
 - Add detecting of gimple compiled binaries.
 
