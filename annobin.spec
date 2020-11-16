@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.42
+Version: 9.43
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -306,14 +306,12 @@ fi
 %{_mandir}/man1/hardened.1*
 %{_mandir}/man1/run-on-binaries-in.1*
 
-%if %{with clangplugin}
+%if %{with clangplugin} || %{with llvmplugin}
 %{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
-%if %{with clangplugin}
+
+%if %{with gccplugin}
 %{ANNOBIN_GCC_PLUGIN_DIR}
-%endif
-%if %{with llvmplugin}
-%{ANNOBIN_CLANG_PLUGIN_DIR}
 %endif
 
 %if %{with annocheck}
@@ -325,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 16 2020 Nick Clifton <nickc@redhat.com> - 9.43-1
+- Annocheck: Improve reporting of missing -D_FORTIFY_SOURCE option.  (#1898075)
+
 * Mon Nov 16 2020 Nick Clifton <nickc@redhat.com> - 9.42-1
 - Annocheck: Improve reporting of missing LTO option.
 
