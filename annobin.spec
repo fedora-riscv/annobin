@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.43
+Version: 9.44
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 17 2020 Nick Clifton <nickc@redhat.com> - 9.44-1
+- Clang plugin: Add -lLLVM to the build command line.
+
 * Mon Nov 16 2020 Nick Clifton <nickc@redhat.com> - 9.43-1
 - Annocheck: Improve reporting of missing -D_FORTIFY_SOURCE option.  (#1898075)
 
