@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.45
+Version: 9.46
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,7 +323,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Nov 18 2020 Nick Clifton <nickc@redhat.com> - 9.45-1
+* Tue Nov 24 2020 Nick Clifton <nickc@redhat.com> - 9.46-1
+- Annocheck: Support enabling/disabling future fails.
+
+* Wed Nov 18 2020 Nick Clifton <nickc@redhat.com> - 9.45-1
 - GCC plugin: Always record global notes for the .text.startup,
   .text.exit, .text.hot and .text.cold sections.
 
