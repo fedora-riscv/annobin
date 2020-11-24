@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.41
+Version: 9.46
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -225,7 +225,10 @@ CONFIG_ARGS="$CONFIG_ARGS --without-test"
 
 %configure --quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR} ${CONFIG_ARGS} || cat config.log
 
-%make_build
+# Disable the reporting of future fail results by default - it confuses package maintainers scanning rpmdiff resutls.
+# (They can still be enabled via the --test-future command line option).
+
+%make_build CFLAGS="$CFLAGS -DDISABLE_FUTURE_FAIL"
 
 %if %{with annobin_plugin}
 # Rebuild the plugin(s), this time using the plugin itself!  This
@@ -310,6 +313,14 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 24 2020 Nick Clifton <nickc@redhat.com> - 9.46-1
+- Annocheck: Disable reporting future fails by default.
+- GCC plugin: Always record global notes for the .text.startup,
+  .text.exit, .text.hot and .text.cold sections.
+- Clang plugin: Add -lLLVM to the build command line.
+- Annocheck: Improve reporting of missing -D_FORTIFY_SOURCE option.  (#1898075)
+- Annocheck: Improve reporting of missing LTO option.
+
 * Tue Nov 10 2020 Nick Clifton <nickc@redhat.com> - 9.41-1
 - Annocheck: Handle gimple compiled binaries.
 
