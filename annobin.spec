@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.47
+Version: 9.48
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Dec 02 2020 Jakub Jelinek <jakub@redhat.com> - 9.47-2
+- gcc plugin: Tweak generation of end symbols for PPC64 when LTO is active.  (#1898075)
+
 * Tue Dec 01 2020 Jakub Jelinek <jakub@redhat.com> - 9.47-1
 - gcc plugin: Add support for GCC 11's cl_vars array.
 
