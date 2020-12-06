@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.48
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -34,9 +34,9 @@ License: GPLv3+
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 1
+%global with_hard_gcc_version_requirement 0
 
-%bcond_without plugin_rebuild
+%bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -323,10 +323,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Wed Dec 02 2020 Jakub Jelinek <jakub@redhat.com> - 9.47-2
+* Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-2
+- NVR bump for GCC 11 rebuild.
+
+* Wed Dec 02 2020 Nick Clifton <nickc@redhat.com> - 9.48-1
 - gcc plugin: Tweak generation of end symbols for PPC64 when LTO is active.  (#1898075)
 
-* Tue Dec 01 2020 Jakub Jelinek <jakub@redhat.com> - 9.47-1
+* Tue Dec 01 2020 Nick Clifton <nickc@redhat.com> - 9.47-1
 - gcc plugin: Add support for GCC 11's cl_vars array.
 
 * Fri Nov 27 2020 Jakub Jelinek <jakub@redhat.com> - 9.46-2
