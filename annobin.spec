@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.48
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-3
+- Another NVR bump for GCC 11 rebuild.
+
 * Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-2
 - NVR bump for GCC 11 rebuild.
 
