@@ -13,7 +13,7 @@
 +    if (strcmp (var->var_name, name) == 0)
        // FIXME: Cache the result ?
 -      return (const char *) (* (const char **) (((char *) annobin_global_options) + var->var_offset));
-+      return * (const char *const *) (((const char *) annobin_global_options) + var->var_offset);
++      return * (const char **) (((char *) annobin_global_options) + var->var_offset);
  
    annobin_inform (INFORM_VERBOSE, "WARN: gcc variable '%s' not found within cl_vars array", name);
  #endif
@@ -30,7 +30,7 @@
 +    if (strcmp (var->var_name, name) == 0)
        // FIXME: Cache the result ?
 -      return (const int) (* (const int **) (((char *) annobin_global_options) + var->var_offset));
-+      return * (const int *const *) (((const char *) annobin_global_options) + var->var_offset);
++      return * (int *) (((char *) annobin_global_options) + var->var_offset);
  
    annobin_inform (INFORM_VERBOSE, "WARN: gcc variable '%s' not found within cl_vars array", name);
  #endif
