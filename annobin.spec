@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.48
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -34,9 +34,9 @@ License: GPLv3+
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 0
+%global with_hard_gcc_version_requirement 1
 
-%bcond_with plugin_rebuild
+%bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-4
+- Revert back to previous settings.
+
 * Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-3
 - Another NVR bump for GCC 11 rebuild.
 
