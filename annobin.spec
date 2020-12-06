@@ -57,7 +57,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
 # Insert patches here, if needed.
-# Patch01: annobin-xxx.patch
+Patch01: annobin-gcc11.patch
 
 #---------------------------------------------------------------------------------
 
