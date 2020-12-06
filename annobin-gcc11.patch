@@ -1,5 +1,5 @@
---- a/gcc/annobin.cc	2020-12-02 11:59:10.000000000 +0100
-+++ b/gcc/annobin.cc	2020-12-06 11:44:44.446266880 +0100
+--- a/gcc-plugin/annobin.cc	2020-12-02 11:59:10.000000000 +0100
++++ b/gcc-plugin/annobin.cc	2020-12-06 11:44:44.446266880 +0100
 @@ -752,12 +752,12 @@ annobin_get_str_option_by_name (const ch
  #if GCCPLUGIN_VERSION_MAJOR >= 11
    /* GCC version 11 introduced the cl_vars array which provides offsets for
