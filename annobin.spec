@@ -36,7 +36,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_without plugin_rebuild
+%bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 07 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-5
+- NVR bump for another ELN sidetag rebuild.
+
 * Sun Dec 06 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-4
 - Revert back to previous settings.
 
