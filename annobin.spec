@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.48
-Release: 5%{?dist}
+Version: 9.49
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -56,8 +56,8 @@ License: GPLv3+
 Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
-# Insert patches here, if needed.
-Patch01: annobin-gcc11.patch
+# Insert patches here, if needed.  Eg:
+# Patch01: annobin-foo.patch
 
 #---------------------------------------------------------------------------------
 
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Dec 08 2020 Nick Clifton <nickc@redhat.com> - 9.49-1
+- annocheck: Fix notes analyzer to accept empty PPC64 notes.
+
 * Mon Dec 07 2020 Jakub Jelinek <jakub@redhat.com> - 9.48-5
 - NVR bump for another ELN sidetag rebuild.
 
