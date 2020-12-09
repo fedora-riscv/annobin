@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.49
+Version: 9.50
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Dec 09 2020 Nick Clifton <nickc@redhat.com> - 9.50-1
+- annocheck: Mark a missining -D_FORTIFY_SOURCE as a FAIL.
+
 * Tue Dec 08 2020 Nick Clifton <nickc@redhat.com> - 9.49-1
 - annocheck: Fix notes analyzer to accept empty PPC64 notes.
 
