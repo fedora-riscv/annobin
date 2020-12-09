@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.28
-Release: 3%{?dist}
+Version: 9.49
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -311,6 +311,33 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Dec 09 2020 Nick Clifton <nickc@redhat.com> - 9.49-1
+- Rebase to 9.49.
+- annocheck: Fix notes analyzer to accept empty PPC64 notes.
+- gcc plugin: Tweak generation of end symbols for PPC64 when LTO is active.  (#1898075)
+- gcc plugin: Add support for GCC 11's cl_vars array.
+- Annocheck: Support enabling/disabling future fails.
+- GCC plugin: Always record global notes for the .text.startup,
+  .text.exit, .text.hot and .text.cold sections.
+- Clang plugin: Add -lLLVM to the build command line.
+- Annocheck: Improve reporting of missing -D_FORTIFY_SOURCE option.  (#1898075)
+- Annocheck: Improve reporting of missing LTO option.
+- Add detecting of gimple compiled binaries.
+- Add --without-gcc-plugin option.
+- Annocheck: Fix bug parsing DW_AT_producer.
+- Add test of .note.gnu.property section for PowerPC.
+- Add test of objcopy's ability to merge notes.
+- Record the -flto setting and produce a soft warning if it is absent.
+- Suppress warnings about _D_GLIBCXX_ASSERTIONS if the source code is known to be something other than C++.
+- Correct the directory chosen for 32-bit LLVM and Clang plugins.  (#1884951)
+- Allow the use of the SHF_LINK_ORDER section flag to discard unused notes.  (Experimental).
+- Enable the build and installation of the LLVM and Clang plugins.  (Experimental).
+- gcc-plugin: Fix test for empty PowerPC sections.  (#1880634)
+- annocheck: Add tests for the AArch64 BTI and PAC security features.  (#1862478)
+- gcc plugin: Use a 4 byte offset for PowerPC start symbols, so that they do not break disassemblies.
+- gcc plugin: Correct the detection of 32-bit x86 builds.  (#1876197)
+- gcc plugin: Detect any attempt to access the global_options array.
+
 * Wed Oct 07 2020 Jakub Jelinek <jakub@redhat.com> - 9.28-3
 - NVR bump to allow rebuilding without using annobin.
 
