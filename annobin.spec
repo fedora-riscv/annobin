@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.50
+Version: 9.51
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Dec 10 2020 Nick Clifton <nickc@redhat.com> - 9.51-1
+- annocheck: Improve test for LTO compiled binaries that do not have -Wall annotations.  (#1906171)
+
 * Wed Dec 09 2020 Nick Clifton <nickc@redhat.com> - 9.50-1
 - annocheck: Mark a missining -D_FORTIFY_SOURCE as a FAIL.
 
