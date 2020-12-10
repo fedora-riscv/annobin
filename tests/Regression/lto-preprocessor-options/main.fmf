@@ -1,0 +1,15 @@
+summary: lto-preprocessor-options
+description: ''
+contact:
+- Martin Cermak <mcermak@redhat.com>
+component:
+- annobin
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- annobin
+- annobin-annocheck
+- redhat-rpm-config
+duration: 48h
+extra-summary: /tools/annobin/Regression/lto-preprocessor-options
+extra-task: /tools/annobin/Regression/lto-preprocessor-options
