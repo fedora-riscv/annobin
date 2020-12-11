@@ -1,0 +1,15 @@
+summary: smoke test for annobin plugin
+description: ''
+contact:
+- Martin Cermak <mcermak@redhat.com>
+component:
+- annobin
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- man-db
+- annobin
+- annobin-annocheck
+duration: 48h
+extra-summary: /tools/annobin/Sanity/smoke
+extra-task: /tools/annobin/Sanity/smoke
