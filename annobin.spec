@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.51
+Version: 9.52
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Dec 11 2020 Nick Clifton <nickc@redhat.com> - 9.52-1
+- annocheck: When a binary is produced both by GAS and GCC, select GAS as the real producer.  (#1906171)
+
 * Thu Dec 10 2020 Nick Clifton <nickc@redhat.com> - 9.51-1
 - annocheck: Improve test for LTO compiled binaries that do not have -Wall annotations.  (#1906171)
 
