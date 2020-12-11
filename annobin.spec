@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.52
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -323,6 +323,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Dec 11 2020 Nick Clifton <nickc@redhat.com> - 9.52-2
+- NVR bump in order to allow the new gating tests to be run.
+
 * Fri Dec 11 2020 Nick Clifton <nickc@redhat.com> - 9.52-1
 - annocheck: When a binary is produced both by GAS and GCC, select GAS as the real producer.  (#1906171)
 
