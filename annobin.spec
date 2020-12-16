@@ -159,6 +159,7 @@ Summary: A tool for checking the security hardening status of binaries
 BuildRequires: gcc elfutils elfutils-devel elfutils-libelf-devel rpm-devel binutils-devel
 %if %{with debuginfod}
 BuildRequires: elfutils-debuginfod-client-devel
+BuildRequires: make
 %endif
 
 %description annocheck
