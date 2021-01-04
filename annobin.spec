@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.52
-Release: 2%{?dist}
+Version: 9.53
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 04 2020 Nick Clifton <nickc@redhat.com> - 9.53-1
+- Add support for -D_FORTIFY_SOURCE=3.
+
 * Fri Dec 11 2020 Nick Clifton <nickc@redhat.com> - 9.52-2
 - NVR bump in order to allow the new gating tests to be run.
 
