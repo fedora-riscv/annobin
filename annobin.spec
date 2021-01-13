@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.55
+Version: 9.56
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 13 2021 Nick Clifton <nickc@redhat.com> - 9.56-1
+- Fix bogus AArch64 test failures.
+
 * Tue Jan 12 2021 Nick Clifton <nickc@redhat.com> - 9.55-1
 - Improved testing by annocheck.  Add fixed format message mode.
 
