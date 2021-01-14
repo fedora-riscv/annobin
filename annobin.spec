@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.56
+Version: 9.57
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 13 2021 Nick Clifton <nickc@redhat.com> - 9.57-1
+- Workaround for elflint problems with PPC compiled files.  (#1880634)
+
 * Wed Jan 13 2021 Nick Clifton <nickc@redhat.com> - 9.56-1
 - Fix bogus AArch64 test failures.
 
