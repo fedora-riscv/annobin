@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.57
+Version: 9.58
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 18 2021 Nick Clifton <nickc@redhat.com> - 9.58-1
+- Add the ability to disable the warning message about -D_FORTIFY_SOURCE being missing.
+
 * Wed Jan 13 2021 Nick Clifton <nickc@redhat.com> - 9.57-1
 - Workaround for elflint problems with PPC compiled files.  (#1880634)
 
