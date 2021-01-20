@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.58
+Version: 9.59
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 20 2021 Nick Clifton <nickc@redhat.com> - 9.59-1
+- Add a future fail for the presence of RPATH in the dynamic tags.
+
 * Mon Jan 18 2021 Nick Clifton <nickc@redhat.com> - 9.58-1
 - Add the ability to disable the warning message about -D_FORTIFY_SOURCE being missing.
 
