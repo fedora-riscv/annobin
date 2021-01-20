@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.46
+Version: 9.59
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -313,6 +313,21 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 20 2021 Nick Clifton <nickc@redhat.com> - 9.59-1
+- Add a future fail for the presence of RPATH in the dynamic tags.
+- Add the ability to disable the warning message about -D_FORTIFY_SOURCE being missing.
+- Workaround for elflint problems with PPC compiled files.  (#1880634)
+- Fix bogus AArch64 test failures.
+- Improved testing by annocheck.  Add fixed format message mode.
+- Fix inconsistency reporting -fcf-protection and -fstack-clash-protection results.
+- Add support for -D_FORTIFY_SOURCE=3.
+- annocheck: When a binary is produced both by GAS and GCC, select GAS as the real producer.  (#1906171)
+- annocheck: Improve test for LTO compiled binaries that do not have -Wall annotations.  (#1906171)
+- annocheck: Mark a missining -D_FORTIFY_SOURCE as a FAIL.
+- annocheck: Fix notes analyzer to accept empty PPC64 notes.
+- gcc plugin: Tweak generation of end symbols for PPC64 when LTO is active.  (#1898075)
+- gcc plugin: Add support for GCC 11's cl_vars array.
+
 * Tue Nov 24 2020 Nick Clifton <nickc@redhat.com> - 9.46-1
 - Annocheck: Disable reporting future fails by default.
 - GCC plugin: Always record global notes for the .text.startup,
