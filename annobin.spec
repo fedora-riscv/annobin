@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.60
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -50,6 +50,10 @@ License: GPLv3+
 %if %{without plugin_rebuild}
 %undefine _annotated_build
 %endif
+
+%{!?llvm_version:%global llvm_version 11.1.0}
+%{!?llvm_plugin_dir:%global llvm_plugin_dir %{_libdir}/llvm/%{llvm_version}}
+%{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/%{llvm_version}}
 
 #---------------------------------------------------------------------------------
 
@@ -113,6 +117,18 @@ Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})
 Requires: gcc
 %endif
 
+%if %{with gccplugin}
+Requires: annobin-plugin-gcc
+%endif
+
+%if %{with llvmplugin}
+Requires: annobin-plugin-llvm
+%endif
+
+%if %{with clangplugin}
+Requires: annobin-plugin-clang
+%endif
+
 BuildRequires: gcc gcc-plugin-devel gcc-c++
 # The documentation uses pod2man...
 BuildRequires: perl perl-podlators
@@ -170,18 +186,46 @@ hardening options.
 %endif
 
 #---------------------------------------------------------------------------------
+%if %{with gccplugin}
+
+%package plugin-gcc
+Summary: annobin gcc plugin
+
+Conflicts: annobin <= 9.60-1
+
+%description plugin-gcc
+Installs an annobin plugin that can be used by gcc.
+
+%endif
+
+#---------------------------------------------------------------------------------
+%if %{with llvmplugin}
+
+%package plugin-llvm
+Summary: annobin llvm plugin
+
+Conflicts: annobin <= 9.60-1
+
+%description plugin-llvm
+Installs an annobin plugin that can be used by llvm tools.
+
+%endif
+
+#---------------------------------------------------------------------------------
+%if %{with clangplugin}
+
+%package plugin-clang
+Summary: annobin clang plugin
+
+Conflicts: annobin <= 9.60-1
+
+%description plugin-clang
+Installs an annobin plugin that can be used by clang.
+
+%endif
+#---------------------------------------------------------------------------------
 
 %global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
-
-%if %{with clangplugin} || %{with llvmplugin}
-# FIXME: We currently assume that the first directory listed in clang's
-# search directory output is the one that we should use for plugins.
-# This might not be correct.
-# The gensub() below is because without it $2 would look like:
-# " =/usr/lib64/clang/8.0.0"
-# Note - we install LLVM plugins into the same directory as Clang plugins.
-%global ANNOBIN_CLANG_PLUGIN_DIR %(clang --print-search-dirs | gawk -e'BEGIN { FS = ":" } /libraries/ { print gensub(" =","",1,$2) } END { }')
-%endif
 
 #---------------------------------------------------------------------------------
 
@@ -278,7 +322,13 @@ make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
 
 # PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %install
-%make_install PLUGIN_INSTALL_DIR=$RPM_BUILD_ROOT%{ANNOBIN_CLANG_PLUGIN_DIR}
+%make_install PLUGIN_INSTALL_DIR=%{buildroot}/%{llvm_plugin_dir}
+
+%if %{with clangplugin}
+# Move clang plugin to a seperate directory.
+mkdir -p %{buildroot}/%{clang_plugin_dir}
+mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plugin_dir}
+%endif
 rm -f %{buildroot}%{_infodir}/dir
 
 #---------------------------------------------------------------------------------
@@ -307,11 +357,18 @@ fi
 %{_mandir}/man1/hardened.1*
 %{_mandir}/man1/run-on-binaries-in.1*
 
-%if %{with clangplugin} || %{with llvmplugin}
-%{ANNOBIN_CLANG_PLUGIN_DIR}
+%if %{with llvmplugin}
+%files plugin-llvm
+%{llvm_plugin_dir}/annobin-for-llvm.so
+%endif
+
+%if %{with clangplugin}
+%files plugin-clang
+%{clang_plugin_dir}/annobin-for-clang.so
 %endif
 
 %if %{with gccplugin}
+%files plugin-gcc
 %{ANNOBIN_GCC_PLUGIN_DIR}
 %endif
 
@@ -324,6 +381,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Feb 10 2021 Tom Stellard <tstellar@redhat.com> = 9.60-2
+- Split plugins into separate sub-packages
+
 * Fri Feb 05 2021 Nick Clifton <nickc@redhat.com> - 9.60-1
 - Add some GO tests to annocheck.
 
