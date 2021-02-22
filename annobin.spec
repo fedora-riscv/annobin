@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.60
-Release: 2%{?dist}
+Version: 9.61
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -381,6 +381,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Feb 22 2021 Nick Clifton <nickc@redhat.com> - 9.61-1
+- Annocheck: Fix some problems with tests for missing notes.
+
 * Wed Feb 10 2021 Tom Stellard <tstellar@redhat.com> = 9.60-2
 - Split plugins into separate sub-packages
 
