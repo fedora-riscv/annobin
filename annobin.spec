@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.61
+Version: 9.62
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -381,6 +381,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 25 2021 Nick Clifton <nickc@redhat.com> - 9.62-1
+- Annocheck: Add colour to some messages.  Skip the deliberate use of -fno-stack-protector.  (#1923439)
+
 * Mon Feb 22 2021 Nick Clifton <nickc@redhat.com> - 9.61-1
 - Annocheck: Fix some problems with tests for missing notes.
 
