@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.63
+Version: 9.64
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 03 2021 Nick Clifton <nickc@redhat.com> - 9.64-1
+- Annocheck: Fix detection of special function names.  (#1934189)
+
 * Fri Feb 26 2021 Nick Clifton <nickc@redhat.com> - 9.63-1
 - Annocheck: FAIL the deliberate use of -fno-stack-protector, but add some exceptions for glibc.  (#1923439)
 
