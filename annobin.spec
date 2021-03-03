@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.59
+Version: 9.64
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -313,6 +313,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 03 2021 Nick Clifton <nickc@redhat.com> - 9.64-1
+- Annocheck: Fix detection of special function names.  (#1934189)
+- Annocheck: FAIL the deliberate use of -fno-stack-protector, but add some exceptions for glibc.  (#1923439)
+- Annocheck: Add colour to some messages.  Skip the deliberate use of -fno-stack-protector.  (#1923439)
+- Annocheck: Fix some problems with tests for missing notes.
+- Add some GO tests to annocheck.
+
 * Wed Jan 20 2021 Nick Clifton <nickc@redhat.com> - 9.59-1
 - Add a future fail for the presence of RPATH in the dynamic tags.
 - Add the ability to disable the warning message about -D_FORTIFY_SOURCE being missing.
