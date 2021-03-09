@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.64
+Version: 9.65
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -381,6 +381,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Mar 09 2021 Nick Clifton <nickc@redhat.com> - 9.65-1
+- gcc-plugin: Use a fixed filename when running in LTO mode.
+
 * Wed Mar 03 2021 Nick Clifton <nickc@redhat.com> - 9.64-1
 - Annocheck: Fix detection of special function names.  (#1934189)
 
