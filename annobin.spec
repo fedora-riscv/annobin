@@ -36,7 +36,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_without plugin_rebuild
+%bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -381,6 +381,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sat Mar 20 2021 Jakub Jelinek <jakub@redhat.com> - 9.65-2
+- NVR bump to rebuild against GCC 11.0.1
+
 * Tue Mar 09 2021 Nick Clifton <nickc@redhat.com> - 9.65-1
 - gcc-plugin: Use a fixed filename when running in LTO mode.
 
