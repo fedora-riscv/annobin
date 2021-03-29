@@ -1,0 +1,17 @@
+- hosts: localhost
+  roles:
+  - role: standard-test-basic
+    tags:
+      - classic
+    required_packages:
+      # gcc-fedora-flags
+      - rpm
+      - redhat-rpm-config
+      - gcc
+      - gcc-c++
+      - annobin-annocheck
+    repositories:
+      - repo: https://src.fedoraproject.org/rpms/redhat-rpm-config.git
+        dest: redhat-rpm-config
+    tests:
+      - redhat-rpm-config/tests/gcc-fedora-flags
