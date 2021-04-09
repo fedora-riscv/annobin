@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.65
-Release: 2%{?dist}
+Version: 9.66
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -46,7 +46,9 @@ License: GPLv3+
 # was built is different from the version of gcc that is now being used, and
 # then it will abort.
 #
-# The default is to use annobin.  cf BZ 1630550.
+# The default was to use plugin during rebuilds (cf BZ 1630550) but this has
+# been changed because of the need to be able to rebuild annobin when a change
+# to gcc breaks the version installed into the buildroot.
 %if %{without plugin_rebuild}
 %undefine _annotated_build
 %endif
@@ -154,7 +156,24 @@ Also provides a plugin for Clang which performs a similar function.
 Also provides a plugin for LLVM which performs a similar function.
 %endif
 
-#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------
+
+# Now that we have sub-packages for all of the plugins and for annocheck,
+# there are no executables left to go into the "annobin" rpm.  But top-level
+# packages cannot have "BuildArch: noarch" if sub-packages do have
+# architecture requirements, and rpmlint generates an error if an
+# architecture specific rpm does not contain any binaries.  So instead all of
+# the documentation has been moved into an architecture neutral sub-package,
+# and there no longer is a top level annobin rpm at all.
+
+%package docs
+Summary: Documentation and shell scripts for use with annobin
+BuildArch: noarch
+
+%description docs
+Provides the documentation files and example shell scripts for use with annobin.
+
+#----------------------------------------------------------------------------
 %if %{with tests}
 
 %package tests
@@ -166,7 +185,7 @@ of the resulting files.
 
 %endif
 
-#---------------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 %if %{with annocheck}
 
 %package annocheck
@@ -185,7 +204,7 @@ hardening options.
 
 %endif
 
-#---------------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 %if %{with gccplugin}
 
 %package plugin-gcc
@@ -345,7 +364,7 @@ fi
 
 #---------------------------------------------------------------------------------
 
-%files
+%files docs
 %license COPYING3 LICENSE
 %exclude %{_datadir}/doc/annobin-plugin/COPYING3
 %exclude %{_datadir}/doc/annobin-plugin/LICENSE
@@ -381,6 +400,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 09 2021 Nick Clifton <nickc@redhat.com> - 9.66-1
+- Fix anomolies reported by covscan.
+- Move documentation into a sub-package.
+
 * Sat Mar 20 2021 Jakub Jelinek <jakub@redhat.com> - 9.65-2
 - NVR bump to rebuild against GCC 11.0.1
 
