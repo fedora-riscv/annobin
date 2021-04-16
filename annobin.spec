@@ -133,7 +133,7 @@ Requires: annobin-plugin-clang
 
 BuildRequires: gcc gcc-plugin-devel gcc-c++
 # The documentation uses pod2man...
-BuildRequires: perl perl-podlators
+BuildRequires: perl-interpreter perl-podlators
 %if %{with clangplugin}
 BuildRequires: clang clang-devel llvm llvm-devel compiler-rt gawk
 %endif
@@ -412,6 +412,7 @@ fi
 * Fri Apr 16 2021 Petr Pisar <ppisar@redhat.com> - 9.66-3
 - Correct a package rename (bug #1949570)
 - Require docs subpackage by the other ones because of a license
+- Build-requiring perl-interpreter is enough
 
 * Thu Apr 15 2021 Martin Cermak <mcermak@redhat.com> - 9.66-2
 - Fix bz1949570
