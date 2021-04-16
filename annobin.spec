@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.66
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -169,6 +169,8 @@ Also provides a plugin for LLVM which performs a similar function.
 %package docs
 Summary: Documentation and shell scripts for use with annobin
 BuildArch: noarch
+Obsoletes: %{name} < %{version}-%{release}
+Obsoletes: %{name}-docs < %{version}-%{release}
 
 %description docs
 Provides the documentation files and example shell scripts for use with annobin.
@@ -400,6 +402,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 15 2021 Martin Cermak <mcermak@redhat.com> - 9.66-2
+- Fix bz1949570
+
 * Fri Apr 09 2021 Nick Clifton <nickc@redhat.com> - 9.66-1
 - Fix anomolies reported by covscan.
 - Move documentation into a sub-package.
