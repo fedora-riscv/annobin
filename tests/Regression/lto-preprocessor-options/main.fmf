@@ -7,6 +7,7 @@ component:
 test: ./runtest.sh
 framework: beakerlib
 recommend:
+- gcc
 - annobin
 - annobin-annocheck
 - redhat-rpm-config

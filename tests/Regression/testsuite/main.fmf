@@ -22,6 +22,7 @@ recommend:
 - dnf
 - yum-utils
 - bzip2-devel
+- rpm-build
 duration: 48h
 extra-summary: /tools/annobin/Regression/testsuite
 extra-task: /tools/annobin/Regression/testsuite

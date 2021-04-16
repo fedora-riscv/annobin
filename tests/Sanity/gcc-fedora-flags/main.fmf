@@ -1,0 +1,17 @@
+summary: gcc-fedora-flags
+description: ''
+contact:
+- Tom Stellard <tstellar@redhat.com>
+component:
+- annobin
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- gcc
+- gcc-c++
+- annobin
+- annobin-annocheck
+- redhat-rpm-config
+duration: 1h
+extra-summary: /tools/annobin/Sanity/gcc-fedora-flags
+extra-task: /tools/annobin/Sanity/gcc-fedora-flags
