@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.66
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -409,6 +409,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Apr 19 2021 Petr Pisar <ppisar@redhat.com> - 9.66-4
+- Bump a release
+
 * Fri Apr 16 2021 Petr Pisar <ppisar@redhat.com> - 9.66-3
 - Correct a package rename (bug #1949570)
 - Require docs subpackage by the other ones because of a license
