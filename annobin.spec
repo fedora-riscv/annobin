@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.67
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -171,8 +171,7 @@ Summary: Documentation and shell scripts for use with annobin
 BuildArch: noarch
 # annobin renamed to annobin-doc in 9.66-1
 Provides: %{name} = %{version}-%{release}
-# /usr/share/info/annobin.info.gz moved from annobin to annobin-docs
-Conflicts: %{name} < 9.66-1
+Obsoletes: %{name} < 9.66-1
 
 %description docs
 Provides the documentation files and example shell scripts for use with annobin.
@@ -409,6 +408,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Apr 20 2021 Petr Pisar <ppisar@redhat.com> - 9.67-2
+- Obsolete annobin < 9.66-1 (bug #1949570)
+
 * Tue Apr 20 2021 Nick Clifton <nickc@redhat.com> - 9.67-1
 - Annocheck: Improve detection of missing GNU-stack support.
 
