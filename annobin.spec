@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.65
-Release: 3%{?dist}
+Version: 9.68
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -324,6 +324,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 21 2021 Nick Clifton  <nickc@redhat.com> - 9.68-1
+- Annocheck: WARN if the annobin plugin was built for a newer version of the compiler than the one on which it was run.  (#1950657)
+- Annocheck: Improve detection of missing GNU-stack support.
+- Fix anomolies reported by covscan.
+
 * Tue Mar 30 2021 Nick Clifton <nickc@redhat.com> - 9.65-3
 - Another NVR bump to allow rebuild in CentOS stream.
 
