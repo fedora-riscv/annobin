@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.49
+Version: 9.68
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -311,6 +311,27 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 21 2021 Nick Clifton  <nickc@redhat.com> - 9.68-1
+- Annocheck: WARN if the annobin plugin was built for a newer version of the compiler than the one on which it was run.  (#1950657)
+- Annocheck: Improve detection of missing GNU-stack support.
+- Fix anomolies reported by covscan.
+- gcc-plugin: Use a fixed filename when running in LTO mode.
+- Annocheck: Fix detection of special function names.  (#1934189)
+- Annocheck: FAIL the deliberate use of -fno-stack-protector, but add some exceptions for glibc.  (#1923439)
+- Annocheck: Add colour to some messages.  Skip the deliberate use of -fno-stack-protector.  (#1923439)
+- Annocheck: Fix some problems with tests for missing notes.
+- Add some GO tests to annocheck.
+- Add a future fail for the presence of RPATH in the dynamic tags.
+- Add the ability to disable the warning message about -D_FORTIFY_SOURCE being missing.
+- Workaround for elflint problems with PPC compiled files.  (#1880634)
+- Fix bogus AArch64 test failures.
+- Improved testing by annocheck.  Add fixed format message mode.
+- Fix inconsistency reporting -fcf-protection and -fstack-clash-protection results.
+- Add support for -D_FORTIFY_SOURCE=3.
+- annocheck: When a binary is produced both by GAS and GCC, select GAS as the real producer.  (#1906171)
+- annocheck: Improve test for LTO compiled binaries that do not have -Wall annotations.  (#1906171)
+- annocheck: Mark a missining -D_FORTIFY_SOURCE as a FAIL.
+
 * Wed Dec 09 2020 Nick Clifton <nickc@redhat.com> - 9.49-1
 - Rebase to 9.49.
 - annocheck: Fix notes analyzer to accept empty PPC64 notes.
