@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.69
+Version: 9.70
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -131,14 +131,19 @@ Requires: annobin-plugin-llvm
 Requires: annobin-plugin-clang
 %endif
 
-BuildRequires: gcc gcc-plugin-devel gcc-c++
 # The documentation uses pod2man...
-BuildRequires: perl-interpreter perl-podlators
-%if %{with clangplugin}
-BuildRequires: clang clang-devel llvm llvm-devel compiler-rt gawk
+BuildRequires: gcc perl-interpreter perl-podlators gawk
+
+%if %{with gccplugin}
+BuildRequires: gcc-c++ gcc-plugin-devel
 %endif
+
+%if %{with clangplugin}
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
+%endif
+
 %if %{with llvmplugin}
-BuildRequires: clang clang-devel llvm llvm-devel compiler-rt gawk
+BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
 %endif
 
 %description
@@ -187,6 +192,10 @@ Requires: %{name}-docs = %{version}-%{release}
 Provides a means to test the generation of annotated binaries and the parsing
 of the resulting files.
 
+%if %{with debuginfod}
+BuildRequires: elfutils-debuginfod-client-devel
+%endif
+
 %endif
 
 #----------------------------------------------------------------------------
@@ -197,9 +206,9 @@ Summary: A tool for checking the security hardening status of binaries
 
 BuildRequires: gcc elfutils elfutils-devel elfutils-libelf-devel rpm-devel binutils-devel
 %if %{with debuginfod}
-BuildRequires: elfutils-debuginfod-client-devel
-BuildRequires: make
+BuildRequires: elfutils-debuginfod-client-devel make
 %endif
+
 Requires: %{name}-docs = %{version}-%{release}
 
 %description annocheck
@@ -283,6 +292,12 @@ CONFIG_ARGS="--quiet --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}"
 %if %{with debuginfod}
 CONFIG_ARGS="$CONFIG_ARGS --with-debuginfod"
 %else
+# Note - we explicitly disable debuginfod support if it was not configured.
+# This is because by default annobin's configue script will assume --with-debuginfod=auto
+# and then run a build time test to see if debugingfod is available.  It
+# may well be, but the build time environment may not match the run time
+# environment, and the rpm will not have a Requirement on the debuginfod
+# client.
 CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 %endif
 
@@ -368,6 +383,15 @@ make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
 fi
+
+%if %{with clangplugin}
+# FIXME: RUN CLANG tests
+%endif
+
+%if %{with llvmplugin}
+# FIXME: RUN LLVM tests
+%endif
+
 %endif
 
 #---------------------------------------------------------------------------------
@@ -408,6 +432,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 30 2021 Nick Clifton  <nickc@redhat.com> - 9.70-1
+- gcc-plugin: Replace ICE messsages with verbose messages.
+
 * Thu Apr 22 2021 Nick Clifton  <nickc@redhat.com> - 9.69-1
 - Fix the testsuite so that it can be run in parallel.
 
