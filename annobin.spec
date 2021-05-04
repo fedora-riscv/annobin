@@ -1,11 +1,12 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.70
+Version: 9.71
 Release: 1%{?dist}
 License: GPLv3+
-# ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
+# Web Page: https://sourceware.org/annobin/
+# Watermark Protocol: https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
 
@@ -432,6 +433,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 04 2021 Nick Clifton  <nickc@redhat.com> - 9.71-1
+- timing: do not initialise the clock if the timing tool is disabled.
+
 * Fri Apr 30 2021 Nick Clifton  <nickc@redhat.com> - 9.70-1
 - gcc-plugin: Replace ICE messsages with verbose messages.
 
