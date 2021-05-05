@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.64
+Version: 9.71
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -313,6 +313,21 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed May 05 2021 Nick Clifton  <nickc@redhat.com> - 9.71-1
+- timing: do not initialise the clock if the timing tool is disabled.
+- gcc-plugin: Replace ICE messsages with verbose messages.
+- Fix the testsuite so that it can be run in parallel.
+- Annocheck: WARN if the annobin plugin was built for a newer version of the compiler than the one on which it was run.  (#1950657)
+- Obsolete annobin < 9.66-1 (bug #1949570)
+- Annocheck: Improve detection of missing GNU-stack support.
+- Correct a package rename (bug #1949570)
+- Require docs subpackage by the other ones because of a license
+- Build-requiring perl-interpreter is enough
+- Fix bz1949570
+- Fix anomolies reported by covscan.
+- Move documentation into a sub-package.
+- gcc-plugin: Use a fixed filename when running in LTO mode.
+
 * Wed Mar 03 2021 Nick Clifton <nickc@redhat.com> - 9.64-1
 - Annocheck: Fix detection of special function names.  (#1934189)
 - Annocheck: FAIL the deliberate use of -fno-stack-protector, but add some exceptions for glibc.  (#1923439)
