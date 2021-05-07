@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.68
+Version: 9.71
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -324,6 +324,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri May 07 2021 Nick Clifton  <nickc@redhat.com> - 9.71-1
+- timing: do not initialise the clock if the timing tool is disabled.
+- gcc-plugin: Replace ICE messsages with verbose messages.
+- Fix the testsuite so that it can be run in parallel.
+
 * Wed Apr 21 2021 Nick Clifton  <nickc@redhat.com> - 9.68-1
 - Annocheck: WARN if the annobin plugin was built for a newer version of the compiler than the one on which it was run.  (#1950657)
 - Annocheck: Improve detection of missing GNU-stack support.
