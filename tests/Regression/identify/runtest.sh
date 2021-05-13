@@ -32,6 +32,7 @@ PACKAGE="annobin"
 
 rlJournalStart
     rlPhaseStartTest
+        rlRun "rpm -qa | fgrep -e redhat-rpm-config -e gcc -e annobin -e binutils | sort"
         rlRun "tool_v=$(annocheck --version | awk '/^annocheck: Version/ {print $3}')"
         rlRun "__RPM=$(rpm --queryformat='%{name}\n' -qf $(man -w annobin))"
         rlRun "rpm_v=$(rpm -q --queryformat='%{version}\n' $__RPM)"

@@ -33,7 +33,10 @@ PACKAGE="annobin"
 rlJournalStart
     rlPhaseStartTest
         b=`mktemp`
-        rlRun "echo 'int main (void) { return 0; }' | gcc -xc -o $b `rpm --eval "%build_cflags %build_ldflags"` -flto  - "
+        rlRun "rpm -qa | fgrep -e redhat-rpm-config -e gcc -e annobin -e binutils | sort"
+        rlRun "cflags=\"$(rpm --eval '%build_cflags')\""
+        rlRun "ldflags=\"$(rpm --eval '%build_ldflags')\""
+        rlRun "echo 'int main (void) { return 0; }' | gcc -xc -o $b $cflags $ldflags  -flto  - "
         rlRun "annocheck -v $b"
         rm $b
     rlPhaseEnd

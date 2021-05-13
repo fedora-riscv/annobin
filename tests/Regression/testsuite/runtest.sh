@@ -42,6 +42,8 @@ rlJournalStart
         rlLogInfo "X_SCLS=$X_SCLS"
         rlLogInfo "GCC=$GCC"
 
+        rlRun "rpm -qa | fgrep -e redhat-rpm-config -e gcc -e annobin -e binutils | sort"
+
         # In case more than one devtoolset- or gcc-toolset -build package is
         # installed (they can co-exist from the packaging persp, but their
         # coexistence causes unexpected results with rpm macros), then we have
