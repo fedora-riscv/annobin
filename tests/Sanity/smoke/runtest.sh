@@ -38,6 +38,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest
+        rlRun "rpm -qa | fgrep -e redhat-rpm-config -e gcc -e annobin -e binutils | sort"
         rlRun "echo 'int main() {return 0;}' | gcc -xc -fplugin=annobin -o /dev/null -"
     rlPhaseEnd
 rlJournalPrintText

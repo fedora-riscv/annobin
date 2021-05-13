@@ -16,6 +16,8 @@ set +x
 
 rlJournalStart
 rlPhaseStartTest
+    rlRun "rpm -qa | fgrep -e redhat-rpm-config -e gcc -e annobin -e binutils | sort"
+
     rlRun "test \"$default_cflags\" = \"$cflags\""
     rlRun "test \"$default_cxxflags\" = \"$cxxflags\""
     rlRun "test \"$default_ldflags\" = \"$ldflags\""
