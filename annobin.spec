@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.71
+Version: 9.72
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -433,6 +433,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 13 2021 Nick Clifton  <nickc@redhat.com> - 9.72-1
+- annocheck: Accept 0 as a valid number for gcc minor versions and release numbers.
+- gcc-plugin: Add support for ARM and RISCV targets.
+
 * Tue May 04 2021 Nick Clifton  <nickc@redhat.com> - 9.71-1
 - timing: do not initialise the clock if the timing tool is disabled.
 
