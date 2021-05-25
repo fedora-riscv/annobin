@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.72
-Release: 2%{?dist}
+Version: 9.73
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -453,6 +453,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 25 2021 Nick Clifton  <nickc@redhat.com> - 9.73-1
+- annocheck: Improve detection of shared libraries.  (#1958954)
+
 * Wed May 19 2021 Nick Clifton  <nickc@redhat.com> - 9.72-2
 - Tidy up spec file.
 
