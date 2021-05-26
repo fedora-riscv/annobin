@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.72
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -324,6 +324,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed May 26 2021 Tom Stellard <tstellar@redhat.com> - 9.72-2
+- Rebuild for LLVM 12.0.0-final
+
 * Thu May 13 2021 Nick Clifton  <nickc@redhat.com> - 9.72-1
 - annocheck: Accept 0 as a valid number for gcc minor versions and release numbers.
 - gcc-plugin: Add support for ARM and RISCV targets.
