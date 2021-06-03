@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.73
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -121,8 +121,8 @@ annotated files and reports on any missing security options.
 Summary: Documentation and shell scripts for use with annobin
 BuildArch: noarch
 # annobin renamed to annobin-doc in 9.66-1
-Provides: %{name} = %{version}-%{release}
-Obsoletes: %{name} < 9.66-1
+Provides:  %{name} = %{version}-%{release}
+Obsoletes: %{name} < %{version}-%{release}
 # The documentation uses pod2man...
 BuildRequires: perl-interpreter perl-podlators gawk make
 
@@ -453,6 +453,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jun 03 2021 Nick Clifton  <nickc@redhat.com> - 9.73-2
+- Obsolete all previous versions of annobin.  (#1967339)
+
 * Tue May 25 2021 Nick Clifton  <nickc@redhat.com> - 9.73-1
 - annocheck: Improve detection of shared libraries.  (#1958954)
 
