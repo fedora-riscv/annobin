@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.73
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -272,7 +272,7 @@ Installs an annobin plugin that can be used by Clang.
 
 %global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
-%{!?llvm_version:%global llvm_version 11.1.0}
+%{!?llvm_version:%global llvm_version 12.0.1}
 %{!?llvm_plugin_dir:%global llvm_plugin_dir %{_libdir}/llvm/%{llvm_version}}
 %{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/%{llvm_version}}
 
@@ -453,6 +453,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jun 04 2021 Tom Stellard <tstellar@redhat.com> - 9.73-3
+- Rebuild for LLVM 12.0.1
+
 * Thu Jun 03 2021 Nick Clifton  <nickc@redhat.com> - 9.73-2
 - Obsolete all previous versions of annobin.  (#1967339)
 
