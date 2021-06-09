@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.73
-Release: 3%{?dist}
+Version: 9.74
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -453,6 +453,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jun 09 2021 Nick Clifton  <nickc@redhat.com> - 9.74-1
+- Annocheck: Better support for symbolic links.
+- Annocheck: In verbose mode, report the reason for skipping specific tests.  (#1969584)
+
 * Fri Jun 04 2021 Tom Stellard <tstellar@redhat.com> - 9.73-3
 - Rebuild for LLVM 12.0.1
 
