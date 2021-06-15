@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.75
+Version: 9.76
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -338,6 +338,13 @@ CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
 
 %configure ${CONFIG_ARGS} || cat config.log
 
+%set_build_flags
+
+%ifarch %{ix86} x86_64
+# FIXME: There should be a better way to do this.
+export CLANG_TARGET_OPTIONS="-fcf-protection"
+%endif
+
 %make_build
 
 #---------------------------------------------------------------------------------
@@ -453,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 15 2021 Nick Clifton  <nickc@redhat.com> - 9.76-1
+- clang/llvm plugins: Build with correct security options.
+
 * Tue Jun 15 2021 Nick Clifton  <nickc@redhat.com> - 9.75-1
 - Annocheck: Better detection of GO compiler version.
 
