@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.76
+Version: 9.77
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 21 2021 Nick Clifton  <nickc@redhat.com> - 9.77-1
+- annocheck: Remove limit on number of input files.
+
 * Tue Jun 15 2021 Nick Clifton  <nickc@redhat.com> - 9.76-1
 - clang/llvm plugins: Build with correct security options.
 
