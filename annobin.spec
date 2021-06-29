@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.78
+Version: 9.79
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,11 +460,14 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 29 2021 Nick Clifton  <nickc@redhat.com> - 9.79-1
+- Annocheck: Fix spelling mistake in -,stack-realign failure message.  (#1977349)
+
 * Mon Jun 21 2021 Nick Clifton  <nickc@redhat.com> - 9.78-1
 - gcc-plugin: Do not record global versions of stack protection settings in LTO mode, if not set.  (#1958954)
 
 * Mon Jun 21 2021 Nick Clifton  <nickc@redhat.com> - 9.77-1
-- annocheck: Remove limit on number of input files.
+- Annocheck: Remove limit on number of input files.
 
 * Tue Jun 15 2021 Nick Clifton  <nickc@redhat.com> - 9.76-1
 - clang/llvm plugins: Build with correct security options.
@@ -483,13 +486,13 @@ fi
 - Obsolete all previous versions of annobin.  (#1967339)
 
 * Tue May 25 2021 Nick Clifton  <nickc@redhat.com> - 9.73-1
-- annocheck: Improve detection of shared libraries.  (#1958954)
+- Annocheck: Improve detection of shared libraries.  (#1958954)
 
 * Wed May 19 2021 Nick Clifton  <nickc@redhat.com> - 9.72-2
 - Tidy up spec file.
 
 * Thu May 13 2021 Nick Clifton  <nickc@redhat.com> - 9.72-1
-- annocheck: Accept 0 as a valid number for gcc minor versions and release numbers.
+- Annocheck: Accept 0 as a valid number for gcc minor versions and release numbers.
 - gcc-plugin: Add support for ARM and RISCV targets.
 
 * Tue May 04 2021 Nick Clifton  <nickc@redhat.com> - 9.71-1
