@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.72
-Release: 2%{?dist}
+Version: 9.79
+Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -324,6 +324,15 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 29 2021 Nick Clifton  <nickc@redhat.com> - 9.79-1
+- Annocheck: Fix spelling mistake in -,stack-realign failure message.  (#1977349)
+- gcc-plugin: Do not record global versions of stack protection settings in LTO mode, if not set.  (#1958954)
+- annocheck: Remove limit on number of input files.
+- Annocheck: Better detection of GO compiler version.
+- Annocheck: Better support for symbolic links.
+- Annocheck: In verbose mode, report the reason for skipping specific tests.  (#1969584)
+- Annocheck: Improve detection of shared libraries.  (#1958954)
+
 * Wed May 26 2021 Tom Stellard <tstellar@redhat.com> - 9.72-2
 - Rebuild for LLVM 12.0.0-final
 
