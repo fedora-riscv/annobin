@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.79
+Version: 9.80
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -336,14 +336,14 @@ CONFIG_ARGS="$CONFIG_ARGS --without-test"
 CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
 %endif
 
-%configure ${CONFIG_ARGS} || cat config.log
-
 %set_build_flags
 
 %ifarch %{ix86} x86_64
 # FIXME: There should be a better way to do this.
 export CLANG_TARGET_OPTIONS="-fcf-protection"
 %endif
+
+%configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
 
@@ -460,8 +460,12 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 05 2021 Nick Clifton  <nickc@redhat.com> - 9.80-1
+- Tests: Skip glibc-notes test if the assembler does not support --generate-missing-build-notes.  (#1978573)
+- Tests: Skip objcopy test if objcopy does not support --merge-notes.
+
 * Tue Jun 29 2021 Nick Clifton  <nickc@redhat.com> - 9.79-1
-- Annocheck: Fix spelling mistake in -,stack-realign failure message.  (#1977349)
+- Annocheck: Fix spelling mistake in -mstack-realign failure message.  (#1977349)
 
 * Mon Jun 21 2021 Nick Clifton  <nickc@redhat.com> - 9.78-1
 - gcc-plugin: Do not record global versions of stack protection settings in LTO mode, if not set.  (#1958954)
