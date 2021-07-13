@@ -1,0 +1,21 @@
+diff -rup annobin.orig/annocheck/Makefile.am annobin-9.81/annocheck/Makefile.am
+--- annobin.orig/annocheck/Makefile.am	2021-07-13 15:47:16.345084083 +0100
++++ annobin-9.81/annocheck/Makefile.am	2021-07-13 15:48:12.145778656 +0100
+@@ -9,4 +9,4 @@ bin_PROGRAMS = annocheck
+ annocheck_SOURCES = annocheck.c timing.c size.c notes.c hardened.c built-by.c annocheck.h ../annobin-global.h
+ annocheck_LDADD   = -lelf -ldw $(RPMLIBS) -liberty $(LIBDEBUGINFOD)
+ annocheck_LDFLAGS = -Wl,-z,now
+-annocheck_CFLAGS  = -O2 -ansi -g -Wall -Werror -fpie -D_FORTIFY_SOURCE=2 -fplugin=annobin -fstack-protector-strong
++annocheck_CFLAGS  = -O2 -ansi -g -Wall -Werror -fpie -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+diff -rup annobin.orig/annocheck/Makefile.in annobin-9.81/annocheck/Makefile.in
+--- annobin.orig/annocheck/Makefile.in	2021-07-13 15:47:16.345084083 +0100
++++ annobin-9.81/annocheck/Makefile.in	2021-07-13 15:48:24.098713222 +0100
+@@ -334,7 +334,7 @@ AUTOMAKE_OPTIONS = no-dependencies
+ annocheck_SOURCES = annocheck.c timing.c size.c notes.c hardened.c built-by.c annocheck.h ../annobin-global.h
+ annocheck_LDADD = -lelf -ldw $(RPMLIBS) -liberty $(LIBDEBUGINFOD)
+ annocheck_LDFLAGS = -Wl,-z,now
+-annocheck_CFLAGS = -O2 -ansi -g -Wall -Werror -fpie -D_FORTIFY_SOURCE=2 -fplugin=annobin -fstack-protector-strong
++annocheck_CFLAGS = -O2 -ansi -g -Wall -Werror -fpie -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+ all: all-am
+ 
+ .SUFFIXES:
