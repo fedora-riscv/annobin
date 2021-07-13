@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.80
+Version: 9.81
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 13 2021 Nick Clifton  <nickc@redhat.com> - 9.81-1
+- Annocheck: Add some more test exceptions.
+
 * Mon Jul 05 2021 Nick Clifton  <nickc@redhat.com> - 9.80-1
 - Tests: Skip glibc-notes test if the assembler does not support --generate-missing-build-notes.  (#1978573)
 - Tests: Skip objcopy test if objcopy does not support --merge-notes.
