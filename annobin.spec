@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.81
+Version: 9.82
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jul 13 2021 Nick Clifton  <nickc@redhat.com> - 9.82-1
+- Annocheck: Add another test exceptions.
+
 * Tue Jul 13 2021 Nick Clifton  <nickc@redhat.com> - 9.81-1
 - Annocheck: Add some more test exceptions.
 
