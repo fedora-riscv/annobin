@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.82
-Release: 2%{?dist}
+Version: 9.83
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jul 23 2021 Nick Clifton  <nickc@redhat.com> - 9.83-1
+- Annocheck: Reverse AArch64 PAC+BTI check, ie fail if they are enabled.  (#1984995)
+
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.82-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
