@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.81
+Version: 9.83
 Release: 1%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
@@ -312,6 +312,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jul 23 2021 Nick Clifton  <nickc@redhat.com> - 9.83-1
+- Annocheck: Reverse AArch64 PAC+BTI check, ie fail if they are enabled.  (#1984995)
+- Annocheck: Add another test exceptions.
+
 * Tue Jul 13 2021 Nick Clifton  <nickc@redhat.com> - 9.81-1
 - Annocheck: Add some more test exceptions.
 - Tests: Skip glibc-notes test if the assembler does not support --generate-missing-build-notes.  (#1978573)
