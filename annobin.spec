@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.83
+Version: 9.84
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Aug 09 2021 Nick Clifton  <nickc@redhat.com> - 9.84-1
+- Annocheck: Process files in command line order.  (#1988714)
+
 * Fri Jul 23 2021 Nick Clifton  <nickc@redhat.com> - 9.83-1
 - Annocheck: Reverse AArch64 PAC+BTI check, ie fail if they are enabled.  (#1984995)
 
