@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.84
+Version: 9.85
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 10 2021 Nick Clifton  <nickc@redhat.com> - 9.85-1
+- Annocheck: Detect a missing CET note.  (#1991931)
+- Annocheck: Do not report future fails for AArch64 notes.
+- Annocheck: Warn about multiple --debug-file, --debug-rpm and --debug-dir options.
+
 * Mon Aug 09 2021 Nick Clifton  <nickc@redhat.com> - 9.84-1
 - Annocheck: Process files in command line order.  (#1988714)
 
