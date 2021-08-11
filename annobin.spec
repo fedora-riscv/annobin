@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.85
+Version: 9.86
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 11 2021 Nick Clifton  <nickc@redhat.com> - 9.86-1
+- Annocheck: Skip certain tests for kernel modules.
+
 * Tue Aug 10 2021 Nick Clifton  <nickc@redhat.com> - 9.85-1
 - Annocheck: Detect a missing CET note.  (#1991931)
 - Annocheck: Do not report future fails for AArch64 notes.
