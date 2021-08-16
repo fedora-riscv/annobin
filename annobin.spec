@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.87
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -61,6 +61,9 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
+# We need to force use of legacy pass manager until annobin is ported to the new
+# pass manager.
+Patch0: 0001-llvm-plugin-Add-flegacy-pass-manager-option-to-the-t.patch
 
 #---------------------------------------------------------------------------------
 
@@ -460,6 +463,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 16 2021 Tom Stellard <tstellar@redhat.com> - 9.87-2
+- Rebuild for LLVM 13.0.0-rc1
+
 * Mon Aug 16 2021 Nick Clifton  <nickc@redhat.com> - 9.87-1
 - Annocheck: Fix memory corruption.  (#1988715)
 
