@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.86
+Version: 9.87
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -460,6 +460,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Aug 16 2021 Nick Clifton  <nickc@redhat.com> - 9.87-1
+- Annocheck: Fix memory corruption.  (#1988715)
+
 * Wed Aug 11 2021 Nick Clifton  <nickc@redhat.com> - 9.86-1
 - Annocheck: Skip certain tests for kernel modules.
 
