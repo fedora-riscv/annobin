@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.88
+Version: 9.89
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -332,8 +332,15 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 CONFIG_ARGS="$CONFIG_ARGS --without-test"
 %endif
 
+export CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
+
 %if %{without annocheck}
 CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
+%else
+# Fedora supports AArch64's -mbranch-protection=bti, RHEL does not.
+%if 0%{?fedora} != 0
+export CFLAGS="$CFLAGS -DAARCh64_BRANCH_PROTECTION_SUPPORTED=1"
+%endif
 %endif
 
 %set_build_flags
@@ -451,6 +458,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 17 2021 Nick Clifton  <nickc@redhat.com> - 9.89-1
+- Annocheck: Conditionalize detection of AArch64's PAC+BTI protection.
+- Annocheck: Add linker generated function for s390x exceptions.  (#1981410)
+
 * Tue Aug 17 2021 Nick Clifton  <nickc@redhat.com> - 9.88-1
 - Annocheck: Generate MAYB results for gaps in notes covering the .text section.  (#1991943)
 - Annocheck: Close DWARF file descriptors once the debug info is no longer needed.  (#1981410)
