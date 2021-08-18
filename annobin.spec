@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.89
+Version: 9.90
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -458,6 +458,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 18 2021 Nick Clifton  <nickc@redhat.com> - 9.90-1
+- Annocheck: Add linker generated function for ppc64le exceptions.  (#1981410)
+- LLVM Plugin: Allow checks to be selected from the command line.
+- Annocheck: Examine DW_AT_producer for -flto.    
+
 * Tue Aug 17 2021 Nick Clifton  <nickc@redhat.com> - 9.89-1
 - Annocheck: Conditionalize detection of AArch64's PAC+BTI protection.
 - Annocheck: Add linker generated function for s390x exceptions.  (#1981410)
