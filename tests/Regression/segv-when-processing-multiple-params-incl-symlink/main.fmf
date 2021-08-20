@@ -1,0 +1,17 @@
+summary: segv-when-processing-multiple-params-incl-symlink
+description: |
+    Bug summary: annocheck segfaults sometimes when processing multiple parameters and symlink is involved
+    Bugzilla link: https://bugzilla.redhat.com/show_bug.cgi?id=1988715
+contact: Martin Cermak <mcermak@redhat.com>
+component:
+- annobin
+test: ./runtest.sh
+framework: beakerlib
+recommend:
+- annobin
+- libstdc++
+duration: 48h
+link:
+-   relates: https://bugzilla.redhat.com/show_bug.cgi?id=1988715
+extra-summary: /tools/annobin/Regression/segv-when-processing-multiple-params-incl-symlink
+extra-task: /tools/annobin/Regression/segv-when-processing-multiple-params-incl-symlink
