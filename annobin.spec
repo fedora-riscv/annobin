@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.90
+Version: 9.92
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -231,6 +231,15 @@ Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})
 Requires: gcc
 %endif
 
+# The next line has been stolen from redhat-rpm-config.spec.
+# We install a version info file into this directory, rather than gcc's plugin
+# directory, because there is no reliable way for redhat-rpm-config to
+# determine the name of gcc's plugin directory.
+%global rrcdir /usr/lib/rpm/redhat
+
+# Information about the gcc plugin is recorded in this file.
+%global aver %{rrcdir}/annobin-plugin-version-info
+
 %description plugin-gcc
 Installs an annobin plugin that can be used by gcc.
 
@@ -279,6 +288,7 @@ Installs an annobin plugin that can be used by Clang.
 #---------------------------------------------------------------------------------
 
 %prep
+
 if [ -z "%{gcc_vr}" ]; then
     echo "*** Missing gcc_vr spec file macro, cannot continue." >&2
     exit 1
@@ -339,7 +349,7 @@ CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
 %else
 # Fedora supports AArch64's -mbranch-protection=bti, RHEL does not.
 %if 0%{?fedora} != 0
-export CFLAGS="$CFLAGS -DAARCh64_BRANCH_PROTECTION_SUPPORTED=1"
+export CFLAGS="$CFLAGS -DAARCH64_BRANCH_PROTECTION_SUPPORTED=1"
 %endif
 %endif
 
@@ -353,8 +363,6 @@ export CLANG_TARGET_OPTIONS="-fcf-protection"
 %configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
-
-#---------------------------------------------------------------------------------
 
 %if %{with plugin_rebuild}
 # Rebuild the plugin(s), this time using the plugin itself!  This
@@ -397,15 +405,28 @@ make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
 
 #---------------------------------------------------------------------------------
 
-# PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %install
+
+# PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %make_install PLUGIN_INSTALL_DIR=%{buildroot}/%{llvm_plugin_dir}
 
 %if %{with clangplugin}
-# Move clang plugin to a seperate directory.
+# Move the clang plugin to a seperate directory.
 mkdir -p %{buildroot}/%{clang_plugin_dir}
 mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plugin_dir}
 %endif
+
+%if %{with gccplugin}
+# Record the version of gcc that built this plugin.
+mkdir -p                      %{buildroot}%{rrcdir}
+rm -f                         %{buildroot}%{aver}
+# Note - the comparison logic in redhat-rpm-config's %%triggger macros require
+# that the plugin builder information appear as the first three numbers in the file.
+echo %{gcc_vr}              > %{buildroot}%{aver}
+# Provide a more complete version information string on the second line.
+echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
+%endif
+
 rm -f %{buildroot}%{_infodir}/dir
 
 #---------------------------------------------------------------------------------
@@ -414,6 +435,8 @@ rm -f %{buildroot}%{_infodir}/dir
 %check
 # Change the following line to "make check || :" on RHEL7 or if you need to see the
 # test suite logs in order to diagnose a test failure.
+# Change the following line to: make check CLANG_TESTS="check-pre-clang-13"
+# if you need to run the tests on a machine with an earlier version of Clang installed.
 make -k check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
@@ -447,6 +470,7 @@ fi
 %if %{with gccplugin}
 %files plugin-gcc
 %{ANNOBIN_GCC_PLUGIN_DIR}
+%{aver}
 %endif
 
 %if %{with annocheck}
@@ -458,6 +482,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 24 2021 Nick Clifton  <nickc@redhat.com> - 9.92-1
+- Annocheck: Fix memory corruption.  (#1996963)
+- spec file: Add the creation of a gcc-plugin version info file in /usr/lib/rpm/redhat.
+
+* Wed Aug 18 2021 Nick Clifton  <nickc@redhat.com> - 9.91-1
+- Annocheck: Fix conditionalization of AArch64's PAC+BTI detection.
+
 * Wed Aug 18 2021 Nick Clifton  <nickc@redhat.com> - 9.90-1
 - Annocheck: Add linker generated function for ppc64le exceptions.  (#1981410)
 - LLVM Plugin: Allow checks to be selected from the command line.
