@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.92
+Version: 9.93
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -56,8 +56,12 @@ License: GPLv3+
 
 #---------------------------------------------------------------------------------
 
-Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
+%global annobin_sources annobin-%{version}.tar.xz
+Source: https://nickc.fedorapeople.org/%{annobin_sources}
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
+
+# This is where a copy of the sources will be installed.
+%global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
@@ -425,6 +429,10 @@ rm -f                         %{buildroot}%{aver}
 echo %{gcc_vr}              > %{buildroot}%{aver}
 # Provide a more complete version information string on the second line.
 echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
+
+# Also install a copy of the sources into the build tree.
+mkdir -p                            %{buildroot}%{annobin_source_dir}
+cp %{_sourcedir}/%{annobin_sources} %{buildroot}%{annobin_source_dir}/latest-annobin.tar.xz
 %endif
 
 rm -f %{buildroot}%{_infodir}/dir
@@ -471,6 +479,7 @@ fi
 %files plugin-gcc
 %{ANNOBIN_GCC_PLUGIN_DIR}
 %{aver}
+%{annobin_source_dir}/latest-annobin.tar.xz
 %endif
 
 %if %{with annocheck}
@@ -482,6 +491,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 25 2021 Nick Clifton  <nickc@redhat.com> - 9.93-1
+- LLVM Plugin: Automatically choose the correct tests to run, based upon the version of Clang installed. (#1997444)
+- spec file: Add the installation of the annobon sources into /usr/src/annobin.
+
 * Tue Aug 24 2021 Nick Clifton  <nickc@redhat.com> - 9.92-1
 - Annocheck: Fix memory corruption.  (#1996963)
 - spec file: Add the creation of a gcc-plugin version info file in /usr/lib/rpm/redhat.
