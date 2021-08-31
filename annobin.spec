@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.93
+Version: 9.94
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 31 2021 Nick Clifton  <nickc@redhat.com> - 9.94-1
+- Annocheck: Skip GO/CET checks.  Fix fuzzing detected failures.
+
 * Wed Aug 25 2021 Nick Clifton  <nickc@redhat.com> - 9.93-1
 - LLVM Plugin: Automatically choose the correct tests to run, based upon the version of Clang installed. (#1997444)
 - spec file: Add the installation of the annobon sources into /usr/src/annobin.
