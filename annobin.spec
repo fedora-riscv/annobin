@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 9.94
+Version: 9.95
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -445,7 +445,7 @@ rm -f %{buildroot}%{_infodir}/dir
 # test suite logs in order to diagnose a test failure.
 # Change the following line to: make check CLANG_TESTS="check-pre-clang-13"
 # if you need to run the tests on a machine with an earlier version of Clang installed.
-make -k check
+make check
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
 fi
@@ -491,6 +491,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 03 2021 Nick Clifton  <nickc@redhat.com> - 9.95-1
+- Annocheck: Fix fuzzing detected failures.
+- Annocheck: Added --profile option.
+- Docs: Documented --profile option and rpminspect.yaml.
+
 * Tue Aug 31 2021 Nick Clifton  <nickc@redhat.com> - 9.94-1
 - Annocheck: Skip GO/CET checks.  Fix fuzzing detected failures.
 
