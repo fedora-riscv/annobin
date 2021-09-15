@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.03
+Version: 10.04
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -492,6 +492,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.04-1
+- Annocheck: With gaps at the start/end of the .text section, check for special symbols before displaying a MAYB result.
+
 * Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.03-1
 - Annocheck: Do not set CFLAGS/LDFLAGS when building.  Take from environment instead.
 
