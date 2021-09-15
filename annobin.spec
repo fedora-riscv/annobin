@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.02
+Version: 10.03
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -47,12 +47,14 @@ License: GPLv3+
 # was built is different from the version of gcc that is now being used, and
 # then it will abort.
 #
-# The default was to use plugin during rebuilds (cf BZ 1630550) but this has
-# been changed because of the need to be able to rebuild annobin when a change
-# to gcc breaks the version installed into the buildroot.
-%if %{without plugin_rebuild}
-%undefine _annotated_build
-%endif
+# The default is to use plugin during rebuilds (cf BZ 1630550) but this can
+# be changed because of the need to be able to rebuild annobin when a change
+# to gcc breaks the version installed into the buildroot.  Mote however that
+# uncommenting the lines below will result in annocheck not passing the rpminspect
+# tests....
+# %%if %%{without plugin_rebuild}
+# %%undefine _annotated_build
+# %%endif
 
 #---------------------------------------------------------------------------------
 
@@ -346,8 +348,6 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 CONFIG_ARGS="$CONFIG_ARGS --without-test"
 %endif
 
-export CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
-
 %if %{without annocheck}
 CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
 %else
@@ -359,12 +359,15 @@ export CFLAGS="$CFLAGS -DAARCH64_BRANCH_PROTECTION_SUPPORTED=1"
 
 %set_build_flags
 
+export CFLAGS="$CFLAGS $RPM_OPT_FLAGS %build_cflags"
+export LDFLAGS="$LDFLAGS %build_ldflags"
+
 %ifarch %{ix86} x86_64
 # FIXME: There should be a better way to do this.
 export CLANG_TARGET_OPTIONS="-fcf-protection"
 %endif
 
-%configure ${CONFIG_ARGS} || cat config.log
+CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" CXXFLAGS="$CFLAGS" %configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
 
@@ -489,6 +492,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.03-1
+- Annocheck: Do not set CFLAGS/LDFLAGS when building.  Take from environment instead.
+
 * Fri Sep 10 2021 Nick Clifton  <nickc@redhat.com> - 10.02-1
 - Annocheck: Fix exit code when tests PASS.
 
