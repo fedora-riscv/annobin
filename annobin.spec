@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.05
+Version: 10.06
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -492,6 +492,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Sep 16 2021 Nick Clifton  <nickc@redhat.com> - 10.06-1
+- GCC Plugin: Fix detection of running inside the LTO compiler.  (#2004917)
+
 * Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.05-1
 - Annocheck: Do not insist on the DT_AARCH64_PAC_PLT flag being present in AArch64 binaries.
 
