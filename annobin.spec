@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.06
+Version: 10.07
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -428,9 +428,11 @@ mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plu
 mkdir -p                      %{buildroot}%{rrcdir}
 rm -f                         %{buildroot}%{aver}
 # Note - the comparison logic in redhat-rpm-config's %%triggger macros require
-# that the plugin builder information appear as the first three numbers in the file.
+# that the plugin builder information appear as "major.minor.revision-release",
+# eg "11.2.1-1" on the first line of the version file.
 echo %{gcc_vr}              > %{buildroot}%{aver}
 # Provide a more complete version information string on the second line.
+# This is not used by the comparison logic, but makes the file more useful to humans.
 echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
 
 # Also install a copy of the sources into the build tree.
@@ -492,6 +494,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Sep 29 2021 Nick Clifton  <nickc@redhat.com> - 10.07-1
+- Annocheck: Ignore gaps containing NOP instructions.
+
 * Thu Sep 16 2021 Nick Clifton  <nickc@redhat.com> - 10.06-1
 - GCC Plugin: Fix detection of running inside the LTO compiler.  (#2004917)
 
