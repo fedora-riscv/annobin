@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.07
+Version: 10.08
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -494,6 +494,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 01 2021 Nick Clifton  <nickc@redhat.com> - 10.08-1
+- Annocheck: Fix covscan detected problems.
+- Annocheck: Add --profile=el8.
+- gcc-plugin: Conditionalize generation of branch protection note.
+
 * Wed Sep 29 2021 Nick Clifton  <nickc@redhat.com> - 10.07-1
 - Annocheck: Ignore gaps containing NOP instructions.
 
