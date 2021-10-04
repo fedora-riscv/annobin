@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.08
+Version: 10.09
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -494,6 +494,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 04 2021 Nick Clifton  <nickc@redhat.com> - 10.09-1
+- Annocheck: Add more cases of glibc startup functions.
+
 * Fri Oct 01 2021 Nick Clifton  <nickc@redhat.com> - 10.08-1
 - Annocheck: Fix covscan detected problems.
 - Annocheck: Add --profile=el8.
