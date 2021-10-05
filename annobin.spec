@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.09
+Version: 10.10
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -494,7 +494,12 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Oct 04 2021 Nick Clifton  <nickc@redhat.com> - 10.09-1
+* Tue Oct 05 2021 Nick Clifton  <nickc@redhat.com> - 10.10-1
+- Annocheck: Fix cf-prot test to fail if the CET notes are missing.
+- Annocheck: Skip gaps in the .plt section.
+- Plugins: Add -g option when building LLVM and Clang.
+
+* Mon Oct 04 2021 Nick Clifton  <nickc@redhat.com> - 10.09-1
 - Annocheck: Add more cases of glibc startup functions.
 
 * Fri Oct 01 2021 Nick Clifton  <nickc@redhat.com> - 10.08-1
