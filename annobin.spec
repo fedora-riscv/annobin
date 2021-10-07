@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -494,6 +494,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 12 2021 Tom Stellard <tstellar@redhat.com> - 10.13-2
+- Rebuild for llvm-13.0.0
+
 * Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.13-1
 - Annocheck: Fix memory corruptions when using --debug-path and when a corrupt note is found.  (#20011438)
 
