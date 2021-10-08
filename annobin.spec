@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.12
+Version: 10.13
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -494,6 +494,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.13-1
+- Annocheck: Fix memory corruptions when using --debug-path and when a corrupt note is found.  (#20011438)
+
 * Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.12-1
 - Annocheck: Fix MAYB results for mixed GO/C files.
 - Annocheck: Move some messages from VERBOSE to VERBOSE2.
