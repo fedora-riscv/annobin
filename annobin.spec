@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.11
+Version: 10.12
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -494,6 +494,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.12-1
+- Annocheck: Fix MAYB results for mixed GO/C files.
+- Annocheck: Move some messages from VERBOSE to VERBOSE2.
+- Annocheck: Scan zero-length tool notes.
+
 * Tue Oct 05 2021 Nick Clifton  <nickc@redhat.com> - 10.11-1
 - Annocheck: Fix covscan detected flaws.
 - plugins: Add more required build options.
