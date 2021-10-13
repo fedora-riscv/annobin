@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.13
+Version: 10.15
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -131,6 +131,7 @@ Provides:  %{name} = %{version}-%{release}
 Obsoletes: %{name} < %{version}-%{release}
 # The documentation uses pod2man...
 BuildRequires: perl-interpreter perl-podlators gawk make
+BuildRequires: sharutils
 
 %description docs
 Provides the documentation files and example shell scripts for use with annobin.
@@ -494,6 +495,12 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 13 2021 Nick Clifton  <nickc@redhat.com> - 10.15-1
+- Annocheck: Add tests based upon recent bug fixes.
+
+* Mon Oct 11 2021 Nick Clifton  <nickc@redhat.com> - 10.14-1
+- Annocheck: Another tweak to glibc detection code.
+
 * Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.13-1
 - Annocheck: Fix memory corruptions when using --debug-path and when a corrupt note is found.  (#20011438)
 
