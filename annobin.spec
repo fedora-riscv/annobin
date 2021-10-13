@@ -498,8 +498,11 @@ fi
 * Wed Oct 13 2021 Nick Clifton  <nickc@redhat.com> - 10.15-1
 - Annocheck: Add tests based upon recent bug fixes.
 
-* Mon Oct 11 2021 Nick Clifton  <nickc@redhat.com> - 10.14-1
+* Tue Oct 12 2021 Nick Clifton  <nickc@redhat.com> - 10.14-1
 - Annocheck: Another tweak to glibc detection code.
+
+* Tue Oct 12 2021 Tom Stellard <tstellar@redhat.com> - 10.13-2
+- Rebuild for llvm-13.0.0
 
 * Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.13-1
 - Annocheck: Fix memory corruptions when using --debug-path and when a corrupt note is found.  (#20011438)
