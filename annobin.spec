@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.15
+Version: 10.16
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -37,7 +37,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_with plugin_rebuild
+%bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -464,10 +464,10 @@ fi
 %doc %{_datadir}/doc/annobin-plugin/annotation.proposal.txt
 %{_infodir}/annobin.info*
 %{_mandir}/man1/annobin.1*
-%{_mandir}/man1/built-by.1*
-%{_mandir}/man1/check-abi.1*
-%{_mandir}/man1/hardened.1*
-%{_mandir}/man1/run-on-binaries-in.1*
+%exclude %{_mandir}/man1/built-by.1*
+%exclude %{_mandir}/man1/check-abi.1*
+%exclude %{_mandir}/man1/hardened.1*
+%exclude %{_mandir}/man1/run-on-binaries-in.1*
 
 %if %{with llvmplugin}
 %files plugin-llvm
@@ -495,6 +495,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 14 2021 Nick Clifton  <nickc@redhat.com> - 10.16-1
+- Fix configuring annocheck without gcc-plugin.
+- Annocheck: Better reporting of debuginfod problems.
+- Tests: Fix bugs in debuginfod test.
+
 * Wed Oct 13 2021 Nick Clifton  <nickc@redhat.com> - 10.15-1
 - Annocheck: Add tests based upon recent bug fixes.
 
