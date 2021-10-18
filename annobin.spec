@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -130,8 +130,7 @@ BuildArch: noarch
 Provides:  %{name} = %{version}-%{release}
 Obsoletes: %{name} < %{version}-%{release}
 # The documentation uses pod2man...
-BuildRequires: perl-interpreter perl-podlators gawk make
-BuildRequires: sharutils
+BuildRequires: perl-interpreter perl-podlators gawk make sharutils
 
 %description docs
 Provides the documentation files and example shell scripts for use with annobin.
@@ -259,6 +258,7 @@ Installs an annobin plugin that can be used by gcc.
 Summary: annobin llvm plugin
 
 Requires: %{name}-docs = %{version}-%{release}
+Requires: llvm-libs
 Conflicts: %{name} <= 9.60-1
 BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
 
@@ -274,6 +274,7 @@ Installs an annobin plugin that can be used by LLVM tools.
 Summary: annobin clang plugin
 
 Requires: %{name}-docs = %{version}-%{release}
+Requires: llvm-libs
 Conflicts: %{name} <= 9.60-1
 BuildRequires: clang clang-devel llvm llvm-devel compiler-rt
 
@@ -495,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.16-2
+- Add a requirement on llvm-libs for clang and llvm plugins.  (#2014573)
+
 * Thu Oct 14 2021 Nick Clifton  <nickc@redhat.com> - 10.16-1
 - Fix configuring annocheck without gcc-plugin.
 - Annocheck: Better reporting of debuginfod problems.
