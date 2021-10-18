@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.16
-Release: 2%{?dist}
+Version: 10.17
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.17-1
+- Better reporting of problems in object files.  (#2013708)
+
 * Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.16-2
 - Add a requirement on llvm-libs for clang and llvm plugins.  (#2014573)
 
