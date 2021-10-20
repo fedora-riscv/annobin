@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.17
+Version: 10.18
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Oct 20 2021 Nick Clifton  <nickc@redhat.com> - 10.18-1
+- Complain about DT_RPATH for Fedora binaries.
+
 * Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.17-1
 - Better reporting of problems in object files.  (#2013708)
 
