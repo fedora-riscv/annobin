@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.18
+Version: 10.19
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Oct 21 2021 Nick Clifton  <nickc@redhat.com> - 10.19-1
+- gcc-plugin: Fix attaching the .text section to the .text.group section.
+
 * Wed Oct 20 2021 Nick Clifton  <nickc@redhat.com> - 10.18-1
 - Complain about DT_RPATH for Fedora binaries.
 
