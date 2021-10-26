@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.20
+Version: 10.21
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 26 2021 Nick Clifton  <nickc@redhat.com> - 10.21-1
+- Annocheck: Do not fail if a --skip-<name> option does not match a known test.
+- ldconfig-test: Skip the LTO check.
+
 * Tue Oct 26 2021 Nick Clifton  <nickc@redhat.com> - 10.20-1
 - Annocheck: Add more glibc function names.
 
