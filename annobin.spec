@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.22
+Version: 10.23
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 08 2021 Nick Clifton  <nickc@redhat.com> - 10.23-1
+- Annocheck: Add a test for unicode characters in identifiers.
+
 * Wed Oct 27 2021 Nick Clifton  <nickc@redhat.com> - 10.22-1
 - gcc-plugin: Default to link-order grouping for PPC64LE.  (#2016458)
 
