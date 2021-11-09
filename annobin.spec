@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.87
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -463,6 +463,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 09 2021 Tom Stellard <tstellar@redhat.com> - 9.87-3
+- Rebuild for llvm-13.0.0
+
 * Wed Aug 16 2021 Tom Stellard <tstellar@redhat.com> - 9.87-2
 - Rebuild for LLVM 13.0.0-rc1
 
