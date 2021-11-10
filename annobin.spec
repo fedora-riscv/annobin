@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.87
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -63,7 +63,8 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # Patch01: annobin-foo.patch
 # We need to force use of legacy pass manager until annobin is ported to the new
 # pass manager.
-Patch0: 0001-llvm-plugin-Add-flegacy-pass-manager-option-to-the-t.patch
+Patch01: 0001-llvm-plugin-Add-flegacy-pass-manager-option-to-the-t.patch
+Patch02: annobin.unicode.patch
 
 #---------------------------------------------------------------------------------
 
@@ -290,6 +291,7 @@ fi
 echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
 
 %autosetup -p1
+chmod +x tests/unicode-test
 
 # The plugin has to be configured with the same arcane configure
 # scripts used by gcc.  Hence we must not allow the Fedora build
@@ -463,10 +465,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 10 2021 Nick Clifton  <nickc@redhat.com> - 9.87-4
+- Annocheck: Add test for the presence of unicode characters in identifiers.
+
 * Tue Nov 09 2021 Tom Stellard <tstellar@redhat.com> - 9.87-3
 - Rebuild for llvm-13.0.0
 
-* Wed Aug 16 2021 Tom Stellard <tstellar@redhat.com> - 9.87-2
+* Mon Aug 16 2021 Tom Stellard <tstellar@redhat.com> - 9.87-2
 - Rebuild for LLVM 13.0.0-rc1
 
 * Mon Aug 16 2021 Nick Clifton  <nickc@redhat.com> - 9.87-1
