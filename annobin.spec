@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.79
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -57,7 +57,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
 
 # Insert patches here, if needed.  Eg:
-# Patch01: annobin-foo.patch
+Patch01: annobin.unicode.patch
 
 #---------------------------------------------------------------------------------
 
@@ -194,6 +194,7 @@ fi
 echo "Requires: (gcc >= %{gcc_major} and gcc < %{gcc_next})"
 
 %autosetup -p1
+chmod +x tests/unicode-test
 
 # The plugin has to be configured with the same arcane configure
 # scripts used by gcc.  Hence we must not allow the Fedora build
@@ -324,6 +325,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 10 2021 Nick Clifton  <nickc@redhat.com> - 9.79-3
+- Annocheck: Add test for the presence of unicode characters in identifiers.  (#2018850)
+
 * Tue Aug 10 2021 Tom Stellard <tstellar@redhat.com> - 9.79-2
 - Rebuild for 12.0.1
 
