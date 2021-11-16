@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.23
+Version: 10.24
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 15 2021 Nick Clifton  <nickc@redhat.com> - 10.24-1
+- Annocheck: Add exception for /usr/sbin/ldconfig.  (#2022973)
+
 * Mon Nov 08 2021 Nick Clifton  <nickc@redhat.com> - 10.23-1
 - Annocheck: Add a test for unicode characters in identifiers.
 
