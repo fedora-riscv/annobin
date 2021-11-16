@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.24
+Version: 10.25
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Nov 16 2021 Nick Clifton  <nickc@redhat.com> - 10.25-1
+- gcc-plugin: Revert 10.22 change.  (#2023437)
+
 * Mon Nov 15 2021 Nick Clifton  <nickc@redhat.com> - 10.24-1
 - Annocheck: Add exception for /usr/sbin/ldconfig.  (#2022973)
 
