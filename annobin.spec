@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.25
+Version: 10.26
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Nov 18 2021 Nick Clifton  <nickc@redhat.com> - 10.26-1
+- gcc-plugin: Try another fix for ppc64le section grouping.  (#2023437)
+
 * Tue Nov 16 2021 Nick Clifton  <nickc@redhat.com> - 10.25-1
 - gcc-plugin: Revert 10.22 change.  (#2023437)
 
