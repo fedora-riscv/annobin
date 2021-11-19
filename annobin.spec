@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.26
+Version: 10.27
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 19 2021 Nick Clifton  <nickc@redhat.com> - 10.27-1
+- Annocheck: Skip missing fortify/warning notes for ARM32.
+
 * Thu Nov 18 2021 Nick Clifton  <nickc@redhat.com> - 10.26-1
 - gcc-plugin: Try another fix for ppc64le section grouping.  (#2023437)
 
