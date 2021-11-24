@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.27
+Version: 10.29
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -496,6 +496,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 24 2021 Nick Clifton  <nickc@redhat.com> - 10.29-1
+- gcc-plugin: Fix bug creating empty attachments.
+- Annocheck: Change MAYB result to SKIP for DT_RPATH.  (#2026300)
+
 * Fri Nov 19 2021 Nick Clifton  <nickc@redhat.com> - 10.27-1
 - Annocheck: Skip missing fortify/warning notes for ARM32.
 
