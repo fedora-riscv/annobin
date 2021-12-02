@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.87
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -65,6 +65,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 # pass manager.
 Patch01: 0001-llvm-plugin-Add-flegacy-pass-manager-option-to-the-t.patch
 Patch02: annobin.unicode.patch
+Patch03: annobin-golang-spaces-in-symbols.patch
 
 #---------------------------------------------------------------------------------
 
@@ -465,6 +466,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Dec 02 2021 Nick Clifton  <nickc@redhat.com> - 9.87-5
+- Annocheck: Allow spaces in golang symbols.
+
 * Wed Nov 10 2021 Nick Clifton  <nickc@redhat.com> - 9.87-4
 - Annocheck: Add test for the presence of unicode characters in identifiers.
 
