@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 9.79
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # ProtocolURL: https://fedoraproject.org/wiki/Toolchain/Watermark
 # Maintainer: nickc@redhat.com
@@ -58,6 +58,7 @@ Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
 
 # Insert patches here, if needed.  Eg:
 Patch01: annobin.unicode.patch
+Patch03: annobin-golang-spaces-in-symbols.patch
 
 #---------------------------------------------------------------------------------
 
@@ -325,6 +326,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Dec 02 2021 Nick Clifton  <nickc@redhat.com> - 9.79-4
+- Annocheck: Allow spaces in golang symbols.
+
 * Wed Nov 10 2021 Nick Clifton  <nickc@redhat.com> - 9.79-3
 - Annocheck: Add test for the presence of unicode characters in identifiers.  (#2018850)
 
