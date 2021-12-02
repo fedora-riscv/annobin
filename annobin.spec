@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.30
+Version: 10.31
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -498,6 +498,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Dec 02 2021 Nick Clifton  <nickc@redhat.com> - 10.31-1
+- Annocheck: Allow spaces in golang symbols.
+
 * Wed Dec 01 2021 Nick Clifton  <nickc@redhat.com> - 10.30-1
 - Annocheck: Initial deployment of libannocheck.
 
