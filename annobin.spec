@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.32
+Version: 10.33
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -498,6 +498,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 06 2021 Nick Clifton  <nickc@redhat.com> - 10.33-1
+- Tests: Fix gaps and stat tests to use newly built annobin plugin.  (#2028063)
+
 * Mon Dec 06 2021 Nick Clifton  <nickc@redhat.com> - 10.32-1
 - Annocheck: Ignore gaps in binaries at least partial built by golang.  (#2028583)
 
