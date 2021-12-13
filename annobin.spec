@@ -498,6 +498,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 13 2021 Nick Clifton  <nickc@redhat.com> - 10.35-1
+- Tests: Fix fortify and debuginfod tests to use newly built annobin plugin.
+
 * Mon Dec 06 2021 Nick Clifton  <nickc@redhat.com> - 10.34-1
 - Tests: Fix gaps and stat tests to use newly built annobin plugin.  (#2028063)
 
