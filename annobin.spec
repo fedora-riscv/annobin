@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.37
+Version: 10.38
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -498,6 +498,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Dec 14 2021 Nick Clifton  <nickc@redhat.com> - 10.38-1
+- Annocheck: Add special case for x86_64 RHEL-7 gaps.  (#2031133)
+
 * Tue Dec 14 2021 Nick Clifton  <nickc@redhat.com> - 10.37-1
 - Annocheck: Do not complaining about missing -mstackrealign notes in LTO mode.  (#2030298)
 
