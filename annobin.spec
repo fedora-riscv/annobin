@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.38
+Version: 10.39
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -398,6 +398,17 @@ BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
 
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
+
+# Record the version of gcc that built this plugin.
+mkdir -p                      %{buildroot}%{rrcdir}
+rm -f                         %{buildroot}%{aver}
+# Note - we cannot just store %%{gcc_vr} as sometimes the gcc rpm version changes
+# without the NVR being altered.  See BZ #2030671 for more discussion on this.
+echo `rpm -q gcc --qf '%{version}-%{release}'` > %{buildroot}%{aver}
+# Provide a more complete version information string on the second line.
+# This is not used by the comparison logic, but makes the file more useful to humans.
+echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
+
 %endif
 
 %if %{with clangplugin}
@@ -429,10 +440,9 @@ mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plu
 # Record the version of gcc that built this plugin.
 mkdir -p                      %{buildroot}%{rrcdir}
 rm -f                         %{buildroot}%{aver}
-# Note - the comparison logic in redhat-rpm-config's %%triggger macros require
-# that the plugin builder information appear as "major.minor.revision-release",
-# eg "11.2.1-1" on the first line of the version file.
-echo %{gcc_vr}              > %{buildroot}%{aver}
+# Note - we cannot just store %%{gcc_vr} as sometimes the gcc rpm version changes
+# without the NVR being altered.  See BZ #2030671 for more discussion on this.
+echo `rpm -q gcc --qf '%%{version}-%%{release}'` > %{buildroot}%{aver}
 # Provide a more complete version information string on the second line.
 # This is not used by the comparison logic, but makes the file more useful to humans.
 echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
@@ -498,6 +508,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Dec 17 2021 Nick Clifton  <nickc@redhat.com> - 10.39-1
+- Annocheck: Add /usr/lib/ld-linux-aarch64.so.1 to the list of known glibc binaries.  (#2033255)
+- Doc: Note that ENDBR is only needed as the landing pad for indirect branches/calls.  (#28705)
+- Spec File: Store full	gcc version release string in plugin info file.  (#2030671)
+
 * Tue Dec 14 2021 Nick Clifton  <nickc@redhat.com> - 10.38-1
 - Annocheck: Add special case for x86_64 RHEL-7 gaps.  (#2031133)
 
