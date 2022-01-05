@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.40
+Version: 10.41
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -508,7 +508,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Jan 04 2022 Nick Clifton  <nickc@redhat.com> - 10.34-1
+* Wed Jan 05 2022 Nick Clifton  <nickc@redhat.com> - 10.41-1
+- Annocheck: Ignore gaps that contain the _start symbol (for AArch64).  (#1995224)
+- Annocheck: Ignore more glibc special binaries.  (#2037220)
+
+* Tue Jan 04 2022 Nick Clifton  <nickc@redhat.com> - 10.40-1
 - Annocheck: Do not complaining about missing stack clash notes if the compilation used LTO.  (#2034946)
 
 * Fri Dec 17 2021 Nick Clifton  <nickc@redhat.com> - 10.39-1
