@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.42
+Version: 10.43
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -508,6 +508,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 07 2022 Nick Clifton  <nickc@redhat.com> - 10.43-1
+- Annocheck: ARM: Do not fail tests that rely upon annobin notes.
+
 * Wed Jan 05 2022 Nick Clifton  <nickc@redhat.com> - 10.42-1
 - Annocheck: Extend list of known glibc functions.  (#2037333)
 
