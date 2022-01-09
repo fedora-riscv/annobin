@@ -35,7 +35,7 @@ License: GPLv3+
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 1
+%global with_hard_gcc_version_requirement 0
 
 %bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
