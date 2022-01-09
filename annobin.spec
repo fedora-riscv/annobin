@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.44
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -37,7 +37,7 @@ License: GPLv3+
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_without plugin_rebuild
+%bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -508,6 +508,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Jan 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.44-2
+- Rebuild against new GCC.
+
 * Fri Jan 07 2022 Nick Clifton  <nickc@redhat.com> - 10.44-1
 - Annocheck: Add even more glibc function names. (#2037333)
 
