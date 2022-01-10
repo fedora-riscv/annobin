@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.44
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -53,7 +53,7 @@ License: GPLv3+
 # uncommenting the lines below will result in annocheck not passing the rpminspect
 # tests....
 # %%if %%{without plugin_rebuild}
-# %%undefine _annotated_build
+%undefine _annotated_build
 # %%endif
 
 #---------------------------------------------------------------------------------
