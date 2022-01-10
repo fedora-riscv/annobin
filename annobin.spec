@@ -66,7 +66,7 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 %global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
-# Patch01: annobin-foo.patch
+Patch01: annobin.fortify-test.patch
 
 #---------------------------------------------------------------------------------
 
