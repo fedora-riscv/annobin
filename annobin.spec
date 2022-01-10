@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.44
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
