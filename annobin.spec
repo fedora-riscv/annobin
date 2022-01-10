@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.44
-Release: 5%{?dist}
+Version: 10.45
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -508,6 +508,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 10 2022 Nick Clifton  <nickc@redhat.com> - 10.45-1
+- GCC Plugin: Replace CLVC_BOOLEAN with CLVC_BIT_SET/CLVC_BIT_CLEAR.
+
 * Sun Jan 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.44-4
 - Rebuild against new GCC.
 
