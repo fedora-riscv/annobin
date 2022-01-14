@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.47
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -509,6 +509,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 14 2022 Nick Clifton  <nickc@redhat.com> - 10.47-2
+- NVR bump to allow rebuild in a side tag.
+
 * Fri Jan 14 2022 Nick Clifton  <nickc@redhat.com> - 10.47-1
 - Annocheck: Improve detection of kernel modules.
 - GCC Plugin: Only default to link-once when using gcc-12 or later.  (#2039297)
