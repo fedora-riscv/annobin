@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.48
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -509,6 +509,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-5
+- NVR bump to allow rebuild in another side tag.
+
 * Wed Jan 19 2022 Jakub Jelinek  <jakub@redhat.com> - 10.48-4
 - NVR bump to allow rebuild in yet another side tag.
 
