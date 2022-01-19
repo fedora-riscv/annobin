@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.48
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -509,6 +509,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-2
+- NVR bump to allow rebuild in a side tag.
+
 * Mon Jan 17 2022 Nick Clifton  <nickc@redhat.com> - 10.48-1
 - GCC Plugin: Do not fail if a section cannot be attached to a group.
 
