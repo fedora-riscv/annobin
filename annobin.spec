@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.48
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -509,6 +509,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.48-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-5
 - NVR bump to allow rebuild in another side tag.
 
