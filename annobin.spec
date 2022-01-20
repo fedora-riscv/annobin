@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.48
-Release: 6%{?dist}
+Version: 10.49
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -238,14 +238,8 @@ Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})
 Requires: gcc
 %endif
 
-# The next line has been stolen from redhat-rpm-config.spec.
-# We install a version info file into this directory, rather than gcc's plugin
-# directory, because there is no reliable way for redhat-rpm-config to
-# determine the name of gcc's plugin directory.
-%global rrcdir /usr/lib/rpm/redhat
-
 # Information about the gcc plugin is recorded in this file.
-%global aver %{rrcdir}/annobin-plugin-version-info
+%global aver annobin-plugin-version-info
 
 %description plugin-gcc
 Installs an annobin plugin that can be used by gcc.
@@ -399,17 +393,6 @@ BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
 
 make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
-
-# Record the version of gcc that built this plugin.
-mkdir -p                      %{buildroot}%{rrcdir}
-rm -f                         %{buildroot}%{aver}
-# Note - we cannot just store %%{gcc_vr} as sometimes the gcc rpm version changes
-# without the NVR being altered.  See BZ #2030671 for more discussion on this.
-echo `rpm -q gcc --qf '%{version}-%{release}'` > %{buildroot}%{aver}
-# Provide a more complete version information string on the second line.
-# This is not used by the comparison logic, but makes the file more useful to humans.
-echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
-
 %endif
 
 %if %{with clangplugin}
@@ -422,6 +405,7 @@ cp llvm-plugin/annobin-for-llvm.so %{_tmppath}/tmp_annobin.so
 make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
 %endif
 
+# endif for %%if {with_lugin_rebuild}
 %endif
 
 #---------------------------------------------------------------------------------
@@ -439,14 +423,10 @@ mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plu
 
 %if %{with gccplugin}
 # Record the version of gcc that built this plugin.
-mkdir -p                      %{buildroot}%{rrcdir}
-rm -f                         %{buildroot}%{aver}
 # Note - we cannot just store %%{gcc_vr} as sometimes the gcc rpm version changes
 # without the NVR being altered.  See BZ #2030671 for more discussion on this.
-echo `rpm -q gcc --qf '%%{version}-%%{release}'` > %{buildroot}%{aver}
-# Provide a more complete version information string on the second line.
-# This is not used by the comparison logic, but makes the file more useful to humans.
-echo "%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0 was built by gcc version %{gcc_vr} from the %{version} sources" >> %{buildroot}%{aver}
+mkdir -p                             %{buildroot}/%{ANNOBIN_GCC_PLUGIN_DIR}
+cat `gcc --print-file-name=rpmver` > %{buildroot}/%{ANNOBIN_GCC_PLUGIN_DIR}/%{aver}
 
 # Also install a copy of the sources into the build tree.
 mkdir -p                            %{buildroot}%{annobin_source_dir}
@@ -493,8 +473,10 @@ fi
 
 %if %{with gccplugin}
 %files plugin-gcc
-%{ANNOBIN_GCC_PLUGIN_DIR}
-%{aver}
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0
+%{ANNOBIN_GCC_PLUGIN_DIR}/%{aver}
 %{annobin_source_dir}/latest-annobin.tar.xz
 %endif
 
@@ -509,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.49-1
+- Annocheck: Skip property note test for GO binaries.  (#204300)
+
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.48-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
