@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.49
+Version: 10.50
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.50-1
+- Annocheck: Add another glibc static library symbol.  (#2043047)
+
 * Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.49-1
 - Annocheck: Skip property note test for GO binaries.  (#204300)
 
