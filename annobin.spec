@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.50
+Version: 10.51
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -491,6 +491,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 25 2022 Nick Clifton  <nickc@redhat.com> - 10.51-1
+- Annocheck: Add an option to disable the use of debuginfod (if available).
+- Annocheck: Add more glibc special file names.
+- Annocheck: Skip some tests for BPF binaries.
+
 * Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.50-1
 - Annocheck: Add another glibc static library symbol.  (#2043047)
 
