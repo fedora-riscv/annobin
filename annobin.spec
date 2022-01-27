@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.51
-Release: 2%{?dist}
+Version: 10.52
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.52-1
+- gcc-plugin: Use canonical_option field of save_decoded_options array. (#2047148)
+
 * Thu Jan 27 2022 Florian Weimer <fweimer@redhat.com> - 10.51-2
 - Rebuild for new gcc version
 
