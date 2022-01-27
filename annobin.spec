@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.51
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 27 2022 Florian Weimer <fweimer@redhat.com> - 10.51-2
+- Rebuild for new gcc version
+
 * Tue Jan 25 2022 Nick Clifton  <nickc@redhat.com> - 10.51-1
 - Annocheck: Add an option to disable the use of debuginfod (if available).
 - Annocheck: Add more glibc special file names.
