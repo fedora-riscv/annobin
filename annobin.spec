@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.52
+Version: 10.53
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.53-1
+- gcc-plugin: Fix libtool so that extraneous runpaths are not added to the plugin.  (#2030667)
+
 * Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.52-1
 - gcc-plugin: Use canonical_option field of save_decoded_options array. (#2047148)
 
