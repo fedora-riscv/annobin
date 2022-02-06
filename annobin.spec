@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.53
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Feb 06 2022 Jakub Jelinek  <jakub@redhat.com> - 10.53-2
+- NVR bump to allow rebuild in yet another side tag.
+
 * Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.53-1
 - gcc-plugin: Fix libtool so that extraneous runpaths are not added to the plugin.  (#2030667)
 
