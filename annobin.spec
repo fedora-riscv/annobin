@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.53
-Release: 2%{?dist}
+Version: 10.54
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -491,6 +491,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 11 2022 Nick Clifton  <nickc@redhat.com> - 10.54-1
+- Annocheck: Skip PIE anf PIC tests for GO binaries.
+
 * Sun Feb 06 2022 Jakub Jelinek  <jakub@redhat.com> - 10.53-2
 - NVR bump to allow rebuild in yet another side tag.
 
