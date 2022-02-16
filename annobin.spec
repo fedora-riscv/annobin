@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.54
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -66,7 +66,7 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 %global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
-# Patch01: annobin.foo.patch
+# Patch01: annobin-foo.patch
 
 #---------------------------------------------------------------------------------
 
@@ -284,14 +284,12 @@ Installs an annobin plugin that can be used by Clang.
 
 %global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
-%{!?llvm_version:%global llvm_version 12.0.1}
-%{!?llvm_plugin_dir:%global llvm_plugin_dir %{_libdir}/llvm/%{llvm_version}}
-%{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/%{llvm_version}}
+%{!?llvm_plugin_dir:%global  llvm_plugin_dir  %{_libdir}/llvm/plugins}
+%{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/plugins}
 
 #---------------------------------------------------------------------------------
 
 %prep
-
 if [ -z "%{gcc_vr}" ]; then
     echo "*** Missing gcc_vr spec file macro, cannot continue." >&2
     exit 1
@@ -379,33 +377,27 @@ make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
 # Disable the standard annobin plugin so that we do get conflicts.
-# Note: the "-fplugin=annobin" is here, despite the fact that it will also
-# be automatically added to the gcc command line via
-# "-specs=/usr/lib/rpm/redhat/redhat-annobin-cc1" because of a bug in gcc's
-# plugin command line options handling.  GCC will issue an error saying that
-# there is no plugin called "annobin" matching the -fplugin-arg-annobin-disable
-# option, despite the fact that there patently is.
-BUILD_FLAGS="$BUILD_FLAGS -fplugin=annobin -fplugin-arg-annobin-disable"
+OPTS="$(rpm --eval '%undefine _annotated_build %build_cflags %build_ldflags')"
 
 # If building on systems with an assembler that does not support the
 # .attach_to_group pseudo op (eg RHEL-7) then enable the next line.
 # BUILD_FLAGS="$BUILD_FLAGS -fplugin-arg-tmp_annobin-no-attach"
 
-make -C gcc-plugin CXXFLAGS="%{optflags} $BUILD_FLAGS"
+make -C gcc-plugin CXXFLAGS="$OPTS $BUILD_FLAGS"
 rm %{_tmppath}/tmp_annobin.so
 %endif
 
 %if %{with clangplugin}
 cp clang-plugin/annobin-for-clang.so %{_tmppath}/tmp_annobin.so
-make -C clang-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
+make -C clang-plugin all CXXFLAGS="$OPTS $BUILD_FLAGS"
 %endif
 
 %if %{with llvmplugin}
 cp llvm-plugin/annobin-for-llvm.so %{_tmppath}/tmp_annobin.so
-make -C llvm-plugin all CXXFLAGS="%{optflags} $BUILD_FLAGS"
+make -C llvm-plugin all CXXFLAGS="$OPTS $BUILD_FLAGS"
 %endif
 
-# endif for %%if {with_lugin_rebuild}
+# endif for %%if {with_plugin_rebuild}
 %endif
 
 #---------------------------------------------------------------------------------
@@ -491,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Feb 16 2022 Nick Clifton  <nickc@redhat.com> - 10.54-3
+- Spec File: Use a different method to disable the annobin plugin  (#2054571)
+
 * Mon Feb 14 2022 Jakub Jelinek  <jakub@redhat.com> - 10.54-2
 - NVR bump to allow rebuild for new GCC.
 
