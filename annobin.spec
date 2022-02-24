@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.54
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 24 2022 Jakub Jelinek  <jakub@redhat.com> - 10.54-4
+- NVR bump to allow rebuild for new GCC.
+
 * Wed Feb 16 2022 Nick Clifton  <nickc@redhat.com> - 10.54-3
 - Spec File: Use a different method to disable the annobin plugin  (#2054571)
 
