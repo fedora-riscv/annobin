@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.54
-Release: 4%{?dist}
+Version: 10.55
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Feb 28 2022 Nick Clifton  <nickc@redhat.com> - 10.55-1
+- Always identify Rust binaries, even if built on a host that does not know about Rust.  (#2057737)
+
 * Thu Feb 24 2022 Jakub Jelinek  <jakub@redhat.com> - 10.54-4
 - NVR bump to allow rebuild for new GCC.
 
