@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.55
+Version: 10.56
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Mar 04 2022 Nick Clifton  <nickc@redhat.com> - 10.56-1
+- Annocheck: Add option to enable/disable following symbolic links.
+
 * Mon Feb 28 2022 Nick Clifton  <nickc@redhat.com> - 10.55-1
 - Always identify Rust binaries, even if built on a host that does not know about Rust.  (#2057737)
 
