@@ -39,5 +39,5 @@ rlJournalStart
         rlRun "rpm -qf /usr/lib64/libstdc++.so*"
         rlRun "annocheck --skip-all /usr/lib64/libstdc++.so*"
    rlPhaseEnd
-lJournalPrintText
+rlJournalPrintText
 rlJournalEnd
