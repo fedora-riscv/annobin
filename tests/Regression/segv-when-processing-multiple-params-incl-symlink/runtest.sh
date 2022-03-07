@@ -37,7 +37,8 @@ rlJournalStart
         # rules / policies, and the surrounding OS will evolve too.  This test
         # shouldn't report false positives though.
         rlRun "rpm -qf /usr/lib64/libstdc++.so*"
-        rlRun "annocheck --skip-all /usr/lib64/libstdc++.so*"
+        rlRun "annocheck --follow-links --skip-all /usr/lib64/libstdc++.so*"
+        rlRun "annocheck --ignore-links --skip-all /usr/lib64/libstdc++.so*"
    rlPhaseEnd
 rlJournalPrintText
 rlJournalEnd
