@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.57
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-3
+- NVR bump to allow rebuild for new GCC.
+
 * Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-2
 - NVR bump to allow rebuild for new GCC.
 
