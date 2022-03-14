@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.57
-Release: 3%{?dist}
+Version: 10.58
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 14 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
+- gcc-plugin: Do not issue warning messages for autoconf generated source files.  (#2009958)
+
 * Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-3
 - NVR bump to allow rebuild for new GCC.
 
