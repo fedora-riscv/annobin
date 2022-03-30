@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.59
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -67,6 +67,7 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
+Patch01: 0001-Compatibility-patch-for-llvm14.patch
 
 #---------------------------------------------------------------------------------
 
@@ -483,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 30 2022 Serge Guelton - 10.59-2
+- Rebuilt against new LLVM release, with patch.
+
 * Wed Mar 30 2022 Nick Clifton  <nickc@redhat.com> - 10.59-1
 - Annocheck: Fix test for AArch64 property notes.  (#2068657)
 
