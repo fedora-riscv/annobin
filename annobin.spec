@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.58
+Version: 10.59
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 30 2022 Nick Clifton  <nickc@redhat.com> - 10.59-1
+- Annocheck: Fix test for AArch64 property notes.  (#2068657)
+
 * Thu Mar 24 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
 - gcc-plugin: Do not issue warning messages for autoconf generated source files.  (#2009958)
 
