@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.60
+Version: 10.61
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -341,7 +341,7 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 %endif
 
 %if %{without tests}
-CONFIG_ARGS="$CONFIG_ARGS --without-test"
+CONFIG_ARGS="$CONFIG_ARGS --without-tests"
 %endif
 
 %if %{without annocheck}
@@ -484,6 +484,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sat Apr 02 2022 Nick Clifton  <nickc@redhat.com> - 10.61-1
+- gcc-plugin: Add remap of OPT_Wall.
+- configure: Fix typo in top level configure.ac.
+
 * Thu Mar 31 2022 Timm Bäder <mail@baedert.org>redhat.com> - 10.60-1
 - Add support for building using meson+ninja.
 
