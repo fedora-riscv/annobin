@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.59
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -459,6 +459,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Apr 04 2022 Jakub Jelinek <jakub@redhat.com> - 10.59-2
+- NVR bump to rebuild against GCC 11.2.1-10
+
 * Wed Mar 30 2022 Nick Clifton  <nickc@redhat.com> - 10.59-1
 - Annocheck: Fix test for AArch64 property notes.  (#2068657)
 
