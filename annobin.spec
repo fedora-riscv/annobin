@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.62
+Version: 10.63
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 06 2022 Nick Clifton  <nickc@redhat.com> - 10.63-1
+- Annocheck: Add more special cases for AArch64 glibc on RHEL-8.  (#2072082)
+
 * Tue Apr 05 2022 Nick Clifton  <nickc@redhat.com> - 10.62-1
 - llvm-plugin: Fix a thinko in the sources.
 
