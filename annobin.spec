@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.62
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Apr 11 2022 Jakub Jelinek  <jakub@redhat.com> - 10.62-2
+- NVR bump to allow rebuild for new GCC.
+
 * Tue Apr 05 2022 Nick Clifton  <nickc@redhat.com> - 10.62-1
 - gcc-plugin: Add remap of OPT_Wall.
 - configure: Fix typo in top level configure.ac.
