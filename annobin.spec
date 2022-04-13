@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.65
+Version: 10.66
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.66-1
+- Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled in LTO mode.
+
 * Tue Apr 12 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
 - gcc-plugin: Add support for CLVC_INTEGER options.
 
