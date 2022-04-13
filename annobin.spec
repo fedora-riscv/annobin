@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.62
+Version: 10.65
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -459,6 +459,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
+- gcc-plugin: Add support for CLVC_INTEGER options.
+- Annocheck: Even more special cases for AArch64 glibc on RHEL-8.  (#2072082)
+- Annocheck: Add more special cases for AArch64 glibc on RHEL-8.  (#2072082)
+
 * Tue Apr 05 2022 Nick Clifton  <nickc@redhat.com> - 10.62-1
 - gcc-plugin: Add remap of OPT_Wall.
 - configure: Fix typo in top level configure.ac.
