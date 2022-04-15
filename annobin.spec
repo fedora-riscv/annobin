@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.66
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 15 2022 Jakub Jelinek  <jakub@redhat.com> - 10.66-2
+- NVR bump to allow rebuild for new GCC.
+
 * Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.66-1
 - Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled in LTO mode.
 
