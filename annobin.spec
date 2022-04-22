@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.66
-Release: 2%{?dist}
+Version: 10.67
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -341,7 +341,7 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 %endif
 
 %if %{without tests}
-CONFIG_ARGS="$CONFIG_ARGS --without-test"
+CONFIG_ARGS="$CONFIG_ARGS --without-tests"
 %endif
 
 %if %{without annocheck}
@@ -484,32 +484,38 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Fri Apr 15 2022 Jakub Jelinek  <jakub@redhat.com> - 10.66-2
-- NVR bump to allow rebuild for new GCC.
+* Fri Apr 22 2022 Nick Clifton  <nickc@redhat.com> - 10.67-1
+- Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled by golang.
 
 * Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.66-1
 - Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled in LTO mode.
 
-* Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
+* Tue Apr 12 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
 - gcc-plugin: Add support for CLVC_INTEGER options.
+
+* Wed Apr 06 2022 Nick Clifton  <nickc@redhat.com> - 10.64-1
 - Annocheck: Even more special cases for AArch64 glibc on RHEL-8.  (#2072082)
+
+* Wed Apr 06 2022 Nick Clifton  <nickc@redhat.com> - 10.63-1
 - Annocheck: Add more special cases for AArch64 glibc on RHEL-8.  (#2072082)
 
-* Mon Apr 11 2022 Jakub Jelinek  <jakub@redhat.com> - 10.62-2
-- NVR bump to allow rebuild for new GCC.
-
 * Tue Apr 05 2022 Nick Clifton  <nickc@redhat.com> - 10.62-1
+- llvm-plugin: Fix a thinko in the sources.
+
+* Sat Apr 02 2022 Nick Clifton  <nickc@redhat.com> - 10.61-1
 - gcc-plugin: Add remap of OPT_Wall.
 - configure: Fix typo in top level configure.ac.
+
+* Thu Mar 31 2022 Timm Bäder <mail@baedert.org>redhat.com> - 10.60-1
 - Add support for building using meson+ninja.
 
-* Wed Mar 30 2022 Serge Guelton - 10.59-2
+* Wed Mar 30 2022 Serge Guelton  <sguelton@redhat.com> - 10.59-2  
 - Rebuilt against new LLVM release, with patch.
 
 * Wed Mar 30 2022 Nick Clifton  <nickc@redhat.com> - 10.59-1
 - Annocheck: Fix test for AArch64 property notes.  (#2068657)
 
-* Thu Mar 24 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
+* Mon Mar 14 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
 - gcc-plugin: Do not issue warning messages for autoconf generated source files.  (#2009958)
 
 * Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-3
