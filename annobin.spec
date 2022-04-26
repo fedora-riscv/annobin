@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.66
-Release: 2%{?dist}
+Version: 10.67
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -47,20 +47,27 @@ License: GPLv3+
 # was built is different from the version of gcc that is now being used, and
 # then it will abort.
 #
-# The default was to use plugin during rebuilds (cf BZ 1630550) but this has
-# been changed because of the need to be able to rebuild annobin when a change
-# to gcc breaks the version installed into the buildroot.
-%if %{without plugin_rebuild}
+# The default is to use plugin during rebuilds (cf BZ 1630550) but this can
+# be changed because of the need to be able to rebuild annobin when a change
+# to gcc breaks the version installed into the buildroot.  Mote however that
+# uncommenting the lines below will result in annocheck not passing the rpminspect
+# tests....
+# %%if %%{without plugin_rebuild}
 %undefine _annotated_build
-%endif
+# %%endif
 
 #---------------------------------------------------------------------------------
 
-Source:  https://nickc.fedorapeople.org/annobin-%{version}.tar.xz
+%global annobin_sources annobin-%{version}.tar.xz
+Source: https://nickc.fedorapeople.org/%{annobin_sources}
 # For the latest sources use:  git clone git://sourceware.org/git/annobin.git
+
+# This is where a copy of the sources will be installed.
+%global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
+# Patch01: 0001-Compatibility-patch-for-llvm14.patch
 
 #---------------------------------------------------------------------------------
 
@@ -232,6 +239,9 @@ Requires: (gcc >= %{gcc_major} with gcc < %{gcc_next})
 Requires: gcc
 %endif
 
+# Information about the gcc plugin is recorded in this file.
+%global aver annobin-plugin-version-info
+
 %description plugin-gcc
 Installs an annobin plugin that can be used by gcc.
 
@@ -275,9 +285,8 @@ Installs an annobin plugin that can be used by Clang.
 
 %global ANNOBIN_GCC_PLUGIN_DIR %(gcc --print-file-name=plugin)
 
-%{!?llvm_version:%global llvm_version 12.0.1}
-%{!?llvm_plugin_dir:%global llvm_plugin_dir %{_libdir}/llvm/%{llvm_version}}
-%{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/%{llvm_version}}
+%{!?llvm_plugin_dir:%global  llvm_plugin_dir  %{_libdir}/llvm/plugins}
+%{!?clang_plugin_dir:%global clang_plugin_dir %{_libdir}/clang/plugins}
 
 #---------------------------------------------------------------------------------
 
@@ -332,7 +341,7 @@ CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
 %endif
 
 %if %{without tests}
-CONFIG_ARGS="$CONFIG_ARGS --without-test"
+CONFIG_ARGS="$CONFIG_ARGS --without-tests"
 %endif
 
 %if %{without annocheck}
@@ -357,8 +366,6 @@ export CLANG_TARGET_OPTIONS="-fcf-protection"
 CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" CXXFLAGS="$CFLAGS" %configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
-
-#---------------------------------------------------------------------------------
 
 %if %{with plugin_rebuild}
 # Rebuild the plugin(s), this time using the plugin itself!  This
@@ -396,15 +403,29 @@ make -C llvm-plugin all CXXFLAGS="$OPTS $BUILD_FLAGS"
 
 #---------------------------------------------------------------------------------
 
-# PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %install
+
+# PLUGIN_INSTALL_DIR is used by the Clang and LLVM makefiles...
 %make_install PLUGIN_INSTALL_DIR=%{buildroot}/%{llvm_plugin_dir}
 
 %if %{with clangplugin}
-# Move clang plugin to a seperate directory.
+# Move the clang plugin to a seperate directory.
 mkdir -p %{buildroot}/%{clang_plugin_dir}
 mv %{buildroot}/%{llvm_plugin_dir}/annobin-for-clang.so %{buildroot}/%{clang_plugin_dir}
 %endif
+
+%if %{with gccplugin}
+# Record the version of gcc that built this plugin.
+# Note - we cannot just store %%{gcc_vr} as sometimes the gcc rpm version changes
+# without the NVR being altered.  See BZ #2030671 for more discussion on this.
+mkdir -p                             %{buildroot}/%{ANNOBIN_GCC_PLUGIN_DIR}
+cat `gcc --print-file-name=rpmver` > %{buildroot}/%{ANNOBIN_GCC_PLUGIN_DIR}/%{aver}
+
+# Also install a copy of the sources into the build tree.
+mkdir -p                            %{buildroot}%{annobin_source_dir}
+cp %{_sourcedir}/%{annobin_sources} %{buildroot}%{annobin_source_dir}/latest-annobin.tar.xz
+%endif
+
 rm -f %{buildroot}%{_infodir}/dir
 
 #---------------------------------------------------------------------------------
@@ -445,7 +466,11 @@ fi
 
 %if %{with gccplugin}
 %files plugin-gcc
-%{ANNOBIN_GCC_PLUGIN_DIR}
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0
+%{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0
+%{ANNOBIN_GCC_PLUGIN_DIR}/%{aver}
+%{annobin_source_dir}/latest-annobin.tar.xz
 %endif
 
 %if %{with annocheck}
@@ -459,133 +484,313 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Sat Apr 23 2022 Jakub Jelinek <jakub@redhat.com> - 10.66-2
-- NVR bump to rebuild against GCC 11.3.1-2.
+* Fri Apr 22 2022 Nick Clifton  <nickc@redhat.com> - 10.67-1
+- Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled by golang.
 
 * Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.66-1
 - Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled in LTO mode.
 
-* Wed Apr 13 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
+* Tue Apr 12 2022 Nick Clifton  <nickc@redhat.com> - 10.65-1
 - gcc-plugin: Add support for CLVC_INTEGER options.
+
+* Wed Apr 06 2022 Nick Clifton  <nickc@redhat.com> - 10.64-1
 - Annocheck: Even more special cases for AArch64 glibc on RHEL-8.  (#2072082)
+
+* Wed Apr 06 2022 Nick Clifton  <nickc@redhat.com> - 10.63-1
 - Annocheck: Add more special cases for AArch64 glibc on RHEL-8.  (#2072082)
 
 * Tue Apr 05 2022 Nick Clifton  <nickc@redhat.com> - 10.62-1
+- llvm-plugin: Fix a thinko in the sources.
+
+* Sat Apr 02 2022 Nick Clifton  <nickc@redhat.com> - 10.61-1
 - gcc-plugin: Add remap of OPT_Wall.
 - configure: Fix typo in top level configure.ac.
+
+* Thu Mar 31 2022 Timm Bäder <mail@baedert.org>redhat.com> - 10.60-1
 - Add support for building using meson+ninja.
 
-* Mon Apr 04 2022 Jakub Jelinek <jakub@redhat.com> - 10.59-2
-- NVR bump to rebuild against GCC 11.2.1-10
+* Wed Mar 30 2022 Serge Guelton  <sguelton@redhat.com> - 10.59-2  
+- Rebuilt against new LLVM release, with patch.
 
 * Wed Mar 30 2022 Nick Clifton  <nickc@redhat.com> - 10.59-1
 - Annocheck: Fix test for AArch64 property notes.  (#2068657)
 
-* Tue Mar 22 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
-- Rebase to 10.57:
+* Mon Mar 14 2022 Nick Clifton  <nickc@redhat.com> - 10.58-1
 - gcc-plugin: Do not issue warning messages for autoconf generated source files.  (#2009958)
+
+* Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-3
+- NVR bump to allow rebuild for new GCC.
+
+* Wed Mar 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.57-2
+- NVR bump to allow rebuild for new GCC.
+
+* Mon Mar 07 2022 Nick Clifton  <nickc@redhat.com> - 10.57-1
 - Annocheck: Update documentation and fix typo in annocheck.  (#2061291)
+
+* Fri Mar 04 2022 Nick Clifton  <nickc@redhat.com> - 10.56-1
 - Annocheck: Add option to enable/disable following symbolic links.
+
+* Mon Feb 28 2022 Nick Clifton  <nickc@redhat.com> - 10.55-1
 - Always identify Rust binaries, even if built on a host that does not know about Rust.  (#2057737)
+
+* Thu Feb 24 2022 Jakub Jelinek  <jakub@redhat.com> - 10.54-4
+- NVR bump to allow rebuild for new GCC.
+
+* Wed Feb 16 2022 Nick Clifton  <nickc@redhat.com> - 10.54-3
 - Spec File: Use a different method to disable the annobin plugin  (#2054571)
+
+* Mon Feb 14 2022 Jakub Jelinek  <jakub@redhat.com> - 10.54-2
+- NVR bump to allow rebuild for new GCC.
+
+* Fri Feb 11 2022 Nick Clifton  <nickc@redhat.com> - 10.54-1
 - Annocheck: Skip PIE anf PIC tests for GO binaries.
+
+* Sun Feb 06 2022 Jakub Jelinek  <jakub@redhat.com> - 10.53-2
+- NVR bump to allow rebuild in yet another side tag.
+
+* Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.53-1
 - gcc-plugin: Fix libtool so that extraneous runpaths are not added to the plugin.  (#2030667)
+
+* Thu Jan 27 2022 Nick Clifton  <nickc@redhat.com> - 10.52-1
 - gcc-plugin: Use canonical_option field of save_decoded_options array. (#2047148)
+
+* Thu Jan 27 2022 Florian Weimer <fweimer@redhat.com> - 10.51-2
+- Rebuild for new gcc version
+
+* Tue Jan 25 2022 Nick Clifton  <nickc@redhat.com> - 10.51-1
 - Annocheck: Add an option to disable the use of debuginfod (if available).
 - Annocheck: Add more glibc special file names.
 - Annocheck: Skip some tests for BPF binaries.
+
+* Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.50-1
 - Annocheck: Add another glibc static library symbol.  (#2043047)
+
+* Thu Jan 20 2022 Nick Clifton  <nickc@redhat.com> - 10.49-1
 - Annocheck: Skip property note test for GO binaries.  (#204300)
+
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.48-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-5
+- NVR bump to allow rebuild in another side tag.
+
+* Wed Jan 19 2022 Jakub Jelinek  <jakub@redhat.com> - 10.48-4
+- NVR bump to allow rebuild in yet another side tag.
+
+* Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-3
+- NVR bump to allow rebuild in another side tag.
+
+* Wed Jan 19 2022 Nick Clifton  <nickc@redhat.com> - 10.48-2
+- NVR bump to allow rebuild in a side tag.
+
+* Mon Jan 17 2022 Nick Clifton  <nickc@redhat.com> - 10.48-1
 - GCC Plugin: Do not fail if a section cannot be attached to a group.
+
+* Fri Jan 14 2022 Nick Clifton  <nickc@redhat.com> - 10.47-2
+- NVR bump to allow rebuild in a side tag.
+
+* Fri Jan 14 2022 Nick Clifton  <nickc@redhat.com> - 10.47-1
 - Annocheck: Improve detection of kernel modules.
 - GCC Plugin: Only default to link-once when using gcc-12 or later.  (#2039297)
+
+* Tue Jan 11 2022 Nick Clifton  <nickc@redhat.com> - 10.46-1
 - Annocheck: Add option to disable instrumentation test.
+
+* Mon Jan 10 2022 Nick Clifton  <nickc@redhat.com> - 10.45-1
 - GCC Plugin: Replace CLVC_BOOLEAN with CLVC_BIT_SET/CLVC_BIT_CLEAR.
+
+* Sun Jan 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.44-4
+- Rebuild against new GCC.
+
+* Sun Jan 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.44-3
+- Rebuild against new GCC.
+
+* Sun Jan 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.44-2
+- Rebuild against new GCC.
+
+* Fri Jan 07 2022 Nick Clifton  <nickc@redhat.com> - 10.44-1
 - Annocheck: Add even more glibc function names. (#2037333)
+
+* Fri Jan 07 2022 Nick Clifton  <nickc@redhat.com> - 10.43-1
 - Annocheck: ARM: Do not fail tests that rely upon annobin notes.
+
+* Wed Jan 05 2022 Nick Clifton  <nickc@redhat.com> - 10.42-1
 - Annocheck: Extend list of known glibc functions.  (#2037333)
+
+* Wed Jan 05 2022 Nick Clifton  <nickc@redhat.com> - 10.41-1
 - Annocheck: Ignore gaps that contain the _start symbol (for AArch64).  (#1995224)
 - Annocheck: Ignore more glibc special binaries.  (#2037220)
+
+* Tue Jan 04 2022 Nick Clifton  <nickc@redhat.com> - 10.40-1
 - Annocheck: Do not complaining about missing stack clash notes if the compilation used LTO.  (#2034946)
+
+* Fri Dec 17 2021 Nick Clifton  <nickc@redhat.com> - 10.39-1
 - Annocheck: Add /usr/lib/ld-linux-aarch64.so.1 to the list of known glibc binaries.  (#2033255)
 - Doc: Note that ENDBR is only needed as the landing pad for indirect branches/calls.  (#28705)
+- Spec File: Store full	gcc version release string in plugin info file.  (#2030671)
+
+* Tue Dec 14 2021 Nick Clifton  <nickc@redhat.com> - 10.38-1
 - Annocheck: Add special case for x86_64 RHEL-7 gaps.  (#2031133)
+
+* Tue Dec 14 2021 Nick Clifton  <nickc@redhat.com> - 10.37-1
 - Annocheck: Do not complaining about missing -mstackrealign notes in LTO mode.  (#2030298)
+
+* Mon Dec 13 2021 Nick Clifton  <nickc@redhat.com> - 10.36-1
 - GCC Plugin: Do not record missing -mstackrealign in LTO mode.  (#2030298)
+
+* Mon Dec 13 2021 Nick Clifton  <nickc@redhat.com> - 10.35-1
 - Tests: Fix fortify and debuginfod tests to use newly built annobin plugin.
+
+* Mon Dec 06 2021 Nick Clifton  <nickc@redhat.com> - 10.34-1
 - Tests: Fix gaps and stat tests to use newly built annobin plugin.  (#2028063)
+
+* Mon Dec 06 2021 Nick Clifton  <nickc@redhat.com> - 10.32-1
 - Annocheck: Ignore gaps in binaries at least partial built by golang.  (#2028583)
+
+* Thu Dec 02 2021 Nick Clifton  <nickc@redhat.com> - 10.31-1
 - Annocheck: Allow spaces in golang symbols.
+
+* Wed Dec 01 2021 Nick Clifton  <nickc@redhat.com> - 10.30-1
 - Annocheck: Initial deployment of libannocheck.
+
+* Wed Nov 24 2021 Nick Clifton  <nickc@redhat.com> - 10.29-1
 - gcc-plugin: Fix bug creating empty attachments.
 - Annocheck: Change MAYB result to SKIP for DT_RPATH.  (#2026300)
+
+* Fri Nov 19 2021 Nick Clifton  <nickc@redhat.com> - 10.27-1
 - Annocheck: Skip missing fortify/warning notes for ARM32.
+
+* Thu Nov 18 2021 Nick Clifton  <nickc@redhat.com> - 10.26-1
 - gcc-plugin: Try another fix for ppc64le section grouping.  (#2023437)
+
+* Tue Nov 16 2021 Nick Clifton  <nickc@redhat.com> - 10.25-1
 - gcc-plugin: Revert 10.22 change.  (#2023437)
+
+* Mon Nov 15 2021 Nick Clifton  <nickc@redhat.com> - 10.24-1
 - Annocheck: Add exception for /usr/sbin/ldconfig.  (#2022973)
+
+* Mon Nov 08 2021 Nick Clifton  <nickc@redhat.com> - 10.23-1
 - Annocheck: Add a test for unicode characters in identifiers.
+
+* Wed Oct 27 2021 Nick Clifton  <nickc@redhat.com> - 10.22-1
 - gcc-plugin: Default to link-order grouping for PPC64LE.  (#2016458)
+
+* Tue Oct 26 2021 Nick Clifton  <nickc@redhat.com> - 10.21-1
 - Annocheck: Do not fail if a --skip-<name> option does not match a known test.
 - ldconfig-test: Skip the LTO check.
+
+* Tue Oct 26 2021 Nick Clifton  <nickc@redhat.com> - 10.20-1
 - Annocheck: Add more glibc function names.
+
+* Thu Oct 21 2021 Nick Clifton  <nickc@redhat.com> - 10.19-1
 - gcc-plugin: Fix attaching the .text section to the .text.group section.
+
+* Wed Oct 20 2021 Nick Clifton  <nickc@redhat.com> - 10.18-1
 - Complain about DT_RPATH for Fedora binaries.
+
+* Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.17-1
 - Better reporting of problems in object files.  (#2013708)
+
+* Mon Oct 18 2021 Nick Clifton  <nickc@redhat.com> - 10.16-2
 - Add a requirement on llvm-libs for clang and llvm plugins.  (#2014573)
+
+* Thu Oct 14 2021 Nick Clifton  <nickc@redhat.com> - 10.16-1
 - Fix configuring annocheck without gcc-plugin.
 - Annocheck: Better reporting of debuginfod problems.
 - Tests: Fix bugs in debuginfod test.
+
+* Wed Oct 13 2021 Nick Clifton  <nickc@redhat.com> - 10.15-1
 - Annocheck: Add tests based upon recent bug fixes.
+
+* Tue Oct 12 2021 Nick Clifton  <nickc@redhat.com> - 10.14-1
 - Annocheck: Another tweak to glibc detection code.
+
+* Tue Oct 12 2021 Tom Stellard <tstellar@redhat.com> - 10.13-2
+- Rebuild for llvm-13.0.0
+
+* Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.13-1
 - Annocheck: Fix memory corruptions when using --debug-path and when a corrupt note is found.  (#20011438)
+
+* Fri Oct 08 2021 Nick Clifton  <nickc@redhat.com> - 10.12-1
 - Annocheck: Fix MAYB results for mixed GO/C files.
 - Annocheck: Move some messages from VERBOSE to VERBOSE2.
 - Annocheck: Scan zero-length tool notes.
+
+* Tue Oct 05 2021 Nick Clifton  <nickc@redhat.com> - 10.11-1
 - Annocheck: Fix covscan detected flaws.
 - plugins: Add more required build options.
+
+* Tue Oct 05 2021 Nick Clifton  <nickc@redhat.com> - 10.10-1
 - Annocheck: Fix cf-prot test to fail if the CET notes are missing.
 - Annocheck: Skip gaps in the .plt section.
 - Plugins: Add -g option when building LLVM and Clang.
+
+* Mon Oct 04 2021 Nick Clifton  <nickc@redhat.com> - 10.09-1
 - Annocheck: Add more cases of glibc startup functions.
+
+* Fri Oct 01 2021 Nick Clifton  <nickc@redhat.com> - 10.08-1
 - Annocheck: Fix covscan detected problems.
 - Annocheck: Add --profile=el8.
 - gcc-plugin: Conditionalize generation of branch protection note.
+
+* Wed Sep 29 2021 Nick Clifton  <nickc@redhat.com> - 10.07-1
 - Annocheck: Ignore gaps containing NOP instructions.
+
+* Thu Sep 16 2021 Nick Clifton  <nickc@redhat.com> - 10.06-1
 - GCC Plugin: Fix detection of running inside the LTO compiler.  (#2004917)
+
+* Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.05-1
 - Annocheck: Do not insist on the DT_AARCH64_PAC_PLT flag being present in AArch64 binaries.
+
+* Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.04-1
 - Annocheck: With gaps at the start/end of the .text section, check for special symbols before displaying a MAYB result.
+
+* Wed Sep 15 2021 Nick Clifton  <nickc@redhat.com> - 10.03-1
 - Annocheck: Do not set CFLAGS/LDFLAGS when building.  Take from environment instead.
+
+* Fri Sep 10 2021 Nick Clifton  <nickc@redhat.com> - 10.02-1
 - Annocheck: Fix exit code when tests PASS.
+
+* Thu Sep 09 2021 Nick Clifton  <nickc@redhat.com> - 10.01-1
 - Documentation: Add node for each hardening test.
 - Documentation: Install online.
 - Annocheck: Annote FAIL and MAYB results with URL to documentation
 - Annocheck: Add --no-urls and --provide-urls options
 - Annocheck: Add --help-<tool> option.
+
+* Fri Sep 03 2021 Nick Clifton  <nickc@redhat.com> - 9.95-1
 - Annocheck: Fix fuzzing detected failures.
 - Annocheck: Add --profile option.
 - Docs: Document --profile option and rpminspect.yaml.
+
+* Tue Aug 31 2021 Nick Clifton  <nickc@redhat.com> - 9.94-1
 - Annocheck: Skip GO/CET checks.  Fix fuzzing detected failures.
+
+* Wed Aug 25 2021 Nick Clifton  <nickc@redhat.com> - 9.93-1
 - LLVM Plugin: Automatically choose the correct tests to run, based upon the version of Clang installed. (#1997444)
+- spec file: Add the installation of the annobon sources into /usr/src/annobin.
+
+* Tue Aug 24 2021 Nick Clifton  <nickc@redhat.com> - 9.92-1
 - Annocheck: Fix memory corruption.  (#1996963)
+- spec file: Add the creation of a gcc-plugin version info file in /usr/lib/rpm/redhat.
+
+* Wed Aug 18 2021 Nick Clifton  <nickc@redhat.com> - 9.91-1
 - Annocheck: Fix conditionalization of AArch64's PAC+BTI detection.
+
+* Wed Aug 18 2021 Nick Clifton  <nickc@redhat.com> - 9.90-1
 - Annocheck: Add linker generated function for ppc64le exceptions.  (#1981410)
 - LLVM Plugin: Allow checks to be selected from the command line.
 - Annocheck: Examine DW_AT_producer for -flto.    
+
+* Tue Aug 17 2021 Nick Clifton  <nickc@redhat.com> - 9.89-1
 - Annocheck: Conditionalize detection of AArch64's PAC+BTI protection.
 - Annocheck: Add linker generated function for s390x exceptions.  (#1981410)
+
+* Tue Aug 17 2021 Nick Clifton  <nickc@redhat.com> - 9.88-1
 - Annocheck: Generate MAYB results for gaps in notes covering the .text section.  (#1991943)
 - Annocheck: Close DWARF file descriptors once the debug info is no longer needed.  (#1981410)
 - LLVM Plugin: Update to build with Clang v13.  (Thanks to: Tom Stellard <tstellar@redhat.com>)
-
-* Thu Dec 02 2021 Nick Clifton  <nickc@redhat.com> - 9.87-5
-- Annocheck: Allow spaces in golang symbols.
-
-* Wed Nov 10 2021 Nick Clifton  <nickc@redhat.com> - 9.87-4
-- Annocheck: Add test for the presence of unicode characters in identifiers.
-
-* Tue Nov 09 2021 Tom Stellard <tstellar@redhat.com> - 9.87-3
-- Rebuild for llvm-13.0.0
-
+    
 * Mon Aug 16 2021 Tom Stellard <tstellar@redhat.com> - 9.87-2
 - Rebuild for LLVM 13.0.0-rc1
 
