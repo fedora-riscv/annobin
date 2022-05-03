@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.67
+Version: 10.68
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 03 2022 Nick Clifton  <nickc@redhat.com> - 10.68-1
+- Annocheck: Add more glibc exceptions + check PT_TLS segments.  (#2081131)
+
 * Fri Apr 22 2022 Nick Clifton  <nickc@redhat.com> - 10.67-1
 - Annocheck: Do not complain about missing -mbranch-protection option in AArch64 binaries if compiled by golang.
 
