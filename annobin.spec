@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.68
+Version: 10.69
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri May 06 2022 Nick Clifton  <nickc@redhat.com> - 10.69-1
+- Annocheck: Do not complain about unenabled -mbranch-protection option in AArch64 binaries if compiled using LTO.  (#2082146)
+
 * Tue May 03 2022 Nick Clifton  <nickc@redhat.com> - 10.68-1
 - Annocheck: Add more glibc exceptions + check PT_TLS segments.  (#2081131)
 
