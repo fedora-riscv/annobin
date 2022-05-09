@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.69
-Release: 2%{?dist}
+Version: 10.70
+Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
 # Web Page: https://sourceware.org/annobin/
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon May 09 2022 Nick Clifton  <nickc@redhat.com> - 10.70-1
+- Annocheck: Add another special case for glibc rpms.  (#2083070)
+
 * Mon May 09 2022 Jakub Jelinek  <jakub@redhat.com> - 10.69-2
 - NVR bump to allow rebuild for new GCC.
 
