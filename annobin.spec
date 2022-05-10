@@ -4,8 +4,8 @@ Summary: Annotate and examine compiled binary files
 Version: 10.70
 Release: 1%{?dist}
 License: GPLv3+
+URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
-# Web Page: https://sourceware.org/annobin/
 # Watermark Protocol: https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
