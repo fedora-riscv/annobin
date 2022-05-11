@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.70
+Version: 10.71
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed May 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.70-1
+-  gcc-plugin: Fix typo in configure.ac.
+-  Add support for RISC-V.
+
 * Mon May 09 2022 Nick Clifton  <nickc@redhat.com> - 10.70-1
 - Annocheck: Add another special case for glibc rpms.  (#2083070)
 
