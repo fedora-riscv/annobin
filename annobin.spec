@@ -484,7 +484,7 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Wed May 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.70-1
+* Wed May 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.71-1
 -  gcc-plugin: Fix typo in configure.ac.
 -  Add support for RISC-V.
 
