@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.70
+Version: 10.71
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -67,9 +67,6 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
-# Patch01: 0001-Compatibility-patch-for-llvm14.patch
-
-Patch01: annobin-add-riscv-support.patch
 
 #---------------------------------------------------------------------------------
 
@@ -486,7 +483,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Thu May 10 2022 Nianqing Yao <imbearchild@outlook.com> - 10.70-2
+* Wed May 11 2022 Nick Clifton  <nickc@redhat.com> - 10.71-1
+- gcc-plugin: Fix typo in configure.ac.
+
+* Tue May 10 2022 Nianqing Yao <imbearchild@outlook.com> - 10.70-2
 - Add support for RISC-V.
 
 * Mon May 09 2022 Nick Clifton  <nickc@redhat.com> - 10.70-1
