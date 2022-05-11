@@ -69,6 +69,8 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 # Patch01: annobin-foo.patch
 # Patch01: 0001-Compatibility-patch-for-llvm14.patch
 
+Patch01: annobin-add-riscv-support.patch
+
 #---------------------------------------------------------------------------------
 
 # Make sure that the necessary sub-packages are built.
@@ -484,6 +486,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 10 2022 Nianqing Yao <imbearchild@outlook.com> - 10.70-2
+- Add support for RISC-V.
+
 * Mon May 09 2022 Nick Clifton  <nickc@redhat.com> - 10.70-1
 - Annocheck: Add another special case for glibc rpms.  (#2083070)
 

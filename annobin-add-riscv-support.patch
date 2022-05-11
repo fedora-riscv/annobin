@@ -1,0 +1,28 @@
+diff --git a/configure b/configure
+index 4ade97a..6028b72 100755
+--- a/configure
++++ b/configure
+@@ -17807,6 +17807,9 @@ case ${target} in
+   s390*-*-*)
+     target_plugin="s390.annobin.lo"
+     ;;
++  riscv*-*-*)
++    target_plugin="riscv.annobin.lo"
++    ;;
+   *)
+     target_plugin="dummy.annobin.lo"
+     ;;
+diff --git a/configure.ac b/configure.ac
+index acbf0a4..10cf53a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -42,6 +42,9 @@ case ${target} in
+   s390*-*-*)
+     target_plugin="s390.annobin.lo"
+     ;;
++  riscv*-*-*)
++    target_plugin="riscv.annobin.lo"
++    ;;
+   *)
+     target_plugin="dummy.annobin.lo"
+     ;;
