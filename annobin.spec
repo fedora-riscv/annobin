@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.72
+Version: 10.73
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -483,6 +483,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 17 2022 Nick Clifton  <nickc@redhat.com> - 10.73-1
+- Annocheck: Fix handling of command line options that take arguments.  (#2086850)
+
 * Mon May 16 2022 Nick Clifton  <nickc@redhat.com> - 10.72-1
 - Annocheck: Do not complain about unenabled -mbranch-protection option in AArch64 binaries.  (#2078909)
 
