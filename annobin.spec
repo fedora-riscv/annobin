@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.71
+Version: 10.72
 Release: 1%{?dist}
 License: GPLv3+
 # Maintainer: nickc@redhat.com
@@ -484,6 +484,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue May 17 2022 Yara Ahmad  <yahmad@redhat.com> - 10.72-1
+- Annocheck: Do not complain about unenabled -mbranch-protection option in AArch64 binaries.  (#2078909)
+
 * Wed May 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.71-1
 -  gcc-plugin: Fix typo in configure.ac.
 -  Add support for RISC-V.
