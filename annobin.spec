@@ -1,11 +1,11 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.72
+Version: 10.73
 Release: 1%{?dist}
 License: GPLv3+
+URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
-# Web Page: https://sourceware.org/annobin/
 # Watermark Protocol: https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
@@ -67,7 +67,6 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
-# Patch01: 0001-Compatibility-patch-for-llvm14.patch
 
 #---------------------------------------------------------------------------------
 
@@ -484,12 +483,15 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu May 19 2022 Nick Clifton  <nickc@redhat.com> - 10.73-1
+- Annocheck: Fix handling of command line options that take arguments.  (#2086850)
+
 * Tue May 17 2022 Yara Ahmad  <yahmad@redhat.com> - 10.72-1
 - Annocheck: Do not complain about unenabled -mbranch-protection option in AArch64 binaries.  (#2078909)
 
 * Wed May 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.71-1
--  gcc-plugin: Fix typo in configure.ac.
--  Add support for RISC-V.
+- gcc-plugin: Fix typo in configure.ac.
+- gcc-plugin: Add support for RISC-V.
 
 * Mon May 09 2022 Nick Clifton  <nickc@redhat.com> - 10.70-1
 - Annocheck: Add another special case for glibc rpms.  (#2083070)
