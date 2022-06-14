@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.75
+Version: 10.76
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -483,6 +483,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tuw Jun 14 2022 Nick Clifton  <nickc@redhat.com> - 10.76-1
+- Annocheck: Check build-id of separate debuginfo files.
+- Annocheck: Add GAPS test replacing --ignore-gaps.
+
 * Thu Jun 09 2022 Nick Clifton  <nickc@redhat.com> - 10.75-1
 - Annocheck: Fix covscan detected race condition between stat() and open().
 
