@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.73
+Version: 10.76
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -483,6 +483,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 20 2022 Nick Clifton  <nickc@redhat.com> - 10.76-1
+- Annocheck: Check build-id of separate debuginfo files.
+- Annocheck: Add GAPS test replacing --ignore-gaps.
+- Annocheck: Fix covscan detected race condition between stat() and open().
+- Annocheck: Handle binaries created by Rust 1.18.  (#2094420)
+- Annocheck: Add optional function name to --skip arguments.  (PR 29229)
+
 * Thu May 19 2022 Nick Clifton  <nickc@redhat.com> - 10.73-1
 - Annocheck: Fix handling of command line options that take arguments.  (#2086850)
 
