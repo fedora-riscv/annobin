@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.76
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -126,9 +126,6 @@ annotated files and reports on any missing security options.
 %package docs
 Summary: Documentation and shell scripts for use with annobin
 BuildArch: noarch
-# annobin renamed to annobin-doc in 9.66-1
-Provides:  %{name} = %{version}-%{release}
-Obsoletes: %{name} < %{version}-%{release}
 # The documentation uses pod2man...
 BuildRequires: perl-interpreter perl-podlators gawk make sharutils
 
@@ -455,16 +452,19 @@ fi
 
 %if %{with llvmplugin}
 %files plugin-llvm
+%dir %{llvm_plugin_dir}
 %{llvm_plugin_dir}/annobin-for-llvm.so
 %endif
 
 %if %{with clangplugin}
 %files plugin-clang
+%dir %{clang_plugin_dir}
 %{clang_plugin_dir}/annobin-for-clang.so
 %endif
 
 %if %{with gccplugin}
 %files plugin-gcc
+%dir %{ANNOBIN_GCC_PLUGIN_DIR}
 %{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so
 %{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0
 %{ANNOBIN_GCC_PLUGIN_DIR}/annobin.so.0.0.0
@@ -483,6 +483,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jun 29 2022 Nick Clifton  <nickc@redhat.com> - 10.76-3
+- Spec File: Use the %%dir directive in the %%files section to ensure that
+-  plugin directories are useable.  (#2080454)
+- Spec File: Remove bogus Provides from annobin-docs subpackage.
+
 * Mon Jun 20 2022 Nick Clifton  <nickc@redhat.com> - 10.76-1
 - Annocheck: Check build-id of separate debuginfo files.
 - Annocheck: Add GAPS test replacing --ignore-gaps.
