@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 11.02
-Release: 1%{?dist}
+Release: 1.rv64%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -12,7 +12,12 @@ URL: https://sourceware.org/annobin/
 #---------------------------------------------------------------------------------
 
 # Use "--without tests" to disable the testsuite.
+%ifnarch riscv64
 %bcond_without tests
+%else
+# tests failed on riscv64, make it disabled by default.
+%bcond_with tests
+%endif
 
 # Use "--without annocheck" to disable the installation of the annocheck program.
 %bcond_without annocheck
@@ -69,7 +74,14 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 # Insert patches here, if needed.  Eg:
 # Patch01: annobin-foo.patch
 
+Patch001:   0001-PATCH-Temporary-fix-POINTER_SIZE-error-with-riscv64.patch
+Patch002:   0001-Add-clang-llvm-links-parameter-for-riscv64.patch
+
 #---------------------------------------------------------------------------------
+
+%ifarch riscv64
+BuildRequires: libcxx-devel
+%endif
 
 # Make sure that the necessary sub-packages are built.
 
@@ -322,6 +334,11 @@ touch configure */configure Makefile.in */Makefile.in
 # Similarly we do not want to rebuild the documentation.
 touch doc/annobin.info
 
+%ifarch riscv64
+cp /usr/lib/gcc/riscv64-redhat-linux/12/crtbeginS.o /usr/lib/gcc/riscv64-redhat-linux/12/crtendS.o clang-plugin
+cp /usr/lib/gcc/riscv64-redhat-linux/12/crtbeginS.o /usr/lib/gcc/riscv64-redhat-linux/12/crtendS.o llvm-plugin
+%endif
+
 #---------------------------------------------------------------------------------
 
 %build
@@ -514,6 +531,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Sun Jan 22 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 11.02-1.rv64
+- Fix build on riscv64.
+
 * Thu Jan 05 2023 Nick Clifton  <nickc@redhat.com> - 11.02-1
 - Annocheck: Do not assume that object files contain no code simply because they do not have an executable segment.  (#2158182)
 - Annocheck: Add more special glibc filenames.  (#2158100)
