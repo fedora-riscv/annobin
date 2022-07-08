@@ -1,0 +1,51 @@
+From a38ab4fd644c6c466892849b4b3539697046b3b9 Mon Sep 17 00:00:00 2001
+From: Liu Yang <yanliu@redhat.com>
+Date: Thu, 2 Jun 2022 14:48:16 +0800
+Subject: [PATCH] Add clang/llvm links parameter for riscv64.
+
+---
+ clang-plugin/Makefile.in | 6 ++++--
+ llvm-plugin/Makefile.in  | 6 ++++--
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/clang-plugin/Makefile.in b/clang-plugin/Makefile.in
+index 5e4dc24..eec3ac7 100644
+--- a/clang-plugin/Makefile.in
++++ b/clang-plugin/Makefile.in
+@@ -14,10 +14,12 @@ PLUGIN_OPTIONS = \
+   -fPIC \
+   -Wall \
+   -O2 \
+-  -flto \
+   -g -grecord-gcc-switches \
+   -Wl,--build-id=md5 \
+-  -Wl,-z,now
++  -Wl,-z,now \
++  -std=c++14 \
++  -stdlib=libc++ \
++  -L/usr/lib/gcc/riscv64-redhat-linux/12
+ 
+ INCDIR = @srcdir@/..
+ 
+diff --git a/llvm-plugin/Makefile.in b/llvm-plugin/Makefile.in
+index 1148a1c..dbac70a 100644
+--- a/llvm-plugin/Makefile.in
++++ b/llvm-plugin/Makefile.in
+@@ -14,10 +14,12 @@ PLUGIN_OPTIONS = \
+   -fPIC \
+   -Wall \
+   -O2 \
+-  -flto \
+   -g -grecord-gcc-switches \
+   -Wl,--build-id=md5 \
+-  -Wl,-z,now
++  -Wl,-z,now \
++  -std=c++14 \
++  -stdlib=libc++ \
++  -L/usr/lib/gcc/riscv64-redhat-linux/12
+ 
+ INCDIR = @srcdir@/..
+ 
+-- 
+2.35.3
+

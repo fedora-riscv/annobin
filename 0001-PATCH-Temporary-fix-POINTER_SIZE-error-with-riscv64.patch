@@ -1,0 +1,28 @@
+From d403925d6882f3503fd4a7bc1dda6cb8db1029d8 Mon Sep 17 00:00:00 2001
+From: Liu Yang <yanliu@redhat.com>
+Date: Thu, 2 Jun 2022 14:12:14 +0800
+Subject: [PATCH] [PATCH] Temporary fix POINTER_SIZE error with riscv64.
+
+---
+ gcc-plugin/dummy.annobin.cc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/gcc-plugin/dummy.annobin.cc b/gcc-plugin/dummy.annobin.cc
+index 44127cf..520c699 100644
+--- a/gcc-plugin/dummy.annobin.cc
++++ b/gcc-plugin/dummy.annobin.cc
+@@ -35,7 +35,11 @@ unsigned int
+ annobin_get_target_pointer_size (void)
+ {
+   // FIXME: Testing POINTER_SIZE may not be reliable.
++#if defined(__riscv) || defined(__riscv__)
++  return __riscv_xlen;
++#else
+   return POINTER_SIZE;
++#endif
+ }
+ 
+ int
+-- 
+2.36.1
+
