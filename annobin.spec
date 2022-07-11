@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.76
-Release: 3%{?dist}
+Version: 10.78
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -483,6 +483,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jul 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.78-1
+- Annocheck: Add automatic profile selection.
+- Annocheck: Improve gap detection and reporting.
+
 * Wed Jun 29 2022 Nick Clifton  <nickc@redhat.com> - 10.76-3
 - Spec File: Use the %%dir directive in the %%files section to ensure that
 -  plugin directories are useable.  (#2080454)
