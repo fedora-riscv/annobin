@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.78
+Version: 10.79
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -483,6 +483,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+
+* Tue Jul 26 2022 Yara Ahmad  <yahmad@redhat.com> - 10.79-1
+- Annocheck: Fixes for libannocheck.h.
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
 * Mon Jul 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.78-1
 - Annocheck: Add automatic profile selection.
 - Annocheck: Improve gap detection and reporting.
