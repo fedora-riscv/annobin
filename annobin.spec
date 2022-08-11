@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.80
+Version: 10.81
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -488,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Aug 11 2022 Nick Clifton  <nickc@redhat.com> - 10.81-1
+- Plugin: Fix top level configuration support for RiscV.
+
 * Tue Aug 09 2022 Nick Clifton  <nickc@redhat.com> - 10.80-1
 - Annocheck: Improvements to the size tool.
 
