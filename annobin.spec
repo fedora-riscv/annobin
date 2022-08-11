@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.79
+Version: 10.80
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -359,6 +359,11 @@ export LDFLAGS="$LDFLAGS %build_ldflags"
 export CLANG_TARGET_OPTIONS="-fcf-protection"
 %endif
 
+%ifarch ppc ppc64 ppc64le
+# FIXME: This is a workaround for a problem with the Clang C++ headers.  It should not be needed.
+export CLANG_TARGET_OPTIONS="-mabi=ibmlongdouble"
+%endif
+
 CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" CXXFLAGS="$CFLAGS" %configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
@@ -483,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Aug 09 2022 Nick Clifton  <nickc@redhat.com> - 10.80-1
+- Annocheck: Improvements to the size tool.
+
 * Mon Jul 25 2022 Nick Clifton  <nickc@redhat.com> - 10.79-1
 - Annocheck: Fixes for libannocheck.h.
 
