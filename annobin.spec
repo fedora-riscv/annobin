@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.81
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -488,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Sep 06 2022 Nick Clifton  <nickc@redhat.com> - 10.81-2
+- NVR Bump in order to trigger a rebuild for ELN.  (#2124562)
+
 * Thu Aug 11 2022 Nick Clifton  <nickc@redhat.com> - 10.81-1
 - Plugin: Fix top level configuration support for RiscV.
 
