@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.81
-Release: 2%{?dist}
+Version: 10.82
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -488,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 09 2022 Nick Clifton  <nickc@redhat.com> - 10.82-1
+- Annocheck: Add a test for the inconsistent use of -Ofast.  (#1248744)
+
 * Tue Sep 06 2022 Nick Clifton  <nickc@redhat.com> - 10.81-2
 - NVR Bump in order to trigger a rebuild for ELN.  (#2124562)
 
