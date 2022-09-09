@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.82
+Version: 10.83
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -488,7 +488,7 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Fri Sep 09 2022 Nick Clifton  <nickc@redhat.com> - 10.82-1
+* Fri Sep 09 2022 Nick Clifton  <nickc@redhat.com> - 10.83-1
 - Annocheck: Add a test for the inconsistent use of -Ofast.  (#1248744)
 
 * Tue Sep 06 2022 Nick Clifton  <nickc@redhat.com> - 10.81-2
