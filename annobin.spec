@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.83
+Version: 10.84
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -488,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Sep 20 2022 Serge Guelton  <sguelton@redhat.com> - 10.84-1
+- Clang Plugin: Fix for building with Clang-15.  (#2125875)
+
 * Fri Sep 09 2022 Nick Clifton  <nickc@redhat.com> - 10.83-1
 - Annocheck: Add a test for the inconsistent use of -Ofast.  (#1248744)
 
