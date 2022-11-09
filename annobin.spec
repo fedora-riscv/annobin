@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.91
+Version: 10.92
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -503,19 +503,23 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 09 2022 Yara Ahmad  <yahmad@redhat.com> - 10.92-1
+- Annocheck: Try harder not to run mutually exclusive tests.
+
 * Fri Oct 21 2022 Yara Ahmad  <yahmad@redhat.com> - 10.91-1
-- Tests: Fix future-test so that it properly handles the situation where the compiler does not support the new options.
-- Libannocheck: Actually set result fields after tests are run.
-- Libannocheck: Replace libannocheck_version variable with LIBANNOCHECK_VERSION define.
-- Libannocheck: Remove 'Requires binutils-devel' from libannocheck.pc.
-- Libannocheck: Move into separate sub-package.
-- Libannocheck: Add libannocheck.pc pkgconfig file.
-- Libannocheck: Add libannocheck_reinit().
-- GCC Plugin: Record -ftrivial-auto-var-init and -fzero-call-used-regs.
-- Annocheck: Add future tests for  -ftrivial-auto-var-init and -fzero-call-used-regs.
-- Clang Plugin: Fix for building with Clang-15.  (#2125875)
-- Annocheck: Add a test for the inconsistent use of -Ofast.  (#1248744)
-- NVR Bump in order to trigger a rebuild for ELN.  (#2124562)
+- Rebase to annobin-10.91
+  - Tests: Fix future-test so that it properly handles the situation where the compiler does not support the new options.
+  - Libannocheck: Actually set result fields after tests are run.
+  - Libannocheck: Replace libannocheck_version variable with LIBANNOCHECK_VERSION define.
+  - Libannocheck: Remove 'Requires binutils-devel' from libannocheck.pc.
+  - Libannocheck: Move into separate sub-package.
+  - Libannocheck: Add libannocheck.pc pkgconfig file.
+  - Libannocheck: Add libannocheck_reinit().
+  - GCC Plugin: Record -ftrivial-auto-var-init and -fzero-call-used-regs.
+  - Annocheck: Add future tests for  -ftrivial-auto-var-init and -fzero-call-used-regs.
+  - Clang Plugin: Fix for building with Clang-15.  (#2125875)
+  - Annocheck: Add a test for the inconsistent use of -Ofast.  (#1248744)
+  - NVR Bump in order to trigger a rebuild for ELN.  (#2124562)
 
 * Thu Aug 11 2022 Yara Ahmad  <yahmad@redhat.com> - 10.81-1
 - Plugin: Fix top level configuration support for RiscV.
