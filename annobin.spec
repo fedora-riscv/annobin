@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.93
+Version: 10.95
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -503,6 +503,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 12 2022 Nick Clifton  <nickc@redhat.com> - 10.95-1
+- Annocheck: Avoid using debug filename when parsing notes in a debuginfo file.  (#2152280)
+
 * Wed Nov 23 2022 Yara Ahmad  <yahmad@redhat.com> - 10.93-1
 - Annocheck: Provide more information when a test is skipped because the file being tested was not compiled.
 
