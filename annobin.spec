@@ -397,7 +397,7 @@ make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
 # Disable the standard annobin plugin so that we do get conflicts.
-OPTS="$(rpm --eval '%undefine _annotated_build %build_cflags %build_ldflags')"
+OPTS="$(rpm --undefine=_annotated_build --eval '%build_cflags %build_ldflags')"
 
 # If building on systems with an assembler that does not support the
 # .attach_to_group pseudo op (eg RHEL-7) then enable the next line.
