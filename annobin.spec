@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.98
-Release: 1.0.1%{?dist}
+Release: 1.0.2%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -36,7 +36,7 @@ URL: https://sourceware.org/annobin/
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 0
+%global with_hard_gcc_version_requirement 1
 
 %bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
