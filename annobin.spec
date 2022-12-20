@@ -400,7 +400,7 @@ BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 OPTS="$(rpm --eval '%build_cflags %build_ldflags')"
 %else
 # Disable the standard annobin plugin so that we do not get conflicts.
-OPTS="$(rpm --eval '%undefine _annotated_build %%build_cflags %build_ldflags')"
+OPTS="$(rpm --undefine=_annotated_build --eval '%build_cflags %build_ldflags')"
 %endif
 
 # If building on systems with an assembler that does not support the
@@ -513,7 +513,7 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Dec 20 2022 Nick Clifton  <nickc@redhat.com> - 10.98-2
+* Tue Dec 20 2022 Nick Clifton  <nickc@redhat.com> - 10.98-3
 - Spec File: Fix building with plugin_rebuild enabled.
 
 * Fri Dec 16 2022 Nick Clifton  <nickc@redhat.com> - 10.98-1
