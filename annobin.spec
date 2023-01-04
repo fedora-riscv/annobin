@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.99
+Version: 11.01
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -514,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 04 2023 Nick Clifton  <nickc@redhat.com> - 11.01-1
+- Annocheck: Add more special glibc filenames.
+
 * Wed Dec 21 2022 Nick Clifton  <nickc@redhat.com> - 10.99-1
 - Annocheck: Improve handling of tool versions.
 
