@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.02
+Version: 11.03
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -514,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 06 2023 Nick Clifton  <nickc@redhat.com> - 11.03-1
+- Annocheck: Fix memory leaks.
+
 * Wed Jan 04 2023 Nick Clifton  <nickc@redhat.com> - 11.02-1
 - Annocheck: Do not assume that object files contain no code simply because they do not have an executable segment.  (#2158182)
 
