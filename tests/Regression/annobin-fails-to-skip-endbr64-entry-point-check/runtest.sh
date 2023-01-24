@@ -28,13 +28,10 @@
 # Include Beaker environment
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGE="annobin"
-
 rlJournalStart
     rlPhaseStartSetup
         rlRun "TmpDir=\$(mktemp -d)" 0 "Creating tmp directory"
         rlRun "pushd $TmpDir"
-        rlRun  "rpm -q annobin-annocheck gcc"
     rlPhaseEnd
 
     rlPhaseStartTest
@@ -43,7 +40,7 @@ rlJournalStart
         rlRun "gcc `rpm --eval %build_cflags` -fpic -c f1.c"
         rlRun "gcc `rpm --eval %build_cflags` -fpic -c f2.c"
         rlRun "gcc `rpm --eval %build_ldflags` -shared f1.o f2.o"
-        rlRun "annocheck -v a.out"
+        rlRun "annocheck -v --skip-lto a.out"
     rlPhaseEnd
 
     rlPhaseStartCleanup

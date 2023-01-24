@@ -62,7 +62,7 @@ rlJournalStart
         rlRun "pushd $TMP"
 
 	rlFetchSrcForInstalled $PACKAGE
-	rlRun "yum-builddep -y *src.rpm"
+	rlRun "dnf builddep -y *src.rpm"
 	rlRun "rpm --define='_topdir $TMP' -Uvh *src.rpm"
 	rlRun "rpmbuild --define='_topdir $TMP' -bc SPECS/annobin.spec"
     rlPhaseEnd

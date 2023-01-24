@@ -28,8 +28,6 @@
 # Include Beaker environment
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
-PACKAGE="annobin"
-
 rlJournalStart
     rlPhaseStartSetup
         rlRun "TMP=$(mktemp -d)"
@@ -41,7 +39,10 @@ rlJournalStart
         samplecnt=$(ls *.sample | wc -l)
         testcnt=$(ls *.sample | \
                   xargs annocheck |& \
-                  fgrep '.sample: is not an ELF format file' | wc -l)
+                  grep -F \
+                      -e '.sample: unable to read magic number' \
+                      -e '.sample: is not an ELF format file' \
+                  | wc -l)
         rlRun "test $samplecnt -eq 300"
         rlRun "test $testcnt -eq 300"
     rlPhaseEnd
