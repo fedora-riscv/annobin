@@ -6,11 +6,11 @@ component:
 - annobin
 test: ./runtest.sh
 framework: beakerlib
-recommend:
+require:
+- annobin-plugin-gcc
+- annobin-annocheck
 - man-db
 - gcc
-- annobin
-- annobin-annocheck
 duration: 48h
 extra-summary: /tools/annobin/Sanity/smoke
 extra-task: /tools/annobin/Sanity/smoke

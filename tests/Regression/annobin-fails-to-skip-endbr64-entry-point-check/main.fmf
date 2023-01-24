@@ -8,9 +8,11 @@ component:
 - annobin
 test: ./runtest.sh
 framework: beakerlib
-recommend:
+require:
 - annobin-annocheck
+- annobin-plugin-gcc
 - gcc
+- redhat-rpm-config
 duration: 48h
 extra-summary: /tools/annobin/Regression/annobin-fails-to-skip-endbr64-entry-point-check
 extra-task: /tools/annobin/Regression/annobin-fails-to-skip-endbr64-entry-point-check

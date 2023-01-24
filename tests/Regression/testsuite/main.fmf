@@ -6,23 +6,19 @@ component:
 - annobin
 test: ./runtest.sh
 framework: beakerlib
-recommend:
-- annobin
+require:
+- annobin-plugin-gcc
 - annobin-annocheck
 - binutils-devel
-- gcc
-- gcc-c++
+- bzip2-devel
+- dnf
 - elfutils
 - elfutils-devel
+- gcc-c++
+- gcc-plugin-devel
 - make
 - rpm-build
 - rpm-devel
-- gcc-plugin-devel
-- yum
-- dnf
-- yum-utils
-- bzip2-devel
-- rpm-build
 duration: 48h
 extra-summary: /tools/annobin/Regression/testsuite
 extra-task: /tools/annobin/Regression/testsuite

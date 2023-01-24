@@ -7,8 +7,9 @@ component:
 - annobin
 test: ./runtest.sh
 framework: beakerlib
-recommend:
-- annobin
+require:
+- annobin-plugin-gcc
+- annobin-annocheck
 - libstdc++
 duration: 48h
 link:

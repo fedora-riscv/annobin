@@ -6,10 +6,11 @@ component:
 - annobin
 test: ./runtest.sh
 framework: beakerlib
-recommend:
-- gcc
-- annobin
+require:
+- annobin-plugin-gcc
 - annobin-annocheck
+- redhat-rpm-config
+- gcc
 - redhat-rpm-config
 duration: 48h
 extra-summary: /tools/annobin/Regression/lto-preprocessor-options

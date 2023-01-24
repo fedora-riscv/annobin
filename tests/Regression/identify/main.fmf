@@ -7,15 +7,8 @@ component:
 test: ./runtest.sh
 framework: beakerlib
 recommend:
-- annobin
-- devtoolset-10
-- devtoolset-10-annocheck
-- devtoolset-11
-- devtoolset-11-annocheck
-- gcc-toolset-10
-- gcc-toolset-10-annocheck
-- gcc-toolset-11
-- gcc-toolset-11-annocheck
+- annobin-plugin-gcc
+- annobin-annocheck
 duration: 48h
 extra-summary: /tools/annobin/Regression/identify
 extra-task: /tools/annobin/Regression/identify
