@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.13
+Version: 11.14
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
