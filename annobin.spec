@@ -334,11 +334,6 @@ touch configure */configure Makefile.in */Makefile.in
 # Similarly we do not want to rebuild the documentation.
 touch doc/annobin.info
 
-%ifarch riscv64
-cp /usr/lib/gcc/riscv64-redhat-linux/12/crtbeginS.o /usr/lib/gcc/riscv64-redhat-linux/12/crtendS.o clang-plugin
-cp /usr/lib/gcc/riscv64-redhat-linux/12/crtbeginS.o /usr/lib/gcc/riscv64-redhat-linux/12/crtendS.o llvm-plugin
-%endif
-
 #---------------------------------------------------------------------------------
 
 %build
