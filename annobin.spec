@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.14
+Version: 12.00
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -522,6 +522,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 29 2023 Yara Ahmad <yahmad@redhat.com> - 12.00-1
+- Protocol Version 4: String format notes.
+
 * Tue Mar 21 2023 Yara Ahmad <yahmad@redhat.com> - 11.14-1
 - Annocheck: Update message for LTO tests.  (#2177140)
 - Annocheck: Add even more code to handle another glibc function built without LTO.
