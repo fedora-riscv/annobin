@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.00
+Version: 12.01
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -522,6 +522,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 30 2023 Yara Ahmad  <yahmad@redhat.com> - 12.01-1
+- gcc plugin: Keep ELF notes at protocol version 3.
+
 * Wed Mar 29 2023 Yara Ahmad <yahmad@redhat.com> - 12.00-1
 - Protocol Version 4: String format notes.
 
