@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.01
+Version: 12.02
 Release: 1.rv64%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -535,8 +535,13 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Mon Apr 03 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 12.01-1.rv64
+* Mon Apr 03 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 12.02-1.rv64
 - Fix build on riscv64.
+
+* Wed Apr 12 2023 Yara Ahmad  <yahmad@redhat.com> - 12.02-1
+- gcc plugin: Add filenames to string notes.  Allow use of ANNOBIN environment variable.
+- llvm plugin: Add workaround for building with LLVM-16.
+- clang plugin: Fix for building with Clang-16.
 
 * Thu Mar 30 2023 Yara Ahmad  <yahmad@redhat.com> - 12.01-1
 - gcc plugin: Keep ELF notes at protocol version 3.
