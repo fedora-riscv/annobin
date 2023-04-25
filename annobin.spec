@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.08
+Version: 12.09
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Apr 25 2023 Nick Clifton  <nickc@redhat.com> - 12.09-1
+- Annocheck: Fix detection of missing plugin options.  (#2189492)
+
 * Tue Apr 25 2023 Nick Clifton  <nickc@redhat.com> - 12.08-1
 - Fix generation of auto-generated files.
 - Fix covscan reported errors.
