@@ -1,0 +1,11 @@
+--- annobin.orig/gcc-plugin/annobin.cc	2023-05-05 11:03:18.395959180 +0100
++++ annobin-12.10/gcc-plugin/annobin.cc	2023-05-05 11:04:03.241964885 +0100
+@@ -80,7 +80,7 @@ unsigned long  annobin_max_stack_size =
+ bool           annobin_is_64bit = false;
+ 
+ /* Where to put notes.  */
+-note_type      annobin_note_format = note;
++note_type      annobin_note_format = string;
+ 
+ /* Default to using section groups as the link-order
+    method needs a linker from binutils 2.36 or later.  */
