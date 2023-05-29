@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.02
+Version: 12.10
 Release: 1.rv64%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -535,8 +535,21 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
-* Mon Apr 03 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 12.02-1.rv64
+* Mon May 29 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 12.10-1.rv64
 - Fix build on riscv64.
+
+* Tue May 02 2023 Yara Ahmad <yahmad@redhat.com> - 12.10-1
+- Annocheck: Suppress more tests for Rust binaries.
+- Annocheck: Fix detection of missing plugin options.  (#2189492)
+- Fix generation of auto-generated files.
+- Fix covscan reported errors.
+- gcc-plugin: generate warnings about misspelt -D_FORTIFY_SOURCE and/or -D_GLIBCXX_ASSERTIONS options.
+- gcc-plugin: use a bigger buffer for constructing notes.
+- llvm-plugin: Fix detection of optimization level.  Improve test.
+- clang-plugin: Improve test.
+- configure: More improvements.
+- annocheck: Fix seg-fault when checking for glibc components in string format notes.
+- configure: Simplify.
 
 * Wed Apr 12 2023 Yara Ahmad  <yahmad@redhat.com> - 12.02-1
 - gcc plugin: Add filenames to string notes.  Allow use of ANNOBIN environment variable.
