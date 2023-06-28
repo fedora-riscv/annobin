@@ -12,6 +12,7 @@ require:
 - binutils-devel
 - bzip2-devel
 - dnf
+- dnf5-plugins
 - elfutils
 - elfutils-devel
 - gcc-c++
