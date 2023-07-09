@@ -21,7 +21,7 @@ index 5e4dc24..eec3ac7 100644
    -Wl,--build-id=md5 \
 -  -Wl,-z,now
 +  -Wl,-z,now \
-+  -std=c++14 \
++  -std=c++17 \
 +  -stdlib=libc++ \
 +  -L/usr/lib/gcc/riscv64-redhat-linux/12
  
@@ -40,7 +40,7 @@ index 1148a1c..dbac70a 100644
    -Wl,--build-id=md5 \
 -  -Wl,-z,now
 +  -Wl,-z,now \
-+  -std=c++14 \
++  -std=c++17 \
 +  -stdlib=libc++ \
 +  -L/usr/lib/gcc/riscv64-redhat-linux/12
  
