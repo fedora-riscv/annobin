@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.24
+Version: 12.30
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -67,7 +67,7 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 %global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
-Patch01: annobin-plugin-default-string-notes.patch
+# Patch01: annobin-plugin-default-string-notes.patch
 
 #---------------------------------------------------------------------------------
 
@@ -524,6 +524,17 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Nov 06 2023 Nick Clifron  <nickc@redhat.com> - 12.30-1
+- Fix another atexit test failure.  (#2247481)
+- Fix atexit test failure.
+- Notes: Add support for string format notes.
+- GCC Plugin: Record settings of -Wstrict-flex-arrays and -fstrict-flex-arrays
+- Annobin: Add future test of these options.
+- GCC Plugin: Record settings of -Wimplicit-int and -Wimplicit-function-declaration.
+- Annobin: Add test for these warnings.
+- LLVM Plugin: Fix building with LLVM version 17.
+- GCC Plugin: Enable string note format by default.
+
 * Fri Aug 04 2023 Nick Clifron  <nickc@redhat.com> - 12.24-1
 - Annocheck: Change GO FIPS test to look for CGO_ENABLED markers.
 
